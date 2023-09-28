@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class CharacterControllers : MonoBehaviour
 {
     public float speed = 3f;
     private Vector3 direction = Vector3.right;  // Starting Direction
