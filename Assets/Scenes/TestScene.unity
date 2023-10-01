@@ -758,7 +758,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 219040859}
+        m_TargetAssemblyTypeName: CharacterControllers, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2f74e579-53b1-46f4-88ab-4d9b0fcc2316
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
@@ -2819,7 +2831,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1530015755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3552,7 +3564,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 1381823617}
   turnIndicator: {fileID: 2053032295}
   battleOutcome: {fileID: 1494501794}
-  autoStart: 1
+  autoStart: 0
   combatIcons:
   - {fileID: 111439242}
   - {fileID: 135507525}
