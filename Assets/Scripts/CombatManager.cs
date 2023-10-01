@@ -23,6 +23,9 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI turnIndicator;
     public TextMeshProUGUI battleOutcome;
 
+    [Header("Test Mode")]
+    public bool autoStart = true;
+
     public GameObject[] combatIcons;
     public GameObject[] combatButtons;
 
@@ -36,8 +39,14 @@ public class CombatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        combatScreen.SetActive(false);
         enemyStatus = enemy.GetComponent<EnemyStatus>();
         playerStatus = player.GetComponent<PlayerStatus>();
+
+        if (autoStart)
+        {
+            StartCombat();
+        }
     }
 
     // Use this method to trigger the combat sequence.
