@@ -30,7 +30,7 @@ public class CharacterControllers : MonoBehaviour
         velocity = direction * speed * Time.deltaTime;
 
         // Add our velocity to position
-        transform.position += (Vector3)velocity;
+        transform.position += velocity;
 
         // uncomment if you want sprite to change where it is facing
         /*
@@ -62,7 +62,18 @@ public class CharacterControllers : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext moveContext)
     {
-        var value = moveContext.ReadValue<Vector2>();
-        movementInput = new Vector3(value.x, 0, value.y);
+        Vector2 playerMovementInput = moveContext.ReadValue<Vector2>();
+        Vector3 toConvert = new Vector3(playerMovementInput.x, 0, playerMovementInput.y);
+        movementInput = IsoVectorConvert(toConvert);
+    }
+
+    // Source - https://micha-l-davis.medium.com/isometric-player-movement-in-unity-998d86193b8a
+    private Vector3 IsoVectorConvert(Vector3 vector)
+    {
+        Quaternion rotation = Quaternion.Euler(0.0f, 45.0f, 0.0f);
+        Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
+        Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
+        return result;
     }
 }
+
