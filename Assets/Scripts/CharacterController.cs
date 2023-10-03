@@ -14,11 +14,12 @@ public class CharacterControllers : MonoBehaviour
     public float xMax = 4.5f;
     public float xMin = -5f;
     //public CollisionManager collisionManager;
+    private CombatManager combatManager;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
     }
 
     // Update is called once per frame
@@ -58,6 +59,27 @@ public class CharacterControllers : MonoBehaviour
             currentPosition.z = zMin;
         }
         transform.position = currentPosition;
+
+        detectNPC();
+    }
+
+    private void detectNPC()
+    {
+        // Cycle through enemy data structure
+        //for (int i = 0; i < length; i++) { }
+
+        float detectionRadius = 2.0f;
+
+        GameObject enemy = GameObject.Find("Enemy");
+
+        float distance = Vector3.Distance(this.transform.position, enemy.transform.position);
+
+        if(distance <= detectionRadius)
+        {
+            combatManager.StartCombat();
+        }
+        
+
     }
 
     public void OnMove(InputAction.CallbackContext moveContext)
