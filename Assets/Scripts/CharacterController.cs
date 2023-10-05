@@ -28,7 +28,10 @@ public class CharacterControllers : MonoBehaviour
         direction = movementInput;
 
         // Velocity is our direction * speed
-        velocity = direction * speed * Time.deltaTime;
+        if (!combatManager.inCombat)
+        {
+            velocity = direction * speed * Time.deltaTime;
+        }
 
         // Add our velocity to position
         if (!combatManager.inCombat)

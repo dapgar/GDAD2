@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - CombatManager
+  - GiantSpider
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - UI Sprites
   - Water
   - UI
   - 
