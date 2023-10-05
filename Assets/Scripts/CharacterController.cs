@@ -9,10 +9,10 @@ public class CharacterControllers : MonoBehaviour
     private Vector3 direction = Vector3.right;  // Starting Direction
     private Vector3 velocity = Vector3.zero;
     private Vector3 movementInput;              // Captures movement from input
-    public float zMax = 4f;
-    public float zMin = -5f;
-    public float xMax = 4.5f;
-    public float xMin = -5f;
+    //public float zMax = 4f;
+    //public float zMin = -5f;
+    //public float xMax = 4.5f;
+    //public float xMin = -5f;
     //public CollisionManager collisionManager;
 
     private CombatManager combatManager;
@@ -46,24 +46,24 @@ public class CharacterControllers : MonoBehaviour
         */
 
         Vector3 currentPosition = transform.position;
-        // Limits of area 
-        if (currentPosition.x >= xMax)
-        {
-            currentPosition.x = xMax;
-        }
-        else if (currentPosition.x <= xMin)
-        {
-            currentPosition.x = xMin;
-        }
+        // Limits of area not needed
+        //if (currentPosition.x >= xMax)
+        //{
+        //    currentPosition.x = xMax;
+        //}
+        //else if (currentPosition.x <= xMin)
+        //{
+        //    currentPosition.x = xMin;
+        //}
 
-        if (currentPosition.z >= zMax)
-        {
-            currentPosition.z = zMax;
-        }
-        else if (currentPosition.z <= zMin)
-        {
-            currentPosition.z = zMin;
-        }
+        //if (currentPosition.z >= zMax)
+        //{
+        //    currentPosition.z = zMax;
+        //}
+        //else if (currentPosition.z <= zMin)
+        //{
+        //    currentPosition.z = zMin;
+        //}
 
         transform.position = currentPosition;
     }
