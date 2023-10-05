@@ -26,6 +26,8 @@ public class CombatManager : MonoBehaviour
     [Header("Test Mode")]
     public bool autoStart = true;
 
+    public bool inCombat;
+
     public GameObject[] combatIcons;
     public GameObject[] combatButtons;
 
@@ -45,13 +47,16 @@ public class CombatManager : MonoBehaviour
 
         if (autoStart)
         {
-            StartCombat();
+            //StartCombat();
         }
     }
 
     // Use this method to trigger the combat sequence.
-    public void StartCombat()
+    public void StartCombat(GameObject newEnemy)
     {
+        enemy = newEnemy;
+        inCombat = true;
+
         combatScreen.SetActive(true);
         foreach (GameObject button in combatButtons)
         {
@@ -98,7 +103,7 @@ public class CombatManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2);
-        enemyChoice = Random.Range(1, 3);
+        enemyChoice = Random.Range(1, 4);
         combatIcons[enemyChoice + 2].SetActive(true);
 
         battleState = BattleState.OUTCOME;
@@ -111,6 +116,7 @@ public class CombatManager : MonoBehaviour
         if (battleState == BattleState.WIN)
         {
             // display message here.
+            Destroy(enemy);
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
         }
@@ -122,6 +128,8 @@ public class CombatManager : MonoBehaviour
             combatScreen.SetActive(false);
             // Maybe transition scenes.
         }
+
+        inCombat = false;
     }
 
     public void OnAttackButtonPress()
