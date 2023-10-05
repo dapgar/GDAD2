@@ -9,6 +9,8 @@ public class CharacterControllers : MonoBehaviour
     private Vector3 direction = Vector3.right;  // Starting Direction
     private Vector3 velocity = Vector3.zero;
     private Vector3 movementInput;              // Captures movement from input
+
+    // Hard-Coded limits
     //public float zMax = 4f;
     //public float zMin = -5f;
     //public float xMax = 4.5f;
@@ -25,18 +27,16 @@ public class CharacterControllers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        direction = movementInput;
-
-        // Velocity is our direction * speed
         if (!combatManager.inCombat)
         {
+            direction = movementInput;
             velocity = direction * speed * Time.deltaTime;
+            transform.position += velocity;
         }
-
-        // Add our velocity to position
-        if (!combatManager.inCombat)
+        else
         {
-             transform.position += velocity;
+            velocity = Vector3.zero;
+            direction = Vector3.zero;
         }
 
         // uncomment if you want sprite to change where it is facing
@@ -45,8 +45,8 @@ public class CharacterControllers : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
         */
 
-        Vector3 currentPosition = transform.position;
         // Limits of area not needed
+        //Vector3 currentPosition = transform.position;
         //if (currentPosition.x >= xMax)
         //{
         //    currentPosition.x = xMax;
@@ -65,10 +65,10 @@ public class CharacterControllers : MonoBehaviour
         //    currentPosition.z = zMin;
         //}
 
-        transform.position = currentPosition;
+        //transform.position = currentPosition;
     }
 
-    
+
 
     public void OnMove(InputAction.CallbackContext moveContext)
     {

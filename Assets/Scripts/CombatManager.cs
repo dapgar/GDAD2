@@ -232,6 +232,12 @@ public class CombatManager : MonoBehaviour
         {
             // Player def, enemy atk
             playerStatus.TakeDamage(-10f);
+
+            // Stops overhealing
+            if(playerStatus.currentHealth > playerStatus.maxHealth)
+            {
+                playerStatus.currentHealth = playerStatus.maxHealth;
+            }
             battleOutcome.text = "Player Blocked Attack!";
         }
         else if (playerChoice == 3 && enemyChoice == 1)
@@ -244,6 +250,12 @@ public class CombatManager : MonoBehaviour
         {
             // Player atk, enemy def
             enemyStatus.TakeDamage(-10f);
+
+            // Stops overhealing
+            if (enemyStatus.currentHealth > enemyStatus.maxHealth)
+            {
+                enemyStatus.currentHealth = enemyStatus.maxHealth;
+            }
             battleOutcome.text = "Enemy Blocked Attack!";
         }
         else if (playerChoice == 2 && enemyChoice == 2)
