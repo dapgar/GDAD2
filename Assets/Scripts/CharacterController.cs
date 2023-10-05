@@ -21,7 +21,7 @@ public class CharacterControllers : MonoBehaviour
     {
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
