@@ -6,7 +6,7 @@ public class EnemyTriggers : MonoBehaviour
 {
     CombatManager combatManager;
     GameObject player;
-    float detectionRadius = 2.0f;
+    public float detectionRadius = 2.0f;
 
     // Start is called before the first frame update
     void Start()

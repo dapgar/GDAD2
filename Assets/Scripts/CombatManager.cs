@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor.VersionControl;
+using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE, OUTCOME }
 
@@ -11,8 +12,8 @@ public class CombatManager : MonoBehaviour
     public GameObject combatScreen;
 
     [Header("Characters")]
-    public GameObject enemy;
     public GameObject player;
+    GameObject enemy;
 
     private EnemyStatus enemyStatus;
     private PlayerStatus playerStatus;
@@ -22,6 +23,8 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI enemyHealth;
     public TextMeshProUGUI turnIndicator;
     public TextMeshProUGUI battleOutcome;
+    public GameObject playerSprite;
+    GameObject enemySprite;
 
     [Header("Test Mode")]
     public bool autoStart = true;
@@ -41,8 +44,9 @@ public class CombatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerSprite.SetActive(true);
+
         combatScreen.SetActive(false);
-        enemyStatus = enemy.GetComponent<EnemyStatus>();
         playerStatus = player.GetComponent<PlayerStatus>();
 
         if (autoStart)
@@ -55,6 +59,10 @@ public class CombatManager : MonoBehaviour
     public void StartCombat(GameObject newEnemy)
     {
         enemy = newEnemy;
+        enemyStatus = enemy.GetComponent<EnemyStatus>();
+        enemySprite = enemyStatus.enemySprite;
+        enemySprite.SetActive(true);
+
         inCombat = true;
 
         combatScreen.SetActive(true);
@@ -103,8 +111,26 @@ public class CombatManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2);
-        enemyChoice = Random.Range(1, 4);
-        combatIcons[enemyChoice + 2].SetActive(true);
+
+        enemyChoice = Random.Range(1, 11);
+        // 1-5 is Attack
+        if (enemyChoice <= 5)
+        {
+            combatIcons[3].SetActive(true);
+            enemyChoice = 1;
+        }
+        // 6-9 is Defend
+        else if (enemyChoice >= 6 && enemyChoice <= 9)
+        {
+            combatIcons[4].SetActive(true);
+            enemyChoice = 2;
+        }
+        // 10 is Magic
+        else
+        {
+            combatIcons[5].SetActive(true);
+            enemyChoice = 3;
+        }
 
         battleState = BattleState.OUTCOME;
         StartCoroutine(CombatOutcome());
@@ -116,6 +142,7 @@ public class CombatManager : MonoBehaviour
         if (battleState == BattleState.WIN)
         {
             // display message here.
+            enemySprite.SetActive(false);
             Destroy(enemy);
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
@@ -123,6 +150,7 @@ public class CombatManager : MonoBehaviour
         // Check if player lost.
         else if (battleState == BattleState.LOSE)
         {
+            playerSprite.SetActive(false);
             // display message here.
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
@@ -196,24 +224,38 @@ public class CombatManager : MonoBehaviour
         if (playerChoice == 1 && enemyChoice == 1)
         {
             // Both atk
-            playerStatus.TakeDamage(10f);
-            enemyStatus.TakeDamage(10f);
+            playerStatus.TakeDamage(enemyStatus.atkDamage);
+            enemyStatus.TakeDamage(playerStatus.atkDamage);
             battleOutcome.text = "Both Attacked!";
         }
         else if (playerChoice == 2 && enemyChoice == 1)
         {
             // Player def, enemy atk
+            playerStatus.TakeDamage(-10f);
+
+            // Stops overhealing
+            if(playerStatus.currentHealth > playerStatus.maxHealth)
+            {
+                playerStatus.currentHealth = playerStatus.maxHealth;
+            }
             battleOutcome.text = "Player Blocked Attack!";
         }
         else if (playerChoice == 3 && enemyChoice == 1)
         {
             // Player mgk, enemy atk
-            playerStatus.TakeDamage(30f);
+            playerStatus.TakeDamage(enemyStatus.mgkDamage / 2);
             battleOutcome.text = "Enemy Punished Magic!";
         }
         else if (playerChoice == 1 && enemyChoice == 2)
         {
             // Player atk, enemy def
+            enemyStatus.TakeDamage(-10f);
+
+            // Stops overhealing
+            if (enemyStatus.currentHealth > enemyStatus.maxHealth)
+            {
+                enemyStatus.currentHealth = enemyStatus.maxHealth;
+            }
             battleOutcome.text = "Enemy Blocked Attack!";
         }
         else if (playerChoice == 2 && enemyChoice == 2)
@@ -224,26 +266,26 @@ public class CombatManager : MonoBehaviour
         else if (playerChoice == 3 && enemyChoice == 2)
         {
             // Player mgk, enemy def
-            enemyStatus.TakeDamage(20f);
+            enemyStatus.TakeDamage(playerStatus.mgkDamage);
             battleOutcome.text = "Player Punished Block!";
         }
         else if (playerChoice == 1 && enemyChoice == 3)
         {
             // Player atk, enemy mgk
-            enemyStatus.TakeDamage(30f);
+            enemyStatus.TakeDamage(playerStatus.mgkDamage / 2);
             battleOutcome.text = "Player Punished Magic!";
         }
         else if (playerChoice == 2 && enemyChoice == 3)
         {
             // Player def, enemy mgk
-            playerStatus.TakeDamage(20f);
+            playerStatus.TakeDamage(enemyStatus.mgkDamage);
             battleOutcome.text = "Enemy Punished Block!";
         }
         else if (playerChoice == 3 && enemyChoice == 3)
         {
             // Both mgk
-            playerStatus.TakeDamage(20f);
-            enemyStatus.TakeDamage(20f);
+            playerStatus.TakeDamage(enemyStatus.mgkDamage);
+            enemyStatus.TakeDamage(playerStatus.mgkDamage);
             battleOutcome.text = "Both Used Magic!";
         }
         #endregion
@@ -281,9 +323,13 @@ public class CombatManager : MonoBehaviour
     void Update()
     {
         playerHealth.text = playerStatus.currentHealth + "/" + playerStatus.maxHealth;
-        enemyHealth.text = enemyStatus.currentHealth + "/" + enemyStatus.maxHealth;
 
-        switch(battleState)
+        if (enemy != null)
+        {
+            enemyHealth.text = enemyStatus.currentHealth + "/" + enemyStatus.maxHealth;
+        }
+
+        switch (battleState)
         {
             case BattleState.PLAYERTURN:
                 turnIndicator.text = "Your Turn";
