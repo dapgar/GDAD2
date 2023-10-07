@@ -9,6 +9,7 @@ public class CharacterControllers : MonoBehaviour
     private Vector3 direction = Vector3.right;  // Starting Direction
     private Vector3 velocity = Vector3.zero;
     private Vector3 movementInput;              // Captures movement from input
+    public Rigidbody playerRigidBody;
 
     // Hard-Coded limits
     //public float zMax = 4f;
@@ -35,8 +36,7 @@ public class CharacterControllers : MonoBehaviour
         }
         else
         {
-            velocity = Vector3.zero;
-            direction = Vector3.zero;
+
         }
 
         // uncomment if you want sprite to change where it is facing

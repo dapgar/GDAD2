@@ -785,10 +785,10 @@ GameObject:
   - component: {fileID: 219040856}
   - component: {fileID: 219040855}
   - component: {fileID: 219040854}
+  - component: {fileID: 219040861}
   - component: {fileID: 219040858}
   - component: {fileID: 219040859}
   - component: {fileID: 219040860}
-  - component: {fileID: 219040861}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1008,6 +1008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  playerRigidBody: {fileID: 219040861}
 --- !u!114 &219040860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1063,6 +1064,7 @@ GameObject:
   - component: {fileID: 398462789}
   - component: {fileID: 398462788}
   - component: {fileID: 398462787}
+  - component: {fileID: 398462791}
   m_Layer: 0
   m_Name: North Wall
   m_TagString: Untagged
@@ -1077,7 +1079,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398462786}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: cb71e87f45ac8b04289537c24bd00610, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1156,6 +1158,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &398462791
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398462786}
+  m_Material: {fileID: 13400000, guid: cb71e87f45ac8b04289537c24bd00610, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &406024738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,6 +1192,7 @@ GameObject:
   - component: {fileID: 406024741}
   - component: {fileID: 406024740}
   - component: {fileID: 406024739}
+  - component: {fileID: 406024743}
   m_Layer: 0
   m_Name: East Wall
   m_TagString: Untagged
@@ -1261,6 +1286,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!64 &406024743
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406024738}
+  m_Material: {fileID: 13400000, guid: cb71e87f45ac8b04289537c24bd00610, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &406945594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1706,7 @@ GameObject:
   - component: {fileID: 576709880}
   - component: {fileID: 576709879}
   - component: {fileID: 576709878}
+  - component: {fileID: 576709882}
   m_Layer: 0
   m_Name: South Wall (Invisible)
   m_TagString: Untagged
@@ -1751,6 +1799,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &576709882
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576709877}
+  m_Material: {fileID: 13400000, guid: cb71e87f45ac8b04289537c24bd00610, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &601381728
 GameObject:
   m_ObjectHideFlags: 0
@@ -4476,6 +4546,7 @@ GameObject:
   - component: {fileID: 1935525284}
   - component: {fileID: 1935525283}
   - component: {fileID: 1935525282}
+  - component: {fileID: 1935525286}
   m_Layer: 0
   m_Name: West Wall (Invisible)
   m_TagString: Untagged
@@ -4569,6 +4640,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!64 &1935525286
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935525281}
+  m_Material: {fileID: 13400000, guid: cb71e87f45ac8b04289537c24bd00610, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1939363777
 GameObject:
   m_ObjectHideFlags: 0
