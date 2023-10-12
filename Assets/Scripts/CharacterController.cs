@@ -37,6 +37,7 @@ public class CharacterControllers : MonoBehaviour
         {
             velocity = Vector3.zero;
             direction = Vector3.zero;
+            movementInput = Vector3.zero;
         }
 
         // uncomment if you want sprite to change where it is facing
@@ -72,12 +73,9 @@ public class CharacterControllers : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext moveContext)
     {
-        if (!combatManager.inCombat)
-        {
-            Vector2 playerMovementInput = moveContext.ReadValue<Vector2>();
-            Vector3 toConvert = new Vector3(playerMovementInput.x, 0, playerMovementInput.y);
-            movementInput = IsoVectorConvert(toConvert);
-        }  
+        Vector2 playerMovementInput = moveContext.ReadValue<Vector2>();
+        Vector3 toConvert = new Vector3(playerMovementInput.x, 0, playerMovementInput.y);
+        movementInput = IsoVectorConvert(toConvert);
     }
 
     // Source - https://micha-l-davis.medium.com/isometric-player-movement-in-unity-998d86193b8a
