@@ -26,7 +26,7 @@ public class CharacterControllers : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!combatManager.inCombat)
         {
@@ -77,6 +77,7 @@ public class CharacterControllers : MonoBehaviour
         Vector2 playerMovementInput = moveContext.ReadValue<Vector2>();
         Vector3 toConvert = new Vector3(playerMovementInput.x, 0, playerMovementInput.y);
         movementInput = IsoVectorConvert(toConvert);
+        // movementInput = toConvert;
     }
 
     // Source - https://micha-l-davis.medium.com/isometric-player-movement-in-unity-998d86193b8a
