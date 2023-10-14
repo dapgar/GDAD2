@@ -4,6 +4,6 @@ using UnityEngine;
 public class DialogueAsset : ScriptableObject
 {
     [TextArea]
-    [Tooltip("Lines should be up to 115 characters in length")]
+    [Tooltip("Lines should be up to 150 characters in length")]
     public string[] dialogue;
 }
