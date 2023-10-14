@@ -110,7 +110,7 @@ public class CombatManager : MonoBehaviour
             button.SetActive(false);
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         enemyChoice = Random.Range(1, 11);
         // 1-5 is Attack
