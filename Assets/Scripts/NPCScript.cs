@@ -12,6 +12,9 @@ public class NPCScript : MonoBehaviour
     public DialogueAsset dialogueAsset;
 
     [HideInInspector]
+    public bool interactedWith = false;
+
+    [HideInInspector]
     public int StartPosition
     {
         get
@@ -26,6 +29,16 @@ public class NPCScript : MonoBehaviour
                 return repeatStartPosition;
             }
         }
+    }
+
+    public void Interacted()
+    {
+        interactedWith = true;
+    }
+
+    public void ResetInteraction()
+    {
+        interactedWith = false;
     }
 }
 

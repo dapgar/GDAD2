@@ -102,7 +102,7 @@ public class CharacterControllers : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame && npcManager.inConversation)
         {
-            Debug.Log("SKIPPED LINE");
+            //Debug.Log("SKIPPED LINE");
             npcManager.SkipLine();
         }
     }

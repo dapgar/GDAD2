@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Tutorial Dialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - a
-  - b
+  - 'How are you doing? '
+  - I'm doing good
   - c
   - d
   - e

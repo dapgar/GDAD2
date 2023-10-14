@@ -43,10 +43,6 @@ public class NPCManager : MonoBehaviour
 
         interactionScreen.SetActive(false);
 
-        //if (autoStart)
-        //{
-            //StartInteraction();
-        //}
     }
 
     // Use this method to trigger the npc interaction.
@@ -118,10 +114,12 @@ public class NPCManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        Debug.Log("ENDED DIALOGUE");
+        //Debug.Log("ENDED DIALOGUE");
         dialogueBox.gameObject.SetActive(false);
         inConversation = false;
         interactionScreen.SetActive(false);
+
+        npcInformation.Interacted();
     }
 
     public void SkipLine()

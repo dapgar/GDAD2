@@ -32,22 +32,27 @@ public class InteractionTriggers : MonoBehaviour
 
         if (this.gameObject.GetComponent("EnemyStatus") != null)
         {
-            Debug.Log("FIGHT TRIGGERED");
+            //Debug.Log("FIGHT TRIGGERED");
             //Debug.Log("Detection Radius: " + detectionRadius);
-            Debug.Log("distance: " + distance);
+            //Debug.Log("distance: " + distance);
             if (distance <= detectionRadius && !combatManager.inCombat)
             {
                 combatManager.StartCombat(this.gameObject);
             }
         }
 
+        NPCScript npcScript = this.gameObject.GetComponent<NPCScript>();
         if (this.gameObject.GetComponent("NPCScript") != null)
         {
             //Debug.Log("distance: " + distance);
-            if (distance <= detectionRadius && !npcManager.inConversation)
+            if (distance <= detectionRadius && !npcManager.inConversation && !npcScript.interactedWith)
             {
-                Debug.Log("NPC DIALOGUE TRIGGERED");
+                //Debug.Log("NPC DIALOGUE TRIGGERED");
                 npcManager.StartInteraction(this.gameObject);
+            }
+            else if(distance >= detectionRadius + 0.5f)
+            {
+                npcScript.ResetInteraction();
             }
         }
     }
