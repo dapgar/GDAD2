@@ -9,7 +9,7 @@ public class CharacterControllers : MonoBehaviour
     private Vector3 direction = Vector3.right;  // Starting Direction
     private Vector3 velocity = Vector3.zero;
     private Vector3 movementInput;              // Captures movement from input
-    public Rigidbody playerRigidBody;
+    public PlayerInput playerInput;
 
     // Hard-Coded limits
     //public float zMax = 4f;
@@ -19,16 +19,18 @@ public class CharacterControllers : MonoBehaviour
     //public CollisionManager collisionManager;
 
     private CombatManager combatManager;
+    private NPCManager  npcManager;
 
     private void Start()
     {
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
+        npcManager = GameObject.FindGameObjectWithTag("NPCManager").GetComponent<NPCManager>();
     }
     
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (!combatManager.inCombat)
+        if (!combatManager.inCombat || !npcManager.inConversation)
         {
             direction = movementInput;
             velocity = direction * speed * Time.deltaTime;
@@ -39,6 +41,15 @@ public class CharacterControllers : MonoBehaviour
             velocity = Vector3.zero;
             direction = Vector3.zero;
             movementInput = Vector3.zero;
+        }
+
+        if(npcManager.inConversation)
+        {
+            playerInput.SwitchCurrentActionMap("UI");
+        }
+        else
+        {
+            playerInput.SwitchCurrentActionMap("Player");
         }
 
         // uncomment if you want sprite to change where it is facing
@@ -70,13 +81,12 @@ public class CharacterControllers : MonoBehaviour
         //transform.position = currentPosition;
     }
 
-
-
     public void OnMove(InputAction.CallbackContext moveContext)
     {
         Vector2 playerMovementInput = moveContext.ReadValue<Vector2>();
         Vector3 toConvert = new Vector3(playerMovementInput.x, 0, playerMovementInput.y);
         movementInput = IsoVectorConvert(toConvert);
+        // movementInput = toConvert;
     }
 
     // Source - https://micha-l-davis.medium.com/isometric-player-movement-in-unity-998d86193b8a
@@ -86,6 +96,15 @@ public class CharacterControllers : MonoBehaviour
         Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
         Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
         return result;
+    }
+
+    public void SkipDialogue(InputAction.CallbackContext context)
+    {
+        if (Mouse.current.leftButton.wasPressedThisFrame && npcManager.inConversation)
+        {
+            //Debug.Log("SKIPPED LINE");
+            npcManager.SkipLine();
+        }
     }
 }
 
