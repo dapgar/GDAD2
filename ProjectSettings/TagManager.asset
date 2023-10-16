@@ -7,6 +7,7 @@ TagManager:
   - CombatManager
   - GiantSpider
   - NPCManager
+  - WinterSoldier
   layers:
   - Default
   - TransparentFX
