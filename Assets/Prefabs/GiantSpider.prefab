@@ -127,6 +127,7 @@ MonoBehaviour:
   mgkDamage: 10
   attackBias: 7
   defendBias: 0800000009000000
+  enemyName: Giant Spider
   enemySprite: {fileID: 0}
 --- !u!114 &5516911124995947676
 MonoBehaviour:

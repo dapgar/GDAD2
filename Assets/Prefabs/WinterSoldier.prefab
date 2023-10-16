@@ -127,6 +127,7 @@ MonoBehaviour:
   mgkDamage: 10
   attackBias: 2
   defendBias: 0300000009000000
+  enemyName: Winter Soldier
   enemySprite: {fileID: 0}
 --- !u!114 &5516911124995947676
 MonoBehaviour:

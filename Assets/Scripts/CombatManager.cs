@@ -27,7 +27,9 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI enemyHealth;
     public TextMeshProUGUI turnIndicator;
     public TextMeshProUGUI battleOutcome;
+    public TextMeshProUGUI enemyNameUI;
     public GameObject playerSprite;
+    string enemyName;
     GameObject enemySprite;
 
     [Header("Test Mode")]
@@ -66,6 +68,10 @@ public class CombatManager : MonoBehaviour
         enemyStatus = enemy.GetComponent<EnemyStatus>();
         enemySprite = enemyStatus.enemySprite;
         enemySprite.SetActive(true);
+        enemyName = enemyStatus.enemyName;
+        enemyNameUI.text = enemyName;
+        attackBias = enemyStatus.attackBias;
+        defendBias = enemyStatus.defendBias;
 
         inCombat = true;
 
