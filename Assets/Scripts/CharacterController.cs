@@ -16,7 +16,6 @@ public class CharacterControllers : MonoBehaviour
     //public float zMin = -5f;
     //public float xMax = 4.5f;
     //public float xMin = -5f;
-    //public CollisionManager collisionManager;
 
     private CombatManager combatManager;
     private NPCManager  npcManager;
@@ -86,7 +85,6 @@ public class CharacterControllers : MonoBehaviour
         Vector2 playerMovementInput = moveContext.ReadValue<Vector2>();
         Vector3 toConvert = new Vector3(playerMovementInput.x, 0, playerMovementInput.y);
         movementInput = IsoVectorConvert(toConvert);
-        // movementInput = toConvert;
     }
 
     // Source - https://micha-l-davis.medium.com/isometric-player-movement-in-unity-998d86193b8a
@@ -100,9 +98,9 @@ public class CharacterControllers : MonoBehaviour
 
     public void SkipDialogue(InputAction.CallbackContext context)
     {
+        // Will only skip the line in dialogue if the player is currently in a coversation
         if (Mouse.current.leftButton.wasPressedThisFrame && npcManager.inConversation)
         {
-            //Debug.Log("SKIPPED LINE");
             npcManager.SkipLine();
         }
     }

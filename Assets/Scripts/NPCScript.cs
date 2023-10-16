@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCScript : MonoBehaviour
 {
     [SerializeField] bool firstInteraction = true;
-    [SerializeField] int repeatStartPosition; // Starting Line for Dialogue
+    [SerializeField] int startingLineOfDialogue;
 
     public string npcName;
     public GameObject npcSprite;
@@ -26,7 +26,7 @@ public class NPCScript : MonoBehaviour
             }
             else
             {
-                return repeatStartPosition;
+                return startingLineOfDialogue;
             }
         }
     }

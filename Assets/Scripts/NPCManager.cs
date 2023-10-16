@@ -19,21 +19,18 @@ public class NPCManager : MonoBehaviour
     private NPCScript npcInformation;
 
     [Header("UI Elements")]
-    public TextMeshProUGUI playerHealth;
     public GameObject playerSprite;
     public TextMeshProUGUI npcName;
     public TextMeshProUGUI dialogueBox;
     public GameObject npcSprite;
 
     [Header("Test Mode")]
-    public bool autoStart = true;
-
     public bool inConversation;
 
     public GameObject[] shopIcons;
     public GameObject[] shopButtons;
 
-    //float charactersPerSecond = 90;
+    public float defaultCharactersPerSecond = 40;
     bool skipLineTriggered;
 
     // Start is called before the first frame update
@@ -42,7 +39,6 @@ public class NPCManager : MonoBehaviour
         playerSprite.SetActive(true);
 
         interactionScreen.SetActive(false);
-
     }
 
     // Use this method to trigger the npc interaction.
@@ -50,8 +46,11 @@ public class NPCManager : MonoBehaviour
     {
         npc = newNPC;
         npcInformation = npc.GetComponent<NPCScript>();
-        npcSprite = npcInformation.npcSprite;
-        npcSprite.SetActive(true);
+        if (npcInformation.npcSprite != null)
+        {
+            npcSprite = npcInformation.npcSprite;
+            npcSprite.SetActive(true);
+        }
 
         inConversation = true;
 
@@ -61,41 +60,78 @@ public class NPCManager : MonoBehaviour
         //    button.SetActive(false);
         //}
 
-        StartDialogue(npcInformation.dialogueAsset.dialogue, npcInformation.StartPosition, npcInformation.npcName);
+        StartDialogue(npcInformation.dialogueAsset.dialogue, npcInformation.dialogueAsset.textLineSpeed, npcInformation.StartPosition, npcInformation.npcName);
     }
 
-    public void StartDialogue(string[] dialogue, int startPosition, string name)
+    public void StartDialogue(string[] dialogue, int[] textSpeed, int startPosition, string name)
     {
         npcName.text = name;
         dialogueBox.gameObject.SetActive(true);
         StopAllCoroutines();
-        StartCoroutine(RunDialogue(dialogue, startPosition));
+        //StartCoroutine(RunDialogue(dialogue, startPosition));
+        StartCoroutine(TypeTextUncapped(dialogue, textSpeed, startPosition));
     }
 
-    //IEnumerator TypeTextUncapped(string line)
-    //{
-    //    float timer = 0;
-    //    float interval = 1 / charactersPerSecond;
-    //    string textBuffer = null;
-    //    char[] chars = line.ToCharArray();
-    //    int i = 0;
-    //    while (i < chars.Length)
-    //    {
-    //        if (timer < Time.deltaTime)
-    //        {
-    //            textBuffer += chars[i];
-    //            dialogueBox.text = textBuffer;
-    //            timer += interval;
-    //            i++;
-    //        }
-    //        else
-    //        {
-    //            timer -= Time.deltaTime;
-    //            yield return null;
-    //        }
-    //    }
-    //}
+    // Typewriter effect
+    IEnumerator TypeTextUncapped(string[] dialogue, int[] textSpeed, int startPosition)
+    {
+        float charactersPerSecond = defaultCharactersPerSecond;
+        skipLineTriggered = false;
+        float timer = 0;
+        float interval = 1 / charactersPerSecond;
+        string textBuffer = null;  // Current text shown
+        for (int i = startPosition; i < dialogue.Length; i++) // Iterates through all the lines of the dialogue
+        {
+            textBuffer = "";
+            char[] chars = dialogue[i].ToCharArray();
+            if (textSpeed[i] > 0)
+            {
+                charactersPerSecond = textSpeed[i];
+            }
+            else
+            {
+                charactersPerSecond = defaultCharactersPerSecond;
+            }
+            interval = 1 / charactersPerSecond;
+            //Debug.Log("Text Speed from Dialogue: " + textSpeed[i]);
+            //Debug.Log("Current Dialogue Speed: " + charactersPerSecond);
+            int currentCharacter = 0;
+            while (currentCharacter < chars.Length && !skipLineTriggered)
+            {
+                if (!skipLineTriggered)
+                {
+                    if (timer < Time.deltaTime)
+                    {
+                        textBuffer += chars[currentCharacter];
+                        dialogueBox.text = textBuffer;
+                        timer += interval;
+                        currentCharacter++;
+                    }
+                    else
+                    {
+                        timer -= Time.deltaTime;
+                        yield return null;
+                    }
+                }
+            }
 
+            // This first resets the skipline trigger so the first press shows the full
+            // line rather than waiting
+            skipLineTriggered = false;
+            dialogueBox.text = dialogue[i];
+
+            // Second click will actually progress to the next line
+            while (skipLineTriggered == false)
+            {
+                // Wait for the current line to be skipped
+                yield return null;
+            }
+            skipLineTriggered = false;
+        }
+        EndDialogue();
+    }
+
+    // Entire line at once
     IEnumerator RunDialogue(string[] dialogue, int startPosition)
     {
         skipLineTriggered = false;
