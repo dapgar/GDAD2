@@ -21,9 +21,9 @@ public class NPCManager : MonoBehaviour
     [Header("UI Elements")]
     public GameObject playerSprite;
     public TextMeshProUGUI npcName;
-    public TextMeshProUGUI dialogueBox;
     public GameObject npcSprite;
-
+    public TextMeshProUGUI dialogueBox;
+    
     [Header("Test Mode")]
     public bool inConversation;
 
