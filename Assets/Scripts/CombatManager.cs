@@ -217,6 +217,25 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public void OnItemButtonPress()
+    {
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 4;
+            combatIcons[3].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            //battleState = BattleState.ENEMYTURN;
+            //StartCoroutine(EnemyTurn());
+        }
+    }
+
     IEnumerator CombatOutcome()
     {
         // Battle Logic
