@@ -15,6 +15,10 @@ public class CombatManager : MonoBehaviour
     public GameObject player;
     GameObject enemy;
 
+    
+    public int attackBias;
+    public int[] defendBias = new int[2];
+
     private EnemyStatus enemyStatus;
     private PlayerStatus playerStatus;
 
@@ -23,7 +27,9 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI enemyHealth;
     public TextMeshProUGUI turnIndicator;
     public TextMeshProUGUI battleOutcome;
+    public TextMeshProUGUI enemyNameUI;
     public GameObject playerSprite;
+    string enemyName;
     GameObject enemySprite;
 
     [Header("Test Mode")]
@@ -62,6 +68,10 @@ public class CombatManager : MonoBehaviour
         enemyStatus = enemy.GetComponent<EnemyStatus>();
         enemySprite = enemyStatus.enemySprite;
         enemySprite.SetActive(true);
+        enemyName = enemyStatus.enemyName;
+        enemyNameUI.text = enemyName;
+        attackBias = enemyStatus.attackBias;
+        defendBias = enemyStatus.defendBias;
 
         inCombat = true;
 
@@ -113,19 +123,19 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         enemyChoice = Random.Range(1, 11);
-        // 1-5 is Attack
-        if (enemyChoice <= 5)
+        // Attack Chance
+        if (enemyChoice <= attackBias)
         {
             combatIcons[3].SetActive(true);
             enemyChoice = 1;
         }
-        // 6-9 is Defend
-        else if (enemyChoice >= 6 && enemyChoice <= 9)
+        // Defend Chance
+        else if (enemyChoice >= defendBias[0] && enemyChoice <= defendBias[1])
         {
             combatIcons[4].SetActive(true);
             enemyChoice = 2;
         }
-        // 10 is Magic
+        // Magic Chance
         else
         {
             combatIcons[5].SetActive(true);
@@ -290,7 +300,7 @@ public class CombatManager : MonoBehaviour
         }
         #endregion
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         battleOutcome.text = " ";
         foreach (GameObject icon in combatIcons)

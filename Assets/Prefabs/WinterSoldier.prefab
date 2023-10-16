@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8254232790654706381}
   - component: {fileID: 5516911124995947676}
   m_Layer: 0
-  m_Name: GiantSpider
-  m_TagString: GiantSpider
+  m_Name: WinterSoldier
+  m_TagString: WinterSoldier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,12 +122,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 50
+  maxHealth: 75
   atkDamage: 5
   mgkDamage: 10
-  attackBias: 7
-  defendBias: 0800000009000000
-  enemyName: Giant Spider
+  attackBias: 2
+  defendBias: 0300000009000000
+  enemyName: Winter Soldier
   enemySprite: {fileID: 0}
 --- !u!114 &5516911124995947676
 MonoBehaviour:

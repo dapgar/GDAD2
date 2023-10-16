@@ -10,6 +10,11 @@ public class EnemyStatus : MonoBehaviour
     public float atkDamage = 10;
     public float mgkDamage = 30;
 
+    public int attackBias;
+    public int[] defendBias = new int[2];
+
+    public string enemyName;
+
     public GameObject enemySprite;
 
     private void Start()
