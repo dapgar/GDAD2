@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Tutorial Dialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - 'How are you doing? '
-  - I'm doing good
-  - c
-  - d
-  - e
-  - f
+  - The champion of the Summer Court - I can't believe it's really you!
+  - 'Please be cautious here; there are enemies who might wish you harm. '
+  - "I\u2019ve noticed an unusual increase in giant spiders and Winter Court soldiers
+    in the area."
+  - The spiders tend to be more aggressive and attack more often than not.
+  - As for the soldiers, their combat style seems more defensive.
+  - Please, stay safe!
   textLineSpeed: 000000000000000000000000000000000000000000000000
