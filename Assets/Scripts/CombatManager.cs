@@ -39,6 +39,8 @@ public class CombatManager : MonoBehaviour
 
     public GameObject[] combatIcons;
     public GameObject[] combatButtons;
+    public GameObject[] confirmButtons;
+    public GameObject backButton;
 
     private int playerChoice;
     private int enemyChoice;
@@ -76,15 +78,14 @@ public class CombatManager : MonoBehaviour
         inCombat = true;
 
         combatScreen.SetActive(true);
-        foreach (GameObject button in combatButtons)
-        {
-            button.SetActive(false);
-        }
+        HideCombatButtons();
+        HideConfirmButtons();
 
         battleState = BattleState.START;
         StartCoroutine(BeginBattle());
     }
 
+    // Combat methods
     IEnumerator BeginBattle()
     {
         // Spawn in player
@@ -105,20 +106,15 @@ public class CombatManager : MonoBehaviour
     {
         // release the blockade on clicking 
         // so that player can click on 'attack' button
-        foreach (GameObject button in combatButtons)
-        {
-            button.SetActive(true);
-        }
+        ShowCombatButtons();
         hasClicked = false;
         yield return null;
     }
 
     IEnumerator EnemyTurn()
     {
-        foreach (GameObject button in combatButtons)
-        {
-            button.SetActive(false);
-        }
+        HideCombatButtons();
+        HideConfirmButtons();
 
         yield return new WaitForSeconds(1);
 
@@ -170,63 +166,6 @@ public class CombatManager : MonoBehaviour
         inCombat = false;
     }
 
-    public void OnAttackButtonPress()
-    {
-        // don't allow player to click on 'attack' unless player turn
-        if (battleState != BattleState.PLAYERTURN)
-            return;
-
-        // allow only a single action per turn
-        if (!hasClicked)
-        {
-            playerChoice = 1;
-            combatIcons[0].SetActive(true);
-            // block user from repeatedly pressing attack button  
-            hasClicked = true;
-
-            battleState = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
-    }
-
-    public void OnDefendButtonPress()
-    {
-        // don't allow player to click on 'attack' unless player turn
-        if (battleState != BattleState.PLAYERTURN)
-            return;
-
-        // allow only a single action per turn
-        if (!hasClicked)
-        {
-            playerChoice = 2;
-            combatIcons[1].SetActive(true);
-            // block user from repeatedly pressing attack button  
-            hasClicked = true;
-
-            battleState = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
-    }
-
-    public void OnMagicButtonPress()
-    {
-        // don't allow player to click on 'attack' unless player turn
-        if (battleState != BattleState.PLAYERTURN)
-            return;
-
-        // allow only a single action per turn
-        if (!hasClicked)
-        {
-            playerChoice = 3;
-            combatIcons[2].SetActive(true);
-            // block user from repeatedly pressing attack button  
-            hasClicked = true;
-
-            battleState = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
-    }
-
     IEnumerator CombatOutcome()
     {
         // Battle Logic
@@ -244,7 +183,7 @@ public class CombatManager : MonoBehaviour
             playerStatus.TakeDamage(-10f);
 
             // Stops overhealing
-            if(playerStatus.currentHealth > playerStatus.maxHealth)
+            if (playerStatus.currentHealth > playerStatus.maxHealth)
             {
                 playerStatus.currentHealth = playerStatus.maxHealth;
             }
@@ -328,6 +267,121 @@ public class CombatManager : MonoBehaviour
             yield return StartCoroutine(PlayerTurn());
         }
     }
+
+    // Attack button methods
+    public void OnAttackButtonPress()
+    {
+        HideCombatButtons();
+        backButton.SetActive(true);
+        confirmButtons[0].SetActive(true);
+    }
+
+    public void OnAttackConfirmPress()
+    {
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 1;
+            combatIcons[0].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            battleState = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    // Defend button methods
+    public void OnDefendButtonPress()
+    {
+        HideCombatButtons();
+        backButton.SetActive(true);
+        confirmButtons[1].SetActive(true);
+    }
+
+    public void OnDefendConfirmPress()
+    {
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 2;
+            combatIcons[1].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            battleState = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    // Magic button methods
+    public void OnMagicButtonPress()
+    {
+        HideCombatButtons();
+        backButton.SetActive(true);
+        confirmButtons[2].SetActive(true);
+    }
+
+    public void OnMagicConfirmPress()
+    {
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 3;
+            combatIcons[2].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            battleState = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    // Back button method
+    public void OnBackButtonPress()
+    {
+        HideConfirmButtons();
+        ShowCombatButtons();
+    }
+
+    // Show/Hide buttons
+    private void ShowCombatButtons()
+    {
+        foreach (GameObject button in combatButtons)
+        {
+            button.SetActive(true);
+        }
+    }
+
+    private void HideCombatButtons()
+    {
+        foreach (GameObject button in combatButtons)
+        {
+            button.SetActive(false);
+        }
+    }
+
+    private void HideConfirmButtons()
+    {
+        foreach (GameObject button in confirmButtons)
+        {
+            button.SetActive(false);
+        }
+        backButton.SetActive(false);
+    }
+
 
     // Update is called once per frame
     void Update()
