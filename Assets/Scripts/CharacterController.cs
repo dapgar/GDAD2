@@ -11,6 +11,9 @@ public class CharacterControllers : MonoBehaviour
     private Vector3 movementInput;              // Captures movement from input
     public PlayerInput playerInput;
 
+    [Header("Animation")]
+    public Animator animator;
+
     // Hard-Coded limits
     //public float zMax = 4f;
     //public float zMin = -5f;
@@ -25,7 +28,12 @@ public class CharacterControllers : MonoBehaviour
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
         npcManager = GameObject.FindGameObjectWithTag("NPCManager").GetComponent<NPCManager>();
     }
-    
+
+    private void Update()
+    {
+        AnimationChecks();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -94,6 +102,14 @@ public class CharacterControllers : MonoBehaviour
         Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
         Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
         return result;
+    }
+
+    private void AnimationChecks()
+    {
+        animator.SetBool("walkLeft", Input.GetKey("a") || Input.GetKey("left"));
+        animator.SetBool("walkRight", Input.GetKey("d") || Input.GetKey("right"));
+        animator.SetBool("walkUp", Input.GetKey("w") || Input.GetKey("up"));
+        animator.SetBool("walkDown", Input.GetKey("s") || Input.GetKey("down"));
     }
 
     public void SkipDialogue(InputAction.CallbackContext context)
