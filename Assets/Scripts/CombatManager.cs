@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEditor.VersionControl;
 using UnityEngine.UI;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE, OUTCOME }
 
@@ -15,7 +17,6 @@ public class CombatManager : MonoBehaviour
     public GameObject player;
     GameObject enemy;
 
-    
     public int attackBias;
     public int[] defendBias = new int[2];
 
@@ -60,6 +61,8 @@ public class CombatManager : MonoBehaviour
         if (autoStart)
         {
             //StartCombat();
+
+            //Reset();
         }
     }
 
@@ -150,6 +153,7 @@ public class CombatManager : MonoBehaviour
             // display message here.
             enemySprite.SetActive(false);
             Destroy(enemy);
+            //enemy.SetActive(false);
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
         }
@@ -416,5 +420,25 @@ public class CombatManager : MonoBehaviour
                 turnIndicator.text = " ";
                 break;
         }
+    }
+
+    // Resets all NPCs, Enemies and player to default values
+    public void Reset()
+    {
+        //EnemyStatus[] enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        //foreach (EnemyStatus enemy in enemies)
+        //{ 
+        //    enemy.Reset(); 
+        //}
+        //NPCScript[] npcs = GameObject.FindObjectsByType<NPCScript>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        //foreach (NPCScript npc in npcs)
+        //{
+        //    npc.Reset();
+        //}
+        //playerStatus.Reset();
+        // ADD SOMETHING FOR ALLIES HERE LATER
+
+        //Debug.Log("Number of Enemies: " + enemies.Length);
+        //Debug.Log("Number of NPCs: " + enemies.Length);
     }
 }

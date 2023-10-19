@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class NPCScript : MonoBehaviour
 {
+    // If we want to add first time dialogue
     [SerializeField] bool firstInteraction = true;
     [SerializeField] int startingLineOfDialogue;
 
     public string npcName;
     public GameObject npcSprite;
     public DialogueAsset dialogueAsset;
+    //public Vector3 startingPosition;
 
     [HideInInspector]
     public bool interactedWith = false;
@@ -40,5 +42,13 @@ public class NPCScript : MonoBehaviour
     {
         interactedWith = false;
     }
+
+    // For scene reset
+    //public void Reset()
+    //{
+    //    firstInteraction = true;
+    //    ResetInteraction();
+    //    transform.position = startingPosition;
+    //}
 }
 

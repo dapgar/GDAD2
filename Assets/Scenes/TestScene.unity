@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1361,7 +1361,7 @@ Transform:
   m_GameObject: {fileID: 219040853}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7, y: 1, z: -1.4}
+  m_LocalPosition: {x: -2.7, y: 0.8, z: -1.4}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2572,6 +2572,21 @@ PrefabInstance:
       objectReference: {fileID: 900990499}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
+      propertyPath: startingPosition.x
+      value: -1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
+        type: 3}
+      propertyPath: startingPosition.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
+        type: 3}
+      propertyPath: startingPosition.z
+      value: 3.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
+        type: 3}
       propertyPath: defendBias.Array.data[0]
       value: 9
       objectReference: {fileID: 0}
@@ -3339,7 +3354,7 @@ GameObject:
   m_TagString: NPCManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &708568530
 MonoBehaviour:
@@ -3354,15 +3369,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionScreen: {fileID: 1206825073}
-  player: {fileID: 219040853}
-  npc: {fileID: 211357937}
-  playerSprite: {fileID: 219040853}
   npcName: {fileID: 450304664}
-  npcSprite: {fileID: 211357937}
   dialogueBox: {fileID: 1713296084}
+  leftClickIcon: {fileID: 1488822889}
   inConversation: 0
-  shopIcons: []
-  shopButtons: []
   defaultCharactersPerSecond: 13
 --- !u!4 &708568531
 Transform:
@@ -4276,7 +4286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1206825074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4329,6 +4339,7 @@ RectTransform:
   m_Children:
   - {fileID: 450304663}
   - {fileID: 1713296083}
+  - {fileID: 1488822890}
   - {fileID: 996310740}
   m_Father: {fileID: 1456829587}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4933,6 +4944,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1488822889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1488822890}
+  - component: {fileID: 1488822892}
+  - component: {fileID: 1488822891}
+  m_Layer: 5
+  m_Name: Left Click Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1488822890
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488822889}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1206825076}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 892, y: -368}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1488822891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488822889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c18578252f5154f4ab84d50ddf847628, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1488822892
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488822889}
+  m_CullTransparentMesh: 1
 --- !u!1 &1494501792
 GameObject:
   m_ObjectHideFlags: 0
@@ -5670,7 +5756,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Can hold 249 characters
+  m_text: Can hold 264 characters
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6910,11 +6996,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinterSoldier
       objectReference: {fileID: 0}
+    - target: {fileID: 7058018491686014527, guid: a79cfcbea934d194b8b4c89f3effc799,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: a79cfcbea934d194b8b4c89f3effc799,
         type: 3}
       propertyPath: enemySprite
       value: 
       objectReference: {fileID: 501645573}
+    - target: {fileID: 8254232790654706381, guid: a79cfcbea934d194b8b4c89f3effc799,
+        type: 3}
+      propertyPath: startingPosition.x
+      value: 3.083334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: a79cfcbea934d194b8b4c89f3effc799,
+        type: 3}
+      propertyPath: startingPosition.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: a79cfcbea934d194b8b4c89f3effc799,
+        type: 3}
+      propertyPath: startingPosition.z
+      value: -1.962878
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7461,6 +7567,21 @@ PrefabInstance:
       propertyPath: enemySprite
       value: 
       objectReference: {fileID: 900990499}
+    - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
+        type: 3}
+      propertyPath: startingPosition.x
+      value: 3.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
+        type: 3}
+      propertyPath: startingPosition.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
+        type: 3}
+      propertyPath: startingPosition.z
+      value: 2.37
+      objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: defendBias.Array.data[0]

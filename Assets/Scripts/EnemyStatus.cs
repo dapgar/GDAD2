@@ -14,6 +14,7 @@ public class EnemyStatus : MonoBehaviour
     public int[] defendBias = new int[2];
 
     public string enemyName;
+    //public Vector3 startingPosition;
 
     public GameObject enemySprite;
 
@@ -30,4 +31,11 @@ public class EnemyStatus : MonoBehaviour
             currentHealth = 0;
         }
     }
+
+    //public void Reset()
+    //{
+    //    transform.position = startingPosition;
+    //    currentHealth = maxHealth;
+    //    this.gameObject.SetActive(true);
+    //}
 }

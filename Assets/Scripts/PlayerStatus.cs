@@ -9,6 +9,7 @@ public class PlayerStatus : MonoBehaviour
 
     public float atkDamage = 10;
     public float mgkDamage = 30;
+    //public Vector3 startingPosition;
 
     private void Start()
     {
@@ -23,4 +24,10 @@ public class PlayerStatus : MonoBehaviour
             currentHealth = 0;
         }
     }
+
+    //public void Reset()
+    //{
+    //    currentHealth = maxHealth; 
+    //    transform.position = startingPosition;
+    //}
 }

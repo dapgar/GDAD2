@@ -11,24 +11,25 @@ public class NPCManager : MonoBehaviour
 {
     public GameObject interactionScreen;
 
-    [Header("Characters")]
-    public GameObject player;
-    public GameObject npc;
+    //[Header("Characters")]
+    //public GameObject player;
+    private GameObject npc;
 
     private PlayerStatus playerStatus;
     private NPCScript npcInformation;
 
     [Header("UI Elements")]
-    public GameObject playerSprite;
+    //public GameObject playerSprite;
     public TextMeshProUGUI npcName;
-    public GameObject npcSprite;
+    private GameObject npcSprite;
     public TextMeshProUGUI dialogueBox;
+    public GameObject leftClickIcon; 
     
     [Header("Test Mode")]
     public bool inConversation;
 
-    public GameObject[] shopIcons;
-    public GameObject[] shopButtons;
+    //public GameObject[] shopIcons;
+    //public GameObject[] shopButtons;
 
     public float defaultCharactersPerSecond = 40;
     bool skipLineTriggered;
@@ -36,7 +37,7 @@ public class NPCManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerSprite.SetActive(true);
+        //playerSprite.SetActive(true);
 
         interactionScreen.SetActive(false);
     }
@@ -55,6 +56,7 @@ public class NPCManager : MonoBehaviour
         inConversation = true;
 
         interactionScreen.SetActive(true);
+        leftClickIcon.SetActive(true);
         //foreach (GameObject button in shopButtons)
         //{
         //    button.SetActive(false);
