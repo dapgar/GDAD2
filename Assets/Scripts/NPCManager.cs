@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.VersionControl;
+//using UnityEditor.VersionControl;
 using UnityEngine.UI;
-using UnityEditor.Rendering;
+//using UnityEditor.Rendering;
 
 //https://gamedevbeginner.com/dialogue-systems-in-unity/
 public class NPCManager : MonoBehaviour

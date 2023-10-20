@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.VersionControl;
+//using UnityEditor.VersionControl;
 using UnityEngine.UI;
-using UnityEditor.SearchService;
+//using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE, OUTCOME }
