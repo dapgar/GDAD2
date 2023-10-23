@@ -32,6 +32,7 @@ public class CombatManager : MonoBehaviour
     public GameObject playerSprite;
     string enemyName;
     GameObject enemySprite;
+    public Animator crossfadeAnim;
 
     [Header("Test Mode")]
     public bool autoStart = true;
@@ -58,6 +59,8 @@ public class CombatManager : MonoBehaviour
         combatScreen.SetActive(false);
         playerStatus = player.GetComponent<PlayerStatus>();
 
+        // crossfadeAnim = this.GetComponent<Animator>();
+
         if (autoStart)
         {
             //StartCombat();
@@ -77,6 +80,7 @@ public class CombatManager : MonoBehaviour
         enemyNameUI.text = enemyName;
         attackBias = enemyStatus.attackBias;
         defendBias = enemyStatus.defendBias;
+        crossfadeAnim.SetTrigger("Start");
 
         inCombat = true;
 
@@ -155,6 +159,7 @@ public class CombatManager : MonoBehaviour
             Destroy(enemy);
             //enemy.SetActive(false);
             yield return new WaitForSeconds(1);
+            crossfadeAnim.SetTrigger("Start");
             combatScreen.SetActive(false);
         }
         // Check if player lost.
