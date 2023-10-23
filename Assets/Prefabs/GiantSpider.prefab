@@ -207,9 +207,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 30
-  atkDamage: 5
-  mgkDamage: 10
+  maxHealth: 3
+  atkDamage: 1
+  mgkDamage: 1
+  parDamage: 1
   attackBias: 8
   defendBias: 090000000a000000
   enemyName: Giant Spider

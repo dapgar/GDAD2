@@ -7,8 +7,9 @@ public class EnemyStatus : MonoBehaviour
     public float currentHealth;
     public float maxHealth = 100;
 
-    public float atkDamage = 10;
-    public float mgkDamage = 30;
+    public float atkDamage = 1;
+    public float mgkDamage = 1;
+    public float parDamage = 1;
 
     public int attackBias;
     public int[] defendBias = new int[2];

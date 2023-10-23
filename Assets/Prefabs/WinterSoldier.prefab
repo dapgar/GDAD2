@@ -207,9 +207,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 75
-  atkDamage: 5
-  mgkDamage: 10
+  maxHealth: 3
+  atkDamage: 1
+  mgkDamage: 1
+  parDamage: 1
   attackBias: 2
   defendBias: 0300000009000000
   enemyName: Winter Soldier

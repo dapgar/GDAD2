@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -844,7 +844,7 @@ GameObject:
   - component: {fileID: 135507528}
   - component: {fileID: 135507527}
   m_Layer: 5
-  m_Name: ShieldIconL
+  m_Name: ParryIconL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -889,7 +889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 072dd1f273e8fc04cb81690ea1961c9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 240fcafca5ee175498442e42da0bcbee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1519,9 +1519,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 100
-  atkDamage: 10
-  mgkDamage: 30
+  maxHealth: 5
+  atkDamage: 1
+  mgkDamage: 1
+  parDamage: 1
 --- !u!54 &219040861
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1740,7 +1741,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DEF?
+  m_text: PAR?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -2222,7 +2223,7 @@ GameObject:
   - component: {fileID: 438537425}
   - component: {fileID: 438537424}
   m_Layer: 5
-  m_Name: ShieldIconR
+  m_Name: ParryIconR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2267,7 +2268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 072dd1f273e8fc04cb81690ea1961c9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 240fcafca5ee175498442e42da0bcbee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3485,7 +3486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 072dd1f273e8fc04cb81690ea1961c9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 240fcafca5ee175498442e42da0bcbee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4466,7 +4467,7 @@ GameObject:
   - component: {fileID: 1379424819}
   - component: {fileID: 1379424818}
   m_Layer: 5
-  m_Name: Defend Button
+  m_Name: Parry Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4539,7 +4540,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1925455264}
         m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: OnDefendButtonPress
+        m_MethodName: OnParryButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5846,7 +5847,7 @@ GameObject:
   - component: {fileID: 1744322525}
   - component: {fileID: 1744322524}
   m_Layer: 5
-  m_Name: Defend Confirm
+  m_Name: Parry Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5919,7 +5920,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1925455264}
         m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: OnDefendConfirmPress
+        m_MethodName: OnParryConfirmPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6504,7 +6505,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 072dd1f273e8fc04cb81690ea1961c9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 240fcafca5ee175498442e42da0bcbee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7555,7 +7556,7 @@ PrefabInstance:
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: maxHealth
-      value: 30
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}

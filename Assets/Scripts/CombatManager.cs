@@ -177,68 +177,56 @@ public class CombatManager : MonoBehaviour
         if (playerChoice == 1 && enemyChoice == 1)
         {
             // Both atk
-            playerStatus.TakeDamage(enemyStatus.atkDamage);
-            enemyStatus.TakeDamage(playerStatus.atkDamage);
+            //playerStatus.TakeDamage(enemyStatus.atkDamage);
+            //enemyStatus.TakeDamage(playerStatus.atkDamage);
             battleOutcome.text = "Both Attacked!";
         }
         else if (playerChoice == 2 && enemyChoice == 1)
         {
-            // Player def, enemy atk
-            playerStatus.TakeDamage(-10f);
-
-            // Stops overhealing
-            if (playerStatus.currentHealth > playerStatus.maxHealth)
-            {
-                playerStatus.currentHealth = playerStatus.maxHealth;
-            }
-            battleOutcome.text = "Player Blocked Attack!";
+            // Player par, enemy atk
+            enemyStatus.TakeDamage(playerStatus.parDamage);
+            battleOutcome.text = "Player Parried Attack!";
         }
         else if (playerChoice == 3 && enemyChoice == 1)
         {
             // Player mgk, enemy atk
-            playerStatus.TakeDamage(enemyStatus.mgkDamage / 2);
-            battleOutcome.text = "Enemy Punished Magic!";
+            playerStatus.TakeDamage(enemyStatus.atkDamage);
+            battleOutcome.text = "Enemy Countered Magic!";
         }
         else if (playerChoice == 1 && enemyChoice == 2)
         {
-            // Player atk, enemy def
-            enemyStatus.TakeDamage(-10f);
-
-            // Stops overhealing
-            if (enemyStatus.currentHealth > enemyStatus.maxHealth)
-            {
-                enemyStatus.currentHealth = enemyStatus.maxHealth;
-            }
-            battleOutcome.text = "Enemy Blocked Attack!";
+            // Player atk, enemy par
+            playerStatus.TakeDamage(enemyStatus.parDamage);
+            battleOutcome.text = "Enemy Parried Attack!";
         }
         else if (playerChoice == 2 && enemyChoice == 2)
         {
-            // Both def
-            battleOutcome.text = "Both Blocked!";
+            // Both par
+            battleOutcome.text = "Both Parried!";
         }
         else if (playerChoice == 3 && enemyChoice == 2)
         {
-            // Player mgk, enemy def
+            // Player mgk, enemy par
             enemyStatus.TakeDamage(playerStatus.mgkDamage);
-            battleOutcome.text = "Player Punished Block!";
+            battleOutcome.text = "Player Countered Parry!";
         }
         else if (playerChoice == 1 && enemyChoice == 3)
         {
             // Player atk, enemy mgk
-            enemyStatus.TakeDamage(playerStatus.mgkDamage / 2);
-            battleOutcome.text = "Player Punished Magic!";
+            enemyStatus.TakeDamage(playerStatus.atkDamage);
+            battleOutcome.text = "Player Countered Magic!";
         }
         else if (playerChoice == 2 && enemyChoice == 3)
         {
-            // Player def, enemy mgk
+            // Player par, enemy mgk
             playerStatus.TakeDamage(enemyStatus.mgkDamage);
-            battleOutcome.text = "Enemy Punished Block!";
+            battleOutcome.text = "Enemy Countered Parry!";
         }
         else if (playerChoice == 3 && enemyChoice == 3)
         {
             // Both mgk
-            playerStatus.TakeDamage(enemyStatus.mgkDamage);
-            enemyStatus.TakeDamage(playerStatus.mgkDamage);
+            //playerStatus.TakeDamage(enemyStatus.mgkDamage);
+            //enemyStatus.TakeDamage(playerStatus.mgkDamage);
             battleOutcome.text = "Both Used Magic!";
         }
         #endregion
@@ -300,14 +288,14 @@ public class CombatManager : MonoBehaviour
     }
 
     // Defend button methods
-    public void OnDefendButtonPress()
+    public void OnParryButtonPress()
     {
         HideCombatButtons();
         backButton.SetActive(true);
         confirmButtons[1].SetActive(true);
     }
 
-    public void OnDefendConfirmPress()
+    public void OnParryConfirmPress()
     {
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
