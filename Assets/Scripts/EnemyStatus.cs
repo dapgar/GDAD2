@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
 {
-    public float currentHealth;
-    public float maxHealth = 100;
+    public int currentHealth;
+    public int maxHealth = 3;
 
-    public float atkDamage = 1;
-    public float mgkDamage = 1;
-    public float parDamage = 1;
+    public int atkDamage = 1;
+    public int mgkDamage = 1;
+    public int parDamage = 1;
 
     public int attackBias;
     public int[] defendBias = new int[2];
@@ -24,7 +24,7 @@ public class EnemyStatus : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth < 0)

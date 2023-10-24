@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
 {
-    public float currentHealth;
-    public float maxHealth = 100;
+    public int currentHealth;
+    public int maxHealth = 5;
 
-    public float atkDamage = 1;
-    public float mgkDamage = 1;
-    public float parDamage = 1;
+    public int atkDamage = 1;
+    public int mgkDamage = 1;
+    public int parDamage = 1;
     //public Vector3 startingPosition;
 
     private void Start()
@@ -17,7 +17,7 @@ public class PlayerStatus : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth < 0)

@@ -41,6 +41,9 @@ public class CombatManager : MonoBehaviour
     public GameObject[] combatIcons;
     public GameObject[] combatButtons;
     public GameObject[] confirmButtons;
+    public GameObject[] arrowIcons;
+    public GameObject[] playerHearts;
+    public GameObject[] enemyHearts;
     public GameObject backButton;
 
     private int playerChoice;
@@ -57,6 +60,7 @@ public class CombatManager : MonoBehaviour
 
         combatScreen.SetActive(false);
         playerStatus = player.GetComponent<PlayerStatus>();
+        HideCombatButtons();
 
         if (autoStart)
         {
@@ -355,6 +359,10 @@ public class CombatManager : MonoBehaviour
         {
             button.SetActive(true);
         }
+        foreach (GameObject arrow in arrowIcons)
+        {
+            arrow.SetActive(true);
+        }
     }
 
     private void HideCombatButtons()
@@ -362,6 +370,10 @@ public class CombatManager : MonoBehaviour
         foreach (GameObject button in combatButtons)
         {
             button.SetActive(false);
+        }
+        foreach (GameObject arrow in arrowIcons)
+        {
+            arrow.SetActive(false);
         }
     }
 
@@ -374,7 +386,6 @@ public class CombatManager : MonoBehaviour
         backButton.SetActive(false);
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -383,6 +394,66 @@ public class CombatManager : MonoBehaviour
         if (enemy != null)
         {
             enemyHealth.text = enemyStatus.currentHealth + "/" + enemyStatus.maxHealth;
+        }
+
+        // Handles Hearts Display
+        if (inCombat)
+        {
+            switch (playerStatus.currentHealth)
+            {
+                case 5:
+                    playerHearts[4].SetActive(true);
+                    playerHearts[3].SetActive(true);
+                    playerHearts[2].SetActive(true);
+                    playerHearts[1].SetActive(true);
+                    playerHearts[0].SetActive(true);
+                    break;
+                case 4:
+                    playerHearts[4].SetActive(false);
+                    playerHearts[3].SetActive(true);
+                    playerHearts[2].SetActive(true);
+                    playerHearts[1].SetActive(true);
+                    playerHearts[0].SetActive(true);
+                    break;
+                case 3:
+                    playerHearts[3].SetActive(false);
+                    playerHearts[2].SetActive(true);
+                    playerHearts[1].SetActive(true);
+                    playerHearts[0].SetActive(true);
+                    break;
+                case 2:
+                    playerHearts[2].SetActive(false);
+                    playerHearts[1].SetActive(true);
+                    playerHearts[0].SetActive(true);
+                    break;
+                case 1:
+                    playerHearts[1].SetActive(false);
+                    playerHearts[0].SetActive(true);
+                    break;
+                case 0:
+                    playerHearts[0].SetActive(false);
+                    break;
+            }
+            switch (enemyStatus.currentHealth)
+            {
+                case 3:
+                    enemyHearts[2].SetActive(true);
+                    enemyHearts[1].SetActive(true);
+                    enemyHearts[0].SetActive(true);
+                    break;
+                case 2:
+                    enemyHearts[2].SetActive(false);
+                    enemyHearts[1].SetActive(true);
+                    enemyHearts[0].SetActive(true);
+                    break;
+                case 1:
+                    enemyHearts[1].SetActive(false);
+                    enemyHearts[0].SetActive(true);
+                    break;
+                case 0:
+                    enemyHearts[0].SetActive(false);
+                    break;
+            }
         }
 
         switch (battleState)
