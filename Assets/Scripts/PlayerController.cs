@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterControllers : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed = 3f;
     private Vector3 direction = Vector3.right;  // Starting Direction
@@ -119,6 +119,11 @@ public class CharacterControllers : MonoBehaviour
         {
             npcManager.SkipLine();
         }
+    }
+
+    public void MoveToArea(AreaTransiton area)
+    {
+        transform.position = area.playerStartingPosition;
     }
 }
 

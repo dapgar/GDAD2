@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-//using Unity.VisualScripting;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,7 +27,6 @@ public class InteractionTriggers : MonoBehaviour
 
     private void detectNPC()
     {
-
         float distance = Vector3.Distance(this.transform.position, player.transform.position);
 
         if (this.gameObject.GetComponent("EnemyStatus") != null)
@@ -48,6 +47,15 @@ public class InteractionTriggers : MonoBehaviour
             else if(distance >= detectionRadius + 0.5f)
             {
                 npcScript.ResetInteraction();
+            }
+        }
+
+        if (this.gameObject.GetComponent<AreaTransiton>() != null && distance <= detectionRadius && Input.GetKey("e") && !npcManager.inConversation && !combatManager.inCombat)
+        {
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.MoveToArea(this.gameObject.GetComponent<AreaTransiton>());
             }
         }
     }
