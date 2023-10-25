@@ -32,6 +32,7 @@ public class CombatManager : MonoBehaviour
     public GameObject playerSprite;
     string enemyName;
     GameObject enemySprite;
+    public Animator crossfadeAnim; // HEY OVER HERE
 
     [Header("Test Mode")]
     public bool autoStart = true;
@@ -84,7 +85,6 @@ public class CombatManager : MonoBehaviour
 
         inCombat = true;
 
-        combatScreen.SetActive(true);
         HideCombatButtons();
         HideConfirmButtons();
 
@@ -99,6 +99,12 @@ public class CombatManager : MonoBehaviour
         // Spawn in enemy
 
         // Set HUDs
+
+        // cross fades into the battle screen
+        crossfadeAnim.SetTrigger("Start");
+        yield return new WaitForSeconds(1f); // has to wait a second to make sure that the fade starts before the battle screen appears
+
+        combatScreen.SetActive(true);
 
         yield return new WaitForSeconds(1f);
 
@@ -158,6 +164,8 @@ public class CombatManager : MonoBehaviour
             enemySprite.SetActive(false);
             Destroy(enemy);
             //enemy.SetActive(false);
+            yield return new WaitForSeconds(1);
+            crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
         }

@@ -8,6 +8,7 @@ TagManager:
   - GiantSpider
   - NPCManager
   - WinterSoldier
+  - CombatScreenCanvas
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI Sprites
   - Water
   - UI
-  - 
+  - Transitions
   - 
   - 
   - 
