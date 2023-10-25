@@ -9,7 +9,6 @@ public class InteractionTriggers : MonoBehaviour
     CombatManager combatManager;
     NPCManager npcManager;
     GameObject player;
-    Animator crossfade;
     public float detectionRadius = 2.0f;
 
     // Start is called before the first frame update
@@ -18,7 +17,6 @@ public class InteractionTriggers : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
         npcManager = GameObject.FindGameObjectWithTag("NPCManager").GetComponent<NPCManager>();
-        crossfade = GameObject.FindGameObjectWithTag("CombatScreenCanvas").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,7 +34,6 @@ public class InteractionTriggers : MonoBehaviour
         {
             if (distance <= detectionRadius && !combatManager.inCombat)
             {
-                crossfade.SetTrigger("Start");
                 combatManager.StartCombat(this.gameObject);
             }
         }

@@ -1934,9 +1934,10 @@ GameObject:
   - component: {fileID: 334331259}
   - component: {fileID: 334331261}
   - component: {fileID: 334331260}
-  m_Layer: 5
+  - component: {fileID: 334331262}
+  m_Layer: 6
   m_Name: Crossfade
-  m_TagString: CombatScreenCanvas
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1948,16 +1949,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334331258}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1456829587}
+  m_Father: {fileID: 1925455263}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -46.313}
+  m_AnchoredPosition: {x: 449.28625, y: 210.64111}
   m_SizeDelta: {x: 1920, y: 1357.2527}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &334331260
@@ -1998,6 +1999,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334331258}
   m_CullTransparentMesh: 1
+--- !u!223 &334331262
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334331258}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 1
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &398462786
 GameObject:
   m_ObjectHideFlags: 0
@@ -4810,10 +4834,9 @@ GameObject:
   - component: {fileID: 1456829586}
   - component: {fileID: 1456829585}
   - component: {fileID: 1456829584}
-  - component: {fileID: 1456829588}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: CombatScreenCanvas
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4834,7 +4857,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63
 --- !u!114 &1456829585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4893,7 +4916,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 334331259}
   - {fileID: 1206825076}
   - {fileID: 1530015755}
   m_Father: {fileID: 0}
@@ -4903,27 +4925,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!95 &1456829588
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1456829583}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 263ae9d97ec32d74089ed4278c91e37f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1461380837
 GameObject:
   m_ObjectHideFlags: 0
@@ -5339,7 +5340,7 @@ GameObject:
   - component: {fileID: 1530015756}
   m_Layer: 5
   m_Name: Combat Screen
-  m_TagString: Untagged
+  m_TagString: CombatScreenCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6630,6 +6631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1925455263}
   - component: {fileID: 1925455264}
+  - component: {fileID: 1925455265}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: CombatManager
@@ -6649,7 +6651,8 @@ Transform:
   m_LocalPosition: {x: 510.7137, y: 283.04587, z: 187.14441}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 334331259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1925455264
@@ -6674,6 +6677,7 @@ MonoBehaviour:
   battleOutcome: {fileID: 1494501794}
   enemyNameUI: {fileID: 2669883}
   playerSprite: {fileID: 219040853}
+  crossfadeAnim: {fileID: 1925455265}
   autoStart: 0
   inCombat: 0
   combatIcons:
@@ -6692,6 +6696,27 @@ MonoBehaviour:
   - {fileID: 1744322522}
   - {fileID: 54649192}
   backButton: {fileID: 688733463}
+--- !u!95 &1925455265
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925455262}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 263ae9d97ec32d74089ed4278c91e37f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1932908603
 GameObject:
   m_ObjectHideFlags: 0
