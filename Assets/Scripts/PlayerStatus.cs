@@ -10,6 +10,8 @@ public class PlayerStatus : MonoBehaviour
     public float atkDamage = 10;
     public float mgkDamage = 30;
 
+    public GameObject inventory;
+
     private void Start()
     {
         currentHealth = maxHealth;

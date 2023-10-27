@@ -2,37 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : ScriptableObject
+public class Inventory : MonoBehaviour
 {
-    public List<ItemInstance> items = new();
-    public int maxItems = 10;
+    public List<InventoryItem> inventory = new List<InventoryItem>();
+    private Dictionary<ItemData, InventoryItem> itemDictionary = new Dictionary<ItemData, InventoryItem>();
 
-    public bool AddItem(ItemInstance itemToAdd)
+    public InventoryDisplay inventoryDisplayPrefab;
+
+    //Hardcoded ItemData for Testing
+    public ItemData potion;
+
+    public void Display(Transform parentTransform)
     {
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (items[i] == null)
-            {
-                items[i] = itemToAdd;
-                return true;
-            }
-        }
-        
-        if (items.Count < maxItems)
-        {
-            items.Add(itemToAdd);
-            return true;
-        }
-
-        Debug.Log("No space in the inventory");
-        return false;
+        InventoryDisplay inventoryDisplay = (InventoryDisplay)Instantiate(inventoryDisplayPrefab);
+        inventoryDisplay.transform.SetParent(parentTransform, false);
+        inventoryDisplay.Prime(inventory);
     }
 
-  
-
-    public void RemoveItem(ItemInstance itemInstance)
+    private void Start()
     {
-        items.Remove(itemInstance);
+        Add(potion);
+    }
+
+    public void Add(ItemData itemData)
+    {
+        if (itemDictionary.TryGetValue(itemData, out InventoryItem item))
+        {
+            item.AddToStack();
+        }
+        else
+        {
+            InventoryItem newItem = new InventoryItem(itemData);
+            inventory.Add(newItem);
+            itemDictionary.Add(itemData, newItem);
+        }
+    }
+
+
+    public void Remove(ItemData itemData)
+    {
+        if (itemDictionary.TryGetValue(itemData, out InventoryItem item))
+        {
+            item.RemoveFromStack();
+            if(item.stackSize == 0)
+            {
+                inventory.Remove(item);
+                itemDictionary.Remove(itemData);
+            }
+        }
     }
 
 }

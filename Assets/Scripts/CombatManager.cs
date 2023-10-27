@@ -227,12 +227,11 @@ public class CombatManager : MonoBehaviour
         if (!hasClicked)
         {
             playerChoice = 4;
-            combatIcons[3].SetActive(true);
+            //combatIcons[3].SetActive(true);
             // block user from repeatedly pressing attack button  
             hasClicked = true;
 
-            //battleState = BattleState.ENEMYTURN;
-            //StartCoroutine(EnemyTurn());
+            playerStatus.inventory.GetComponent<Inventory>().Display(combatScreen.transform);
         }
     }
 
