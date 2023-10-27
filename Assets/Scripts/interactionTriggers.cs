@@ -10,6 +10,7 @@ public class InteractionTriggers : MonoBehaviour
     NPCManager npcManager;
     GameObject player;
     public float detectionRadius = 2.0f;
+    public Animator crossfadeAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -50,5 +51,19 @@ public class InteractionTriggers : MonoBehaviour
                 npcScript.ResetInteraction();
             }
         }
+<<<<<<< Updated upstream
+=======
+
+        if (this.gameObject.GetComponent<AreaTransiton>() != null && distance <= detectionRadius && Input.GetKey("e") && !npcManager.inConversation && !combatManager.inCombat)
+        {
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                crossfadeAnim.SetTrigger("Start");
+
+                playerController.MoveToArea(this.gameObject.GetComponent<AreaTransiton>());
+            }
+        }
+>>>>>>> Stashed changes
     }
 }
