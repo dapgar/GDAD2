@@ -11,6 +11,9 @@ public class InteractionTriggers : MonoBehaviour
     GameObject player;
     public float detectionRadius = 2.0f;
 
+    [Header("Animation")]
+    public Animator crossfadeAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +58,19 @@ public class InteractionTriggers : MonoBehaviour
             PlayerController playerController = player.GetComponent<PlayerController>();
             if (playerController != null)
             {
+                crossfadeAnim.SetTrigger("Start");
+
+                // make actual place transition wait until fade is over
+                float counter = 0;
+                float waitTime = 5;
+                while (counter < waitTime)
+                {
+                    //Increment Timer until counter >= waitTime
+                    counter += Time.deltaTime;
+                    Debug.Log("We have waited for: " + counter + " seconds");
+                    //Wait for a frame so that Unity doesn't freeze
+                }
+
                 playerController.MoveToArea(this.gameObject.GetComponent<AreaTransiton>());
             }
         }

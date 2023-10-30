@@ -32,7 +32,7 @@ public class CombatManager : MonoBehaviour
     public GameObject playerSprite;
     string enemyName;
     GameObject enemySprite;
-    public Animator crossfadeAnim; // HEY OVER HERE
+    public Animator crossfadeAnim;
 
     [Header("Test Mode")]
     public bool autoStart = true;
