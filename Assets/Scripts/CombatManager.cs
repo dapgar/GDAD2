@@ -102,7 +102,6 @@ public class CombatManager : MonoBehaviour
 
         // cross fades into the battle screen
         crossfadeAnim.SetTrigger("Start");
-        yield return new WaitForSeconds(1f); // has to wait a second to make sure that the fade starts before the battle screen appears
 
         combatScreen.SetActive(true);
 
