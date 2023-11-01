@@ -24,7 +24,7 @@ public class InventoryDisplay : MonoBehaviour
         foreach (InventoryItem item in items)
         {
             InventoryItemDisplay display = (InventoryItemDisplay)Instantiate(itemDisplayPrefab);
-            display.transform.SetParent(targetTransform, true);
+            display.transform.SetParent(targetTransform, false);
             display.Prime(item);
         }
     }

@@ -16,6 +16,7 @@ public class InventoryItemDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         if (item != null) { Prime (item); }
     }
 

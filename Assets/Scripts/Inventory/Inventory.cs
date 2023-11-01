@@ -22,6 +22,8 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         Add(potion);
+        Add(potion);
+        Add(potion);
     }
 
     public void Add(ItemData itemData)
