@@ -9,6 +9,7 @@ TagManager:
   - NPCManager
   - WinterSoldier
   - CombatScreenCanvas
+  - DialogueBoxManager
   layers:
   - Default
   - TransparentFX

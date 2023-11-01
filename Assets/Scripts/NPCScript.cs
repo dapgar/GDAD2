@@ -7,13 +7,16 @@ public class NPCScript : MonoBehaviour
     // If we want to add first time dialogue
     [SerializeField] bool firstInteraction = true;
     [SerializeField] int startingLineOfDialogue;
+    public int currentLine = 0;
 
     public string npcName;
     public GameObject npcSprite;
-    public DialogueAsset dialogueAsset;
+    public int useDialogueAssetNumber = 0;
+    public DialogueAsset[] dialogueAssets;
+    public bool needsInteractionScreen = true; // somehow use this to determine using diaogue box or interaction screen
     //public Vector3 startingPosition;
 
-    [HideInInspector]
+    
     public bool interactedWith = false;
 
     [HideInInspector]
@@ -33,6 +36,21 @@ public class NPCScript : MonoBehaviour
         }
     }
 
+    [HideInInspector]
+    public int CurrentLine
+    {
+        get
+        {
+            {
+                return currentLine;
+            }
+        }
+        set
+        {
+            currentLine = value;
+        }
+    }
+
     public void Interacted()
     {
         interactedWith = true;
@@ -43,6 +61,16 @@ public class NPCScript : MonoBehaviour
         interactedWith = false;
     }
 
+    /// <summary>
+    /// Switches to the next Dialogue Asset
+    /// </summary>
+    public void ChangeDialogue()
+    {
+        if (!firstInteraction && !(useDialogueAssetNumber >= dialogueAssets.Length))
+        {
+            useDialogueAssetNumber++;
+        }
+    }
     // For scene reset
     //public void Reset()
     //{

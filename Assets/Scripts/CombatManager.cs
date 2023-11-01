@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 //using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
+using System.Net;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE, OUTCOME }
 
@@ -54,6 +55,8 @@ public class CombatManager : MonoBehaviour
 
     private bool hasClicked = true;
 
+    private DialogueBox dialogueBoxManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +64,7 @@ public class CombatManager : MonoBehaviour
 
         combatScreen.SetActive(false);
         playerStatus = player.GetComponent<PlayerStatus>();
+        dialogueBoxManager = dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
         HideCombatButtons();
 
         if (autoStart)
@@ -125,6 +129,7 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        dialogueBoxManager.ContinueInteraction(0, -1, 2);
         HideCombatButtons();
         HideConfirmButtons();
 

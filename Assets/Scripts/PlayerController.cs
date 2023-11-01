@@ -22,11 +22,12 @@ public class PlayerController : MonoBehaviour
 
     private CombatManager combatManager;
     private NPCManager  npcManager;
-
+    private DialogueBox dialogueBoxManager;
     private void Start()
     {
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
         npcManager = GameObject.FindGameObjectWithTag("NPCManager").GetComponent<NPCManager>();
+        dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
     }
 
     private void Update()
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!combatManager.inCombat || !npcManager.inConversation)
+        if (!combatManager.inCombat && !npcManager.inConversation)
         {
             direction = movementInput;
             velocity = direction * speed * Time.deltaTime;
@@ -50,20 +51,16 @@ public class PlayerController : MonoBehaviour
             movementInput = Vector3.zero;
         }
 
-        if(npcManager.inConversation)
-        {
-            playerInput.SwitchCurrentActionMap("UI");
-        }
-        else
-        {
-            playerInput.SwitchCurrentActionMap("Player");
-        }
+        SkipDialogue();
 
-        // uncomment if you want sprite to change where it is facing
-        /*
-        if(direction != Vector2.zero)
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
-        */
+        //if(npcManager.inConversation)
+        //{
+        //    playerInput.SwitchCurrentActionMap("UI");
+        //}
+        //else
+        //{
+        //    playerInput.SwitchCurrentActionMap("Player");
+        //}
 
         // Limits of area not needed
         //Vector3 currentPosition = transform.position;
@@ -112,14 +109,35 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("walkDown", Input.GetKey("s") || Input.GetKey("down"));
     }
 
-    public void SkipDialogue(InputAction.CallbackContext context)
+    public void SkipDialogue()
     {
         // Will only skip the line in dialogue if the player is currently in a coversation
         if (Mouse.current.leftButton.wasPressedThisFrame && npcManager.inConversation)
         {
             npcManager.SkipLine();
         }
+
+        if (Mouse.current.leftButton.wasPressedThisFrame && dialogueBoxManager.inConversation)
+        {
+            dialogueBoxManager.SkipLine();
+        }
     }
+
+    //public void SkipDialogue(InputAction.CallbackContext context)
+    //{
+    //    // Will only skip the line in dialogue if the player is currently in a coversation
+    //    if (Mouse.current.leftButton.wasPressedThisFrame && npcManager.inConversation)
+    //    {
+    //        npcManager.SkipLine();
+    //    }
+
+    //    Debug.Log("BEFORE LEFT CLICK");
+    //    if (Mouse.current.leftButton.wasPressedThisFrame && dialogueBoxManager.inConversation)
+    //    {
+    //        Debug.Log("LEFTCLICK");
+    //        dialogueBoxManager.SkipLine();
+    //    }
+    //}
 
     public void MoveToArea(AreaTransiton area)
     {

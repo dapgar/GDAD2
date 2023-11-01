@@ -42,7 +42,10 @@ public class NPCManager : MonoBehaviour
         interactionScreen.SetActive(false);
     }
 
-    // Use this method to trigger the npc interaction.
+    /// <summary>
+    /// Use this method to trigger the npc interaction.
+    /// </summary>
+    /// <param name="newNPC">NPC that is talking</param>
     public void StartInteraction(GameObject newNPC)
     {
         npc = newNPC;
@@ -62,9 +65,17 @@ public class NPCManager : MonoBehaviour
         //    button.SetActive(false);
         //}
 
-        StartDialogue(npcInformation.dialogueAsset.dialogue, npcInformation.dialogueAsset.textLineSpeed, npcInformation.StartPosition, npcInformation.npcName);
+        StartDialogue(npcInformation.dialogueAssets[npcInformation.useDialogueAssetNumber].dialogue, npcInformation.dialogueAssets[npcInformation.useDialogueAssetNumber].textLineSpeed,
+            npcInformation.StartPosition, npcInformation.npcName);
     }
 
+    /// <summary>
+    /// Setups screen for dialogue and starts dialogue with the start position
+    /// </summary>
+    /// <param name="dialogue">Dialogue Asset</param>
+    /// <param name="textSpeed">Speed of Text from Dialogue Asset</param>
+    /// <param name="startPosition">Starting line of dialogue</param>
+    /// <param name="name">Name of NPC</param>
     public void StartDialogue(string[] dialogue, int[] textSpeed, int startPosition, string name)
     {
         npcName.text = name;
@@ -74,7 +85,13 @@ public class NPCManager : MonoBehaviour
         StartCoroutine(TypeTextUncapped(dialogue, textSpeed, startPosition));
     }
 
-    // Typewriter effect
+    /// <summary>
+    /// Shows the entire line with a typewritter effect
+    /// </summary>
+    /// <param name="dialogue">Dialogue Asset</param>
+    /// <param name="textSpeed">Speed of Text from Dialogue Asset</param>
+    /// <param name="startPosition">Starting line of dialogue</param>
+    /// <returns></returns>
     IEnumerator TypeTextUncapped(string[] dialogue, int[] textSpeed, int startPosition)
     {
         float charactersPerSecond = defaultCharactersPerSecond;
@@ -133,7 +150,12 @@ public class NPCManager : MonoBehaviour
         EndDialogue();
     }
 
-    // Entire line at once
+    /// <summary>
+    /// Entire line at once
+    /// </summary>
+    /// <param name="dialogue">Dialogue Asset</param>
+    /// <param name="startPosition">Starting line of dialogue</param>
+    /// <returns></returns>
     IEnumerator RunDialogue(string[] dialogue, int startPosition)
     {
         skipLineTriggered = false;
@@ -150,6 +172,9 @@ public class NPCManager : MonoBehaviour
         EndDialogue();
     }
 
+    /// <summary>
+    /// Ends dialogue and disables screen
+    /// </summary>
     public void EndDialogue()
     {
         //Debug.Log("ENDED DIALOGUE");
@@ -160,14 +185,11 @@ public class NPCManager : MonoBehaviour
         npcInformation.Interacted();
     }
 
+    /// <summary>
+    /// Skips the current line
+    /// </summary>
     public void SkipLine()
     {
         skipLineTriggered = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

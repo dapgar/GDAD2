@@ -8,6 +8,7 @@ public class InteractionTriggers : MonoBehaviour
 {
     CombatManager combatManager;
     NPCManager npcManager;
+    DialogueBox dialogueBoxManager;
     GameObject player;
     public float detectionRadius = 2.0f;
 
@@ -20,6 +21,7 @@ public class InteractionTriggers : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
         npcManager = GameObject.FindGameObjectWithTag("NPCManager").GetComponent<NPCManager>();
+        dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
     }
 
     // Update is called once per frame
@@ -39,15 +41,23 @@ public class InteractionTriggers : MonoBehaviour
                 combatManager.StartCombat(this.gameObject);
             }
         }
-
+        
         NPCScript npcScript = this.gameObject.GetComponent<NPCScript>();
         if (this.gameObject.GetComponent("NPCScript") != null)
         {
-            if (distance <= detectionRadius && !npcManager.inConversation && !npcScript.interactedWith)
+            // Uses full dialogue screen
+            if (distance <= detectionRadius && !npcManager.inConversation && !npcScript.interactedWith && npcScript.needsInteractionScreen)
             {
                 npcManager.StartInteraction(this.gameObject);
             }
-            else if(distance >= detectionRadius + 0.5f)
+            // Uses dialogue box
+            if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
+            {
+                //Debug.Log("START DIALOGUE BOX");
+                dialogueBoxManager.ContinueInteraction(0, -1, 2);
+            }
+            // If player is out of range reset interaction so it can be interacted with again
+            if(distance >= detectionRadius + 0.5f)
             {
                 npcScript.ResetInteraction();
             }
