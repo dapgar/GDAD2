@@ -10,6 +10,7 @@ public class InventoryItem
 {
     public ItemData itemData;
     public int stackSize;
+    public int maxSize;
 
     public InventoryItem(ItemData itemData)
     {
@@ -25,5 +26,10 @@ public class InventoryItem
     public void RemoveFromStack()
     {
         stackSize--;
+    }
+
+    public void UseItem()
+    {
+        RemoveFromStack();
     }
 }

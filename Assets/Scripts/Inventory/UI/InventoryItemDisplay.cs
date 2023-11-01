@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class InventoryItemDisplay : MonoBehaviour
+public class InventoryItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemQty;
@@ -12,10 +13,14 @@ public class InventoryItemDisplay : MonoBehaviour
 
     public InventoryItem item;
 
+    public GameObject itemDetails;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        itemDetails = GameObject.Find("Canvas/Combat Screen/Inventory Display/ItemDetails");
+
         transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         if (item != null) { Prime (item); }
     }
@@ -41,5 +46,21 @@ public class InventoryItemDisplay : MonoBehaviour
         {
             icon.sprite = item.itemData.icon;
         }
+    }
+
+    public void OnClick()
+    {
+        item.UseItem();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        itemDetails.SetActive(true);
+        itemDetails.GetComponent<ItemDetailDisplay>().UpdateInfo(item);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    { 
+        itemDetails.SetActive(false);
     }
 }

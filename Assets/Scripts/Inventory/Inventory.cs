@@ -7,23 +7,32 @@ public class Inventory : MonoBehaviour
     public List<InventoryItem> inventory = new List<InventoryItem>();
     private Dictionary<ItemData, InventoryItem> itemDictionary = new Dictionary<ItemData, InventoryItem>();
 
-    public InventoryDisplay inventoryDisplayPrefab;
+    public InventoryDisplay inventoryDisplay;
 
     //Hardcoded ItemData for Testing
     public ItemData potion;
+    public ItemData bottle;
+    public ItemData iron;
 
     public void Display(Transform parentTransform)
     {
-        InventoryDisplay inventoryDisplay = (InventoryDisplay)Instantiate(inventoryDisplayPrefab);
-        inventoryDisplay.transform.SetParent(parentTransform, false);
+        //InventoryDisplay inventoryDisplay = (InventoryDisplay)Instantiate(inventoryDisplayPrefab);
+        //inventoryDisplay.transform.SetParent(parentTransform, false);
+        
+        
         inventoryDisplay.Prime(inventory);
+
     }
 
     private void Start()
     {
-        Add(potion);
-        Add(potion);
-        Add(potion);
+        for (int i = 0; i < 3; i++)
+        {
+            Add(potion);
+            Add(bottle);
+            Add(iron);
+        }
+        
     }
 
     public void Add(ItemData itemData)

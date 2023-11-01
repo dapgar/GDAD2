@@ -21,11 +21,18 @@ public class InventoryDisplay : MonoBehaviour
 
     public void Prime(List<InventoryItem> items)
     {
+        gameObject.SetActive(true);
+
         foreach (InventoryItem item in items)
         {
             InventoryItemDisplay display = (InventoryItemDisplay)Instantiate(itemDisplayPrefab);
             display.transform.SetParent(targetTransform, false);
             display.Prime(item);
         }
+    }
+
+    public void UpdateList()
+    {
+
     }
 }
