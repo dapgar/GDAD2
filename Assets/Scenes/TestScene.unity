@@ -4890,7 +4890,7 @@ PrefabInstance:
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: attackBias
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
@@ -4915,12 +4915,12 @@ PrefabInstance:
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: defendBias.Array.data[0]
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: defendBias.Array.data[1]
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13736,7 +13736,7 @@ PrefabInstance:
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: attackBias
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
@@ -13761,12 +13761,12 @@ PrefabInstance:
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: defendBias.Array.data[0]
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: defendBias.Array.data[1]
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
