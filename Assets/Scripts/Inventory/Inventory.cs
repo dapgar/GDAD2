@@ -9,6 +9,8 @@ public class Inventory : MonoBehaviour
 
     public InventoryDisplay inventoryDisplay;
 
+    public bool itemSelected = false;
+
     //Hardcoded ItemData for Testing
     public ItemData potion;
     public ItemData bottle;

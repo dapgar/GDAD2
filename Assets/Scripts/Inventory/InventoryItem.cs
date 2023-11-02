@@ -30,6 +30,7 @@ public class InventoryItem
 
     public void UseItem()
     {
+        Debug.Log(itemData.itemName + " used.");
         RemoveFromStack();
     }
 }

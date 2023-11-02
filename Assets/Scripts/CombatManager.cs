@@ -219,6 +219,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnItemButtonPress()
     {
+       
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;

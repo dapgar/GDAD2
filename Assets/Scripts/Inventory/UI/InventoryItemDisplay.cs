@@ -13,13 +13,16 @@ public class InventoryItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public InventoryItem item;
 
+    public GameObject inventoryDisplay;
     public GameObject itemDetails;
+   
 
 
     // Start is called before the first frame update
     void Start()
     {
         itemDetails = GameObject.Find("Canvas/Combat Screen/Inventory Display/ItemDetails");
+        inventoryDisplay = GameObject.Find("Canvas/Combat Screen/Inventory Display");
 
         transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         if (item != null) { Prime (item); }
@@ -51,6 +54,7 @@ public class InventoryItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
     public void OnClick()
     {
         item.UseItem();
+        inventoryDisplay.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
