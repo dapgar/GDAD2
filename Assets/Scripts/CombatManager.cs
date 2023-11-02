@@ -129,6 +129,7 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        // TESTING
         dialogueBoxManager.ContinueInteraction(0, -1, 2);
         HideCombatButtons();
         HideConfirmButtons();

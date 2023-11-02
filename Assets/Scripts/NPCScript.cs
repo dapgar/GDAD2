@@ -16,7 +16,7 @@ public class NPCScript : MonoBehaviour
     public bool needsInteractionScreen = true; // somehow use this to determine using diaogue box or interaction screen
     //public Vector3 startingPosition;
 
-    
+    [HideInInspector]
     public bool interactedWith = false;
 
     [HideInInspector]
