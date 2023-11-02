@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
 {
-    public float currentHealth;
-    public float maxHealth = 100;
+    public int currentHealth;
+    public int maxHealth = 3;
 
-    public float atkDamage = 10;
-    public float mgkDamage = 30;
+    public int atkDamage = 1;
+    public int mgkDamage = 1;
+    public int parDamage = 1;
+
+    public int attackBias;
+    public int[] defendBias = new int[2];
+
+    public string enemyName;
+    public Vector3 startingPosition;
 
     public GameObject enemySprite;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        //startingPosition = transform.position;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth < 0)
@@ -25,4 +33,11 @@ public class EnemyStatus : MonoBehaviour
             currentHealth = 0;
         }
     }
+
+    //public void Reset()
+    //{
+    //    transform.position = startingPosition;
+    //    currentHealth = maxHealth;
+    //    this.gameObject.SetActive(true);
+    //}
 }

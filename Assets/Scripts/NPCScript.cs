@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class NPCScript : MonoBehaviour
 {
+    // If we want to add first time dialogue
     [SerializeField] bool firstInteraction = true;
-    [SerializeField] int repeatStartPosition; // Starting Line for Dialogue
+    [SerializeField] int startingLineOfDialogue;
+    public int currentLine = 0;
 
     public string npcName;
     public GameObject npcSprite;
-    public DialogueAsset dialogueAsset;
+    public int startingDialogueAsset = 0;
+    [HideInInspector]
+    public int useDialogueAssetNumber = 0;
+    public DialogueAsset[] dialogueAssets;
+    public bool needsInteractionScreen = true; // somehow use this to determine using diaogue box or interaction screen
+    //public Vector3 startingPosition;
 
     [HideInInspector]
     public bool interactedWith = false;
@@ -26,9 +33,29 @@ public class NPCScript : MonoBehaviour
             }
             else
             {
-                return repeatStartPosition;
+                return startingLineOfDialogue;
             }
         }
+    }
+
+    [HideInInspector]
+    public int CurrentLine
+    {
+        get
+        {
+            {
+                return currentLine;
+            }
+        }
+        set
+        {
+            currentLine = value;
+        }
+    }
+
+    public void Start()
+    {
+        useDialogueAssetNumber = startingDialogueAsset;
     }
 
     public void Interacted()
@@ -40,5 +67,26 @@ public class NPCScript : MonoBehaviour
     {
         interactedWith = false;
     }
+
+    /// <summary>
+    /// Switches to the next Dialogue Asset
+    /// </summary>
+    public void ChangeDialogue()
+    {
+        if (!firstInteraction && !(useDialogueAssetNumber >= dialogueAssets.Length))
+        {
+            useDialogueAssetNumber++;
+        }
+    }
+
+    // For scene reset
+    //public void Reset()
+    //{
+    //    firstInteraction = true;
+    //    currentLine = 0;
+    //    useDialogueAssetNumber = startingDialogueAsset;
+    //    ResetInteraction();
+    //    //transform.position = startingPosition;
+    //}
 }
 
