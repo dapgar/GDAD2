@@ -443,7 +443,7 @@ MonoBehaviour:
   - {fileID: 2081914382}
   npcNameText: {fileID: 1739513870}
   dialogueBoxText: {fileID: 1902934754}
-  defaultCharactersPerSecond: 40
+  defaultCharactersPerSecond: 100
   inConversation: 0
 --- !u!4 &29913528
 Transform:
@@ -2068,6 +2068,7 @@ MonoBehaviour:
   currentLine: 0
   npcName: Tutorial NPC
   npcSprite: {fileID: 0}
+  startingDialogueAsset: 0
   useDialogueAssetNumber: 0
   dialogueAssets:
   - {fileID: 11400000, guid: 732edca442622f9489b145966ff1e027, type: 2}
@@ -2330,6 +2331,7 @@ MonoBehaviour:
   atkDamage: 1
   mgkDamage: 1
   parDamage: 1
+  startingPosition: {x: 0, y: 0, z: 0}
 --- !u!54 &219040861
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5059,17 +5061,17 @@ PrefabInstance:
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: startingPosition.x
-      value: -1.18
+      value: 43.94
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: startingPosition.y
-      value: 0.75
+      value: 4.55
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: startingPosition.z
-      value: 3.76
+      value: 7.235887
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
@@ -5529,8 +5531,8 @@ Transform:
   - {fileID: 623972585}
   - {fileID: 2081914383}
   - {fileID: 2033118874}
-  - {fileID: 1480012503}
   - {fileID: 1319459311}
+  - {fileID: 1480012503}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &571974067 stripped
@@ -7040,7 +7042,7 @@ MonoBehaviour:
   dialogueBox: {fileID: 1713296084}
   leftClickIcon: {fileID: 1488822889}
   inConversation: 0
-  defaultCharactersPerSecond: 13
+  defaultCharactersPerSecond: 120
 --- !u!4 &708568531
 Transform:
   m_ObjectHideFlags: 0
@@ -8990,6 +8992,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainingDummy(PAR)
       objectReference: {fileID: 0}
+    - target: {fileID: 7058018491686014527, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrainingDummy
+      objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
         type: 3}
       propertyPath: enemyName
@@ -9005,6 +9012,21 @@ PrefabInstance:
       propertyPath: enemySprite
       value: 
       objectReference: {fileID: 1568292357}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.x
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.y
+      value: 4.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.z
+      value: 8.75
+      objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
         type: 3}
       propertyPath: defendBias.Array.data[1]
@@ -9863,6 +9885,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainingDummy(MGK)
       objectReference: {fileID: 0}
+    - target: {fileID: 7058018491686014527, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrainingDummy
+      objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
         type: 3}
       propertyPath: enemyName
@@ -9878,6 +9905,21 @@ PrefabInstance:
       propertyPath: enemySprite
       value: 
       objectReference: {fileID: 1568292357}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.y
+      value: 4.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.z
+      value: 8.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -12621,6 +12663,21 @@ PrefabInstance:
       propertyPath: enemySprite
       value: 
       objectReference: {fileID: 501645573}
+    - target: {fileID: 8254232790654706381, guid: b7faa8a177f6e46439ef533d082eccc1,
+        type: 3}
+      propertyPath: startingPosition.x
+      value: 50.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: b7faa8a177f6e46439ef533d082eccc1,
+        type: 3}
+      propertyPath: startingPosition.y
+      value: 4.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: b7faa8a177f6e46439ef533d082eccc1,
+        type: 3}
+      propertyPath: startingPosition.z
+      value: 4.11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14790,6 +14847,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainingDummy(ATK)
       objectReference: {fileID: 0}
+    - target: {fileID: 7058018491686014527, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrainingDummy
+      objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
         type: 3}
       propertyPath: enemyName
@@ -14805,6 +14867,21 @@ PrefabInstance:
       propertyPath: enemySprite
       value: 
       objectReference: {fileID: 1568292357}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.x
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.y
+      value: 4.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254232790654706381, guid: d8eb20bafbdb08746b8166df8bd8197f,
+        type: 3}
+      propertyPath: startingPosition.z
+      value: 8.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -15102,6 +15179,7 @@ MonoBehaviour:
   currentLine: 0
   npcName: Rob
   npcSprite: {fileID: 1994097624}
+  startingDialogueAsset: 0
   useDialogueAssetNumber: 0
   dialogueAssets:
   - {fileID: 11400000, guid: 4fb5109af1943864185eef6edd3cff40, type: 2}
@@ -15399,17 +15477,17 @@ PrefabInstance:
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: startingPosition.x
-      value: 3.05
+      value: 50.37
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: startingPosition.y
-      value: 0.75
+      value: 4.55
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
       propertyPath: startingPosition.z
-      value: 2.37
+      value: 8.285887
       objectReference: {fileID: 0}
     - target: {fileID: 8254232790654706381, guid: 9e7f343e41ede9f4fabc34388189823c,
         type: 3}
