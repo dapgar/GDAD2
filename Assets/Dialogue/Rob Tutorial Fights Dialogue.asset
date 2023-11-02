@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Rob Tutorial Fights Dialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - This dummy will primarily ATTACK and will deal no damage
-  - This dummy will primarily PARRY and will deal no damage
-  - This dummy will primarily use MAGIC and will deal no damage
-  - If both the comabatants choose the same option neither will take damage
-  - If an attack gets parried then attacker will take damage
-  - If magic is countered with an attack, it will be cancelled and the caster will
-    take damage
-  - Parry will not block magic and the defnder will take full damage
+  - This dummy will help you practice against an ATTACK!
+  - This dummy will help you practice against a PARRY!
+  - This dummy will help you practice against MAGIC!
+  - If you and the enemy choose the same move, nothing happens.
+  - If an ATTACK is PARRIED, then the ATTACKER will take damage.
+  - If MAGIC is countered with an ATTACK, then the MAGIC caster will take damage.
+  - If PARRY is used against MAGIC, it will not work, and whoever PARRIED will take
+    damage.
   textLineSpeed: 00000000000000000000000000000000000000000000000000000000

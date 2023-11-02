@@ -18,6 +18,8 @@ public class DialogueBox : MonoBehaviour
     private bool skipLineTriggered;
     public bool inConversation;
 
+    CombatManager combatManager;
+
     // allow it to be called to start dialogue from other scripts
     // needs to be called in free roam and also during combat
 
@@ -25,6 +27,14 @@ public class DialogueBox : MonoBehaviour
     void Start()
     {
         dialogueBoxScreen.SetActive(false);
+        combatManager = GameObject.FindObjectOfType<CombatManager>();
+    }
+    private void Update()
+    {
+        if (!combatManager.inCombat)
+        {
+            EndDialogue();
+        }
     }
 
     private void ShowScreen()
