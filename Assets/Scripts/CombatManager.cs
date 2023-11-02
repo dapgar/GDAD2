@@ -201,6 +201,100 @@ public class CombatManager : MonoBehaviour
         inCombat = false;
     }
 
+    public void OnAttackButtonPress()
+    {
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 1;
+            combatIcons[0].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            battleState = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    public void OnDefendButtonPress()
+    {
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 2;
+            combatIcons[1].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            battleState = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    public void OnMagicButtonPress()
+    {
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 3;
+            combatIcons[2].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            battleState = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    public void OnItemButtonPress()
+    {
+       
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 4;
+            //combatIcons[3].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            playerStatus.inventory.GetComponent<Inventory>().Display(combatScreen.transform);
+        }
+    }
+
+    public void ItemUsed(InventoryItem item)
+    {
+        //battleState = BattleState.ENEMYTURN;
+        //StartCoroutine(EnemyTurn());
+
+        switch(item.itemData.id){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+
+       
+    }
+
+
     IEnumerator CombatOutcome()
     {
         // Battle Logic
