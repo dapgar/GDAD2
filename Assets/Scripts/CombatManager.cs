@@ -181,8 +181,7 @@ public class CombatManager : MonoBehaviour
         {
             // display message here.
             enemySprite.SetActive(false);
-            Destroy(enemy);
-            //enemy.SetActive(false);
+            enemy.SetActive(false);
             yield return new WaitForSeconds(1);
             crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             yield return new WaitForSeconds(1);
