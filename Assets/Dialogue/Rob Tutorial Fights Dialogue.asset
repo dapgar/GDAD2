@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2c59c2f28a11842903c7c88a634884, type: 3}
+  m_Name: Rob Tutorial Fights Dialogue
+  m_EditorClassIdentifier: 
+  dialogue:
+  - This dummy will help you practice against an ATTACK!
+  - This dummy will help you practice against a PARRY!
+  - This dummy will help you practice against MAGIC!
+  - If you and the enemy choose the same move, nothing happens.
+  - If an ATTACK is PARRIED, then the ATTACKER will take damage.
+  - If MAGIC is countered with an ATTACK, then the MAGIC caster will take damage.
+  - If PARRY is used against MAGIC, it will not work, and whoever PARRIED will take
+    damage.
+  textLineSpeed: 00000000000000000000000000000000000000000000000000000000
