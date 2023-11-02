@@ -250,7 +250,8 @@ public class CombatManager : MonoBehaviour
                 break;
         }
 
-       
+        StartCoroutine(PlayerTurn());
+
     }
 
     IEnumerator CombatOutcome()
