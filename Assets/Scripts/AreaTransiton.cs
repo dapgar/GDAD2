@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AreaTransiton : MonoBehaviour
 {
-    public float areaNumber = 0;
+    public float sendToAreaNumber = 1;
     [Tooltip("Starting position for the player in the next area")]
     public Vector3 playerStartingPosition = Vector3.zero;
 

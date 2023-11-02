@@ -60,7 +60,7 @@ public class DialogueBox : MonoBehaviour
     /// Used to start an interaction or continue it from a previous point. Set startingLine to a negative value to start from current line
     /// </summary>
     /// <param name="currentNPCTalking">Index of NPC in npc manager</param>
-    /// <param name="startingLine">Starting Line of Dialogue</param>
+    /// <param name="startingLine">Starting Line of Dialogue (STARTS FROM 0)</param>
     /// <param name="linesSpoken">Number of Lines Spoken</param>
     public void ContinueInteraction(int currentNPCTalking, int startingLine, int linesSpoken)
     {
@@ -90,7 +90,7 @@ public class DialogueBox : MonoBehaviour
         {
             StartDialogue(npcInformation.dialogueAssets[npcInformation.useDialogueAssetNumber].dialogue, 
                 npcInformation.dialogueAssets[npcInformation.useDialogueAssetNumber].textLineSpeed,
-                npcInformation.StartPosition, npcInformation.CurrentLine + linesSpoken);
+                startingLine, startingLine + linesSpoken);
         }
     }
 

@@ -119,25 +119,17 @@ public class PlayerController : MonoBehaviour
 
         if (Mouse.current.leftButton.wasPressedThisFrame && dialogueBoxManager.inConversation)
         {
-            dialogueBoxManager.SkipLine();
+            // Will only skip lines for the dialoguebox if it is on the player's turn
+            if(!combatManager.inCombat)
+            {
+                dialogueBoxManager.SkipLine();
+            }
+            else if(combatManager.getBattleState() == BattleState.PLAYERTURN)
+            {
+                dialogueBoxManager.SkipLine();
+            }
         }
     }
-
-    //public void SkipDialogue(InputAction.CallbackContext context)
-    //{
-    //    // Will only skip the line in dialogue if the player is currently in a coversation
-    //    if (Mouse.current.leftButton.wasPressedThisFrame && npcManager.inConversation)
-    //    {
-    //        npcManager.SkipLine();
-    //    }
-
-    //    Debug.Log("BEFORE LEFT CLICK");
-    //    if (Mouse.current.leftButton.wasPressedThisFrame && dialogueBoxManager.inConversation)
-    //    {
-    //        Debug.Log("LEFTCLICK");
-    //        dialogueBoxManager.SkipLine();
-    //    }
-    //}
 
     public void MoveToArea(AreaTransiton area)
     {

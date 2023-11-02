@@ -11,6 +11,8 @@ public class NPCScript : MonoBehaviour
 
     public string npcName;
     public GameObject npcSprite;
+    public int startingDialogueAsset = 0;
+    [HideInInspector]
     public int useDialogueAssetNumber = 0;
     public DialogueAsset[] dialogueAssets;
     public bool needsInteractionScreen = true; // somehow use this to determine using diaogue box or interaction screen
@@ -51,6 +53,11 @@ public class NPCScript : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+        useDialogueAssetNumber = startingDialogueAsset;
+    }
+
     public void Interacted()
     {
         interactedWith = true;
@@ -71,12 +78,15 @@ public class NPCScript : MonoBehaviour
             useDialogueAssetNumber++;
         }
     }
+
     // For scene reset
     //public void Reset()
     //{
     //    firstInteraction = true;
+    //    currentLine = 0;
+    //    useDialogueAssetNumber = startingDialogueAsset;
     //    ResetInteraction();
-    //    transform.position = startingPosition;
+    //    //transform.position = startingPosition;
     //}
 }
 

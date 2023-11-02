@@ -54,7 +54,7 @@ public class InteractionTriggers : MonoBehaviour
             if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
             {
                 //Debug.Log("START DIALOGUE BOX");
-                dialogueBoxManager.ContinueInteraction(0, -1, 2);
+                dialogueBoxManager.ContinueInteraction(0, 0, 1);
             }
             // If player is out of range reset interaction so it can be interacted with again
             if(distance >= detectionRadius + 0.5f)
@@ -80,6 +80,9 @@ public class InteractionTriggers : MonoBehaviour
                     Debug.Log("We have waited for: " + counter + " seconds");
                     //Wait for a frame so that Unity doesn't freeze
                 }
+
+                // Sets the player's respawn point to the starting point of the new area
+                player.GetComponent<PlayerStatus>().startingPosition = this.gameObject.GetComponent<AreaTransiton>().playerStartingPosition;
 
                 playerController.MoveToArea(this.gameObject.GetComponent<AreaTransiton>());
             }

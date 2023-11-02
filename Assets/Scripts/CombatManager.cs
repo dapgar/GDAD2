@@ -114,6 +114,22 @@ public class CombatManager : MonoBehaviour
         // Fade in character sprites
 
         // Player's turn
+        if (enemy.tag == "TrainingDummy")
+        {
+            if (enemyName.ToLower().Contains("attack"))
+            {
+                dialogueBoxManager.ContinueInteraction(0, 0, 1);
+            }
+            if (enemyName.ToLower().Contains("parry"))
+            {
+                dialogueBoxManager.ContinueInteraction(0, 1, 1);
+            }
+            if (enemyName.ToLower().Contains("magic"))
+            {
+                dialogueBoxManager.ContinueInteraction(0, 2, 1);
+            }
+        }
+
         battleState = BattleState.PLAYERTURN;
         yield return StartCoroutine(PlayerTurn());
     }
@@ -129,8 +145,6 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        // TESTING
-        dialogueBoxManager.ContinueInteraction(0, -1, 2);
         HideCombatButtons();
         HideConfirmButtons();
 
@@ -182,6 +196,7 @@ public class CombatManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
             // Maybe transition scenes.
+            //Reset();
         }
 
         inCombat = false;
@@ -193,6 +208,12 @@ public class CombatManager : MonoBehaviour
         #region
         if (playerChoice == 1 && enemyChoice == 1)
         {
+            // Tutorial dialogue for if both pick the same option
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 3, 1);
+            }
+
             // Both atk
             //playerStatus.TakeDamage(enemyStatus.atkDamage);
             //enemyStatus.TakeDamage(playerStatus.atkDamage);
@@ -200,47 +221,95 @@ public class CombatManager : MonoBehaviour
         }
         else if (playerChoice == 2 && enemyChoice == 1)
         {
+            // Tutorial dialogue for if an attack gets parried
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 4, 1);
+            }
+
             // Player par, enemy atk
             enemyStatus.TakeDamage(playerStatus.parDamage);
             battleOutcome.text = "Player Parried Attack!";
         }
         else if (playerChoice == 3 && enemyChoice == 1)
         {
+            // Tutorial dialogue for if an magic gets countered
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 5, 1);
+            }
+
             // Player mgk, enemy atk
             playerStatus.TakeDamage(enemyStatus.atkDamage);
             battleOutcome.text = "Enemy Countered Magic!";
         }
         else if (playerChoice == 1 && enemyChoice == 2)
         {
+            // Tutorial dialogue for if an attack gets parried
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 4, 1);
+            }
+
             // Player atk, enemy par
             playerStatus.TakeDamage(enemyStatus.parDamage);
             battleOutcome.text = "Enemy Parried Attack!";
         }
         else if (playerChoice == 2 && enemyChoice == 2)
         {
+            // Tutorial dialogue for if both pick the same option
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 3, 1);
+            }
+
             // Both par
             battleOutcome.text = "Both Parried!";
         }
         else if (playerChoice == 3 && enemyChoice == 2)
         {
+            // Tutorial dialogue for if an magic gets parried
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 6, 1);
+            }
+
             // Player mgk, enemy par
             enemyStatus.TakeDamage(playerStatus.mgkDamage);
             battleOutcome.text = "Player Countered Parry!";
         }
         else if (playerChoice == 1 && enemyChoice == 3)
         {
+            // Tutorial dialogue for if an magic gets countered
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 5, 1);
+            }
+
             // Player atk, enemy mgk
             enemyStatus.TakeDamage(playerStatus.atkDamage);
             battleOutcome.text = "Player Countered Magic!";
         }
         else if (playerChoice == 2 && enemyChoice == 3)
         {
+            // Tutorial dialogue for if an magic gets parried
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 6, 1);
+            }
+
             // Player par, enemy mgk
             playerStatus.TakeDamage(enemyStatus.mgkDamage);
             battleOutcome.text = "Enemy Countered Parry!";
         }
         else if (playerChoice == 3 && enemyChoice == 3)
         {
+            // Tutorial dialogue for if both pick the same option
+            if (enemy.tag == "TrainingDummy")
+            {
+                dialogueBoxManager.ContinueInteraction(0, 3, 1);
+            }
+
             // Both mgk
             //playerStatus.TakeDamage(enemyStatus.mgkDamage);
             //enemyStatus.TakeDamage(playerStatus.mgkDamage);
@@ -494,23 +563,28 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // Resets all NPCs, Enemies and player to default values
-    public void Reset()
+    public BattleState getBattleState()
     {
-        //EnemyStatus[] enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        //foreach (EnemyStatus enemy in enemies)
-        //{ 
-        //    enemy.Reset(); 
-        //}
-        //NPCScript[] npcs = GameObject.FindObjectsByType<NPCScript>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        //foreach (NPCScript npc in npcs)
-        //{
-        //    npc.Reset();
-        //}
-        //playerStatus.Reset();
-        // ADD SOMETHING FOR ALLIES HERE LATER
-
-        //Debug.Log("Number of Enemies: " + enemies.Length);
-        //Debug.Log("Number of NPCs: " + enemies.Length);
+        return battleState;
     }
+
+    // Resets all NPCs, Enemies and player to default values
+    //public void Reset()
+    //{
+    //    EnemyStatus[] enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+    //    foreach (EnemyStatus enemy in enemies)
+    //    {
+    //        enemy.Reset();
+    //    }
+    //    NPCScript[] npcs = GameObject.FindObjectsByType<NPCScript>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+    //    foreach (NPCScript npc in npcs)
+    //    {
+    //        npc.Reset();
+    //    }
+    //    playerStatus.Reset();
+    //    //ADD SOMETHING FOR ALLIES HERE LATER
+
+    //    Debug.Log("Number of Enemies: " + enemies.Length);
+    //    Debug.Log("Number of NPCs: " + npcs.Length);
+    //}
 }

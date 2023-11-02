@@ -15,13 +15,14 @@ public class EnemyStatus : MonoBehaviour
     public int[] defendBias = new int[2];
 
     public string enemyName;
-    //public Vector3 startingPosition;
+    public Vector3 startingPosition;
 
     public GameObject enemySprite;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        //startingPosition = transform.position;
     }
 
     public void TakeDamage(int damage)
