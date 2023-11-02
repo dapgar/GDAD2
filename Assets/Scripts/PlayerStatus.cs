@@ -12,8 +12,6 @@ public class PlayerStatus : MonoBehaviour
     public int parDamage = 1;
     public Vector3 startingPosition;
 
-    public GameObject inventory;
-
     private void Start()
     {
         currentHealth = maxHealth;
