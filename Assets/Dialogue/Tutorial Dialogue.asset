@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Tutorial Dialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - The champion of the Summer Court - I can't believe it's really you!
-  - 'Let''s sharpen your skills before you embark on your journey. '
-  - These training dummies should help get you started!
-  - Don't worry, they cannot deal damage towards you...
-  - However the monsters and enemies outside the castle won't hold back!
-  - Good luck Summer Knight!
-  textLineSpeed: 00000000000000000000000000000000000000000000000000000000
+  - 'How are you doing? '
+  - I'm doing good
+  - c
+  - d
+  - e
+  - f

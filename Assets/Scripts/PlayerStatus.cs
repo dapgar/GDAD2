@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
 {
-    public int currentHealth;
-    public int maxHealth = 5;
+    public float currentHealth;
+    public float maxHealth = 100;
 
-    public int atkDamage = 1;
-    public int mgkDamage = 1;
-    public int parDamage = 1;
-    public Vector3 startingPosition;
+    public float atkDamage = 10;
+    public float mgkDamage = 30;
 
     public GameObject inventory;
 
@@ -19,7 +17,7 @@ public class PlayerStatus : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         if (currentHealth < 0)
@@ -27,10 +25,4 @@ public class PlayerStatus : MonoBehaviour
             currentHealth = 0;
         }
     }
-
-    //public void Reset()
-    //{
-    //    currentHealth = maxHealth;
-    //    transform.position = startingPosition;
-    //}
 }
