@@ -228,7 +228,20 @@ public class CombatManager : MonoBehaviour
             }
 
             // Player par, enemy atk
-            enemyStatus.TakeDamage(playerStatus.parDamage);
+            if(enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.parDamage * 2);
+                playerStatus.flameBottle_itemUsed = false;
+            }
+            else if(enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.parDamage * 2);
+                playerStatus.coldIron_itemUsed = false;
+            }
+            else
+            {
+                enemyStatus.TakeDamage(playerStatus.parDamage);
+            }
             battleOutcome.text = "Player Parried Attack!";
         }
         else if (playerChoice == 3 && enemyChoice == 1)
@@ -275,7 +288,20 @@ public class CombatManager : MonoBehaviour
             }
 
             // Player mgk, enemy par
-            enemyStatus.TakeDamage(playerStatus.mgkDamage);
+            if (enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.mgkDamage * 2);
+                playerStatus.flameBottle_itemUsed = false;
+            }
+            else if (enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.mgkDamage * 2);
+                playerStatus.coldIron_itemUsed = false;
+            }
+            else
+            {
+                enemyStatus.TakeDamage(playerStatus.mgkDamage);
+            }
             battleOutcome.text = "Player Countered Parry!";
         }
         else if (playerChoice == 1 && enemyChoice == 3)
@@ -287,7 +313,20 @@ public class CombatManager : MonoBehaviour
             }
 
             // Player atk, enemy mgk
-            enemyStatus.TakeDamage(playerStatus.atkDamage);
+            if (enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.atkDamage * 2);
+                playerStatus.flameBottle_itemUsed = false;
+            }
+            else if (enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.atkDamage * 2);
+                playerStatus.coldIron_itemUsed = false;
+            }
+            else
+            {
+                enemyStatus.TakeDamage(playerStatus.atkDamage);
+            }
             battleOutcome.text = "Player Countered Magic!";
         }
         else if (playerChoice == 2 && enemyChoice == 3)
