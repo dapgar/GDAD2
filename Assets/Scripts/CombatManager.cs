@@ -236,6 +236,23 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public void ItemUsed(InventoryItem item)
+    {
+        //battleState = BattleState.ENEMYTURN;
+        //StartCoroutine(EnemyTurn());
+
+        switch(item.itemData.id){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+
+       
+    }
+
     IEnumerator CombatOutcome()
     {
         // Battle Logic

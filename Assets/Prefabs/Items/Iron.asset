@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89f1274c96cce0f4da94bda90d00a072, type: 3}
-  m_Name: Bottle
+  m_Name: Iron
   m_EditorClassIdentifier: 
-  itemName: Flame Bottle
+  itemName: Cold Iron
   icon: {fileID: 21300000, guid: 6d830186cc10d864f97d5e7e13e7edfd, type: 3}
-  description: A flask of unknown achohol stopped with a rag, ready to be lit. Increases
-    damage (x2) of the next attack against spiders.
+  id: 2
+  description: A normal looking piece of metal, but it feels freezing to your touch.
+    Increases damage (x2) on the next attack against fey.

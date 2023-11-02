@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InventoryDisplay : MonoBehaviour
 {
+    public Inventory inventory;
+
     public Transform targetTransform;
     public InventoryItemDisplay itemDisplayPrefab;
 
@@ -23,11 +25,21 @@ public class InventoryDisplay : MonoBehaviour
     {
         gameObject.SetActive(true);
 
+        foreach (Transform child in targetTransform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
         foreach (InventoryItem item in items)
         {
-            InventoryItemDisplay display = (InventoryItemDisplay)Instantiate(itemDisplayPrefab);
-            display.transform.SetParent(targetTransform, false);
-            display.Prime(item);
+            if(item.stackSize > 0 || item.itemData.id == 1)
+            {
+                InventoryItemDisplay display = (InventoryItemDisplay)Instantiate(itemDisplayPrefab);
+                display.transform.SetParent(targetTransform, false);
+                display.Prime(item);
+            }
+
+            
         }
     }
 

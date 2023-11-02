@@ -2018,6 +2018,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: []
   inventoryDisplay: {fileID: 1792558633}
+  itemSelected: 0
+  player: {fileID: 219040853}
+  combatManager: {fileID: 1925455262}
   potion: {fileID: 11400000, guid: 7d9300d52fe73fb42828378c1940e504, type: 2}
   bottle: {fileID: 11400000, guid: 281eb32b6f44632459a99b1aae8b0879, type: 2}
   iron: {fileID: 11400000, guid: 844119d9a4dd16b439713b8c2da4444c, type: 2}
@@ -6743,6 +6746,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1530015755}
     m_Modifications:
+    - target: {fileID: 3406565763083261391, guid: 5430f3a687d14f84bb4b5d9c89fd5a06,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 411671141}
     - target: {fileID: 3406565763083261391, guid: 5430f3a687d14f84bb4b5d9c89fd5a06,
         type: 3}
       propertyPath: itemDisplayPrefab

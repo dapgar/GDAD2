@@ -54,6 +54,7 @@ public class InventoryItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
     public void OnClick()
     {
         item.UseItem();
+        inventoryDisplay.GetComponent<InventoryDisplay>().inventory.ItemUsed(item);
         inventoryDisplay.SetActive(false);
     }
 

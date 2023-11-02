@@ -30,7 +30,15 @@ public class InventoryItem
 
     public void UseItem()
     {
-        Debug.Log(itemData.itemName + " used.");
-        RemoveFromStack();
+        if (stackSize != 0)
+        {
+            Debug.Log(itemData.itemName + " used.");
+            RemoveFromStack();
+        }
+        else
+        {
+            Debug.Log("You do not have any " + itemData.itemName + " remaining.");
+        }
+        
     }
 }

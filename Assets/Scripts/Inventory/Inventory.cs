@@ -11,6 +11,9 @@ public class Inventory : MonoBehaviour
 
     public bool itemSelected = false;
 
+    public GameObject player;
+    public GameObject combatManager;
+
     //Hardcoded ItemData for Testing
     public ItemData potion;
     public ItemData bottle;
@@ -20,8 +23,8 @@ public class Inventory : MonoBehaviour
     {
         //InventoryDisplay inventoryDisplay = (InventoryDisplay)Instantiate(inventoryDisplayPrefab);
         //inventoryDisplay.transform.SetParent(parentTransform, false);
-        
-        
+
+        itemSelected = false;
         inventoryDisplay.Prime(inventory);
 
     }
@@ -63,6 +66,12 @@ public class Inventory : MonoBehaviour
                 itemDictionary.Remove(itemData);
             }
         }
+    }
+
+    public void ItemUsed(InventoryItem item)
+    {
+        itemSelected = true;
+        combatManager.GetComponent<CombatManager>().ItemUsed(item); 
     }
 
 }
