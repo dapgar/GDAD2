@@ -483,11 +483,6 @@ public class CombatManager : MonoBehaviour
         // allow only a single action per turn
         if (!hasClicked)
         {
-            playerChoice = 4;
-            //combatIcons[3].SetActive(true);
-            // block user from repeatedly pressing attack button  
-            hasClicked = true;
-
             playerStatus.inventory.GetComponent<Inventory>().Display(combatScreen.transform);
         }
     }
@@ -496,6 +491,9 @@ public class CombatManager : MonoBehaviour
     {
         //battleState = BattleState.ENEMYTURN;
         //StartCoroutine(EnemyTurn());
+
+         playerChoice = 4;
+            hasClicked = true;
 
         switch (item.itemData.id)
         {
@@ -623,6 +621,8 @@ public class CombatManager : MonoBehaviour
                     enemyHearts[0].SetActive(true);
                     break;
                 case 0:
+                    enemyHearts[2].SetActive(false);
+                    enemyHearts[1].SetActive(false);
                     enemyHearts[0].SetActive(false);
                     break;
             }

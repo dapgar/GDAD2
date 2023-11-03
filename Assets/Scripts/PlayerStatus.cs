@@ -33,9 +33,9 @@ public class PlayerStatus : MonoBehaviour
 
     public void Heal(int amount)
     {
-        for (int i = 0;i < amount; i++)
+        for (int i = 0; i < amount; i++)
         {
-            if(currentHealth+1 < maxHealth)
+            if(currentHealth + 1 <= maxHealth)
             {
                 currentHealth++;
             }

@@ -70,8 +70,13 @@ public class Inventory : MonoBehaviour
 
     public void ItemUsed(InventoryItem item)
     {
-        itemSelected = true;
-        combatManager.GetComponent<CombatManager>().ItemUsed(item); 
+       
+        if(item.stackSize > 0)
+        {
+            itemSelected = true;
+            combatManager.GetComponent<CombatManager>().ItemUsed(item);
+        }
+        
     }
 
     public void RefillPotion()
