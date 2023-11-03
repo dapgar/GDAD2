@@ -43,8 +43,8 @@ public class InventoryDisplay : MonoBehaviour
         }
     }
 
-    public void UpdateList()
+    public void Close()
     {
-
+        gameObject.SetActive(false);
     }
 }
