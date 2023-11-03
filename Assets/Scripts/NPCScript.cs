@@ -71,11 +71,11 @@ public class NPCScript : MonoBehaviour
     /// <summary>
     /// Switches to the next Dialogue Asset
     /// </summary>
-    public void ChangeDialogue()
+    public void ChangeDialogue(int newDialogueAssetNumber)
     {
-        if (!firstInteraction && !(useDialogueAssetNumber >= dialogueAssets.Length))
+        if (!firstInteraction && !(newDialogueAssetNumber >= dialogueAssets.Length))
         {
-            useDialogueAssetNumber++;
+            useDialogueAssetNumber = newDialogueAssetNumber;
         }
     }
 
