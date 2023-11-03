@@ -577,21 +577,31 @@ public class CombatManager : MonoBehaviour
                     playerHearts[0].SetActive(true);
                     break;
                 case 3:
+                    playerHearts[4].SetActive(false);
                     playerHearts[3].SetActive(false);
                     playerHearts[2].SetActive(true);
                     playerHearts[1].SetActive(true);
                     playerHearts[0].SetActive(true);
                     break;
                 case 2:
+                    playerHearts[4].SetActive(false);
+                    playerHearts[3].SetActive(false);
                     playerHearts[2].SetActive(false);
                     playerHearts[1].SetActive(true);
                     playerHearts[0].SetActive(true);
                     break;
                 case 1:
+                    playerHearts[4].SetActive(false);
+                    playerHearts[3].SetActive(false);
+                    playerHearts[2].SetActive(false);
                     playerHearts[1].SetActive(false);
                     playerHearts[0].SetActive(true);
                     break;
                 case 0:
+                    playerHearts[4].SetActive(false);
+                    playerHearts[3].SetActive(false);
+                    playerHearts[2].SetActive(false);
+                    playerHearts[1].SetActive(false);
                     playerHearts[0].SetActive(false);
                     break;
             }
