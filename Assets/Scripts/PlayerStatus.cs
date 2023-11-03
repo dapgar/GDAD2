@@ -19,7 +19,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = 2;
+        currentHealth = maxHealth;
     }
 
     public void TakeDamage(int damage)
