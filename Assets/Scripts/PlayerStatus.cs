@@ -6,11 +6,16 @@ public class PlayerStatus : MonoBehaviour
 {
     public int currentHealth;
     public int maxHealth = 5;
-
+    
     public int atkDamage = 1;
     public int mgkDamage = 1;
     public int parDamage = 1;
     public Vector3 startingPosition;
+
+    public GameObject inventory;
+
+    public bool coldIron_itemUsed = false;
+    public bool flameBottle_itemUsed = false;
 
     private void Start()
     {
@@ -25,6 +30,19 @@ public class PlayerStatus : MonoBehaviour
             currentHealth = 0;
         }
     }
+
+    public void Heal(int amount)
+    {
+        for (int i = 0;i < amount; i++)
+        {
+            if(currentHealth+1 < maxHealth)
+            {
+                currentHealth++;
+            }
+        }
+  
+    }
+
 
     //public void Reset()
     //{

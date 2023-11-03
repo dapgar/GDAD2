@@ -201,6 +201,7 @@ public class CombatManager : MonoBehaviour
         inCombat = false;
     }
 
+
     IEnumerator CombatOutcome()
     {
         // Battle Logic
@@ -227,7 +228,20 @@ public class CombatManager : MonoBehaviour
             }
 
             // Player par, enemy atk
-            enemyStatus.TakeDamage(playerStatus.parDamage);
+            if(enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.parDamage * 2);
+                playerStatus.flameBottle_itemUsed = false;
+            }
+            else if(enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.parDamage * 2);
+                playerStatus.coldIron_itemUsed = false;
+            }
+            else
+            {
+                enemyStatus.TakeDamage(playerStatus.parDamage);
+            }
             battleOutcome.text = "Player Parried Attack!";
         }
         else if (playerChoice == 3 && enemyChoice == 1)
@@ -274,7 +288,20 @@ public class CombatManager : MonoBehaviour
             }
 
             // Player mgk, enemy par
-            enemyStatus.TakeDamage(playerStatus.mgkDamage);
+            if (enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.mgkDamage * 2);
+                playerStatus.flameBottle_itemUsed = false;
+            }
+            else if (enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.mgkDamage * 2);
+                playerStatus.coldIron_itemUsed = false;
+            }
+            else
+            {
+                enemyStatus.TakeDamage(playerStatus.mgkDamage);
+            }
             battleOutcome.text = "Player Countered Parry!";
         }
         else if (playerChoice == 1 && enemyChoice == 3)
@@ -286,7 +313,20 @@ public class CombatManager : MonoBehaviour
             }
 
             // Player atk, enemy mgk
-            enemyStatus.TakeDamage(playerStatus.atkDamage);
+            if (enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.atkDamage * 2);
+                playerStatus.flameBottle_itemUsed = false;
+            }
+            else if (enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
+            {
+                enemyStatus.TakeDamage(playerStatus.atkDamage * 2);
+                playerStatus.coldIron_itemUsed = false;
+            }
+            else
+            {
+                enemyStatus.TakeDamage(playerStatus.atkDamage);
+            }
             battleOutcome.text = "Player Countered Magic!";
         }
         else if (playerChoice == 2 && enemyChoice == 3)
@@ -431,6 +471,46 @@ public class CombatManager : MonoBehaviour
     {
         HideConfirmButtons();
         ShowCombatButtons();
+    }
+
+    public void OnItemButtonPress()
+    {
+
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        // allow only a single action per turn
+        if (!hasClicked)
+        {
+            playerChoice = 4;
+            //combatIcons[3].SetActive(true);
+            // block user from repeatedly pressing attack button  
+            hasClicked = true;
+
+            playerStatus.inventory.GetComponent<Inventory>().Display(combatScreen.transform);
+        }
+    }
+
+    public void ItemUsed(InventoryItem item)
+    {
+        //battleState = BattleState.ENEMYTURN;
+        //StartCoroutine(EnemyTurn());
+
+        switch (item.itemData.id)
+        {
+            case 1: //heal from potion.
+                playerStatus.Heal(2);
+                break;
+            case 2: //cold iron
+                playerStatus.coldIron_itemUsed = true;
+                break;
+            case 3: //spider item
+                playerStatus.flameBottle_itemUsed = true;
+                break;
+        }
+
+        StartCoroutine(PlayerTurn());
     }
 
     // Show/Hide buttons

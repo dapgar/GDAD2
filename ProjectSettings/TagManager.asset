@@ -7,10 +7,12 @@ TagManager:
   - CombatManager
   - GiantSpider
   - NPCManager
+  - Inventory
   - WinterSoldier
   - CombatScreenCanvas
   - DialogueBoxManager
   - TrainingDummy
+
   layers:
   - Default
   - TransparentFX
