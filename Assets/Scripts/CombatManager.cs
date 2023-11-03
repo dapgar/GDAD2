@@ -618,6 +618,7 @@ public class CombatManager : MonoBehaviour
                     enemyHearts[0].SetActive(true);
                     break;
                 case 1:
+                    enemyHearts[2].SetActive(false);
                     enemyHearts[1].SetActive(false);
                     enemyHearts[0].SetActive(true);
                     break;

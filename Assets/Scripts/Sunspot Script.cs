@@ -5,7 +5,11 @@ using UnityEngine;
 public class SunspotScript : MonoBehaviour
 {
     public SunspotManager sunspotManager;
+    public GameObject promptText;
     bool inSunspot = false;
+
+    [Header("Animation")]
+    public Animator crossfadeAnim;
 
     private void Start()
     {
@@ -16,6 +20,8 @@ public class SunspotScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && inSunspot)
         {
+            promptText.SetActive(false);
+            crossfadeAnim.SetTrigger("Start");
             sunspotManager.Rest();
             Debug.Log("Rested");
         }
