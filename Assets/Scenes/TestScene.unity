@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18261865, g: 0.22832929, b: 0.30716097, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9954,6 +9954,7 @@ Transform:
   - {fileID: 627229270}
   - {fileID: 1402965846}
   - {fileID: 1120652541}
+  - {fileID: 2081914383}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &485776051
@@ -10569,7 +10570,6 @@ Transform:
   - {fileID: 1081125826}
   - {fileID: 211357941}
   - {fileID: 623972585}
-  - {fileID: 2081914383}
   - {fileID: 2033118874}
   - {fileID: 1319459311}
   - {fileID: 1480012503}
@@ -20524,7 +20524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2081914383
 Transform:
   m_ObjectHideFlags: 0
@@ -20534,11 +20534,11 @@ Transform:
   m_GameObject: {fileID: 2081914382}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 49.89, y: 4.34, z: 2.45}
+  m_LocalPosition: {x: 45.407005, y: 4.34, z: 3.333}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 550338381}
+  m_Father: {fileID: 485634054}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2081914384
 MonoBehaviour:
@@ -20574,8 +20574,8 @@ MonoBehaviour:
   startingDialogueAsset: 0
   useDialogueAssetNumber: 0
   dialogueAssets:
-  - {fileID: 11400000, guid: 4fb5109af1943864185eef6edd3cff40, type: 2}
-  needsInteractionScreen: 0
+  - {fileID: 11400000, guid: 82ee0fb95ef2e95489373773e00b8ffb, type: 2}
+  needsInteractionScreen: 1
   interactedWith: 0
 --- !u!136 &2081914386
 CapsuleCollider:
@@ -20592,7 +20592,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -20607,7 +20607,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081914382}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
