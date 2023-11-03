@@ -10,7 +10,7 @@ public class InventoryItem
 {
     public ItemData itemData;
     public int stackSize;
-    public int maxSize;
+    public int maxSize = 3;
 
     public InventoryItem(ItemData itemData)
     {

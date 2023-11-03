@@ -74,4 +74,14 @@ public class Inventory : MonoBehaviour
         combatManager.GetComponent<CombatManager>().ItemUsed(item); 
     }
 
+    public void RefillPotion()
+    {
+        foreach (InventoryItem item in inventory)
+        {
+            if (item.itemData.id == 1)
+            {
+                item.stackSize = item.maxSize;
+            }
+        }
+    }
 }
