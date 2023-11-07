@@ -9,12 +9,12 @@ public class EnemyStatus : MonoBehaviour
 
     public int atkDamage = 1;
     public int mgkDamage = 1;
-    public int parDamage = 1;
 
     public int attackBias;
     public int[] defendBias = new int[2];
 
     public string enemyName;
+    public string race;
     public Vector3 startingPosition;
 
     public GameObject enemySprite;
