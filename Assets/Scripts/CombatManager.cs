@@ -49,6 +49,9 @@ public class CombatManager : MonoBehaviour
 
     private DialogueBox dialogueBoxManager;
 
+    //[Header("Animations")]
+    //public Animator playerAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -261,6 +264,7 @@ public class CombatManager : MonoBehaviour
         if (target.CompareTag("Player"))
         {
             target.GetComponent<PlayerStatus>().TakeDamage(enemyStatus.atkDamage);
+            //playerAnimation.SetTrigger("Hit");
         }
         else
         {
@@ -276,6 +280,7 @@ public class CombatManager : MonoBehaviour
             {
                 target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage);
             }
+            //playerAnimation.SetTrigger("Attack");
         }
     }
 
