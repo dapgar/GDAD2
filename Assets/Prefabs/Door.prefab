@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa7879accd0b874cac5ab5b23d21ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 0.7
+  detectionRadius: 1
   crossfadeAnim: {fileID: 4628656377988144669}
 --- !u!114 &4837039268091712030
 MonoBehaviour:
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114b17574db13224a8ad78a4eb197209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaNumber: 0
+  sendToAreaNumber: 1
   playerStartingPosition: {x: -18.73, y: 0.48, z: 2.67}
 --- !u!95 &4628656377988144669
 Animator:

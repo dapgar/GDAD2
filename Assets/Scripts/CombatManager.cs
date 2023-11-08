@@ -57,9 +57,13 @@ public class CombatManager : MonoBehaviour
 
     private DialogueBox dialogueBoxManager;
 
+    public EnemyStatus[] enemies;
+
     // Start is called before the first frame update
     void Start()
     {
+        enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
         playerSprite.SetActive(true);
 
         combatScreen.SetActive(false);
@@ -190,12 +194,12 @@ public class CombatManager : MonoBehaviour
         // Check if player lost.
         else if (battleState == BattleState.LOSE)
         {
-            playerSprite.SetActive(false);
+            //playerSprite.SetActive(false);
             // display message here.
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
             // Maybe transition scenes.
-            //Reset();
+            Reset();
         }
 
         inCombat = false;
@@ -658,23 +662,23 @@ public class CombatManager : MonoBehaviour
         return battleState;
     }
 
-    // Resets all NPCs, Enemies and player to default values
-    //public void Reset()
-    //{
-    //    EnemyStatus[] enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-    //    foreach (EnemyStatus enemy in enemies)
-    //    {
-    //        enemy.Reset();
-    //    }
-    //    NPCScript[] npcs = GameObject.FindObjectsByType<NPCScript>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-    //    foreach (NPCScript npc in npcs)
-    //    {
-    //        npc.Reset();
-    //    }
-    //    playerStatus.Reset();
-    //    //ADD SOMETHING FOR ALLIES HERE LATER
+    //Resets all NPCs, Enemies and player to default values
+    public void Reset()
+    {
+        /*EnemyStatus[]*/ enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (EnemyStatus enemy in enemies)
+        {
+            enemy.Reset();
+        }
+        NPCScript[] npcs = GameObject.FindObjectsByType<NPCScript>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (NPCScript npc in npcs)
+        {
+            npc.Reset();
+        }
+        playerStatus.Reset();
+        //ADD SOMETHING FOR ALLIES HERE LATER
 
-    //    Debug.Log("Number of Enemies: " + enemies.Length);
-    //    Debug.Log("Number of NPCs: " + npcs.Length);
-    //}
+        Debug.Log("Number of Enemies: " + enemies.Length);
+        Debug.Log("Number of NPCs: " + npcs.Length);
+    }
 }

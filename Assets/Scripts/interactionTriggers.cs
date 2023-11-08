@@ -77,14 +77,16 @@ public class InteractionTriggers : MonoBehaviour
                 {
                     //Increment Timer until counter >= waitTime
                     counter += Time.deltaTime;
-                    Debug.Log("We have waited for: " + counter + " seconds");
+                    //Debug.Log("We have waited for: " + counter + " seconds");
                     //Wait for a frame so that Unity doesn't freeze
                 }
 
+                Debug.Log(this.gameObject.GetComponent<AreaTransiton>().playerStartingPosition);
                 // Sets the player's respawn point to the starting point of the new area
                 player.GetComponent<PlayerStatus>().startingPosition = this.gameObject.GetComponent<AreaTransiton>().playerStartingPosition;
 
                 playerController.MoveToArea(this.gameObject.GetComponent<AreaTransiton>());
+                
             }
         }
     }

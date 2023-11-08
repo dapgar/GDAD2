@@ -80,13 +80,13 @@ public class NPCScript : MonoBehaviour
     }
 
     // For scene reset
-    //public void Reset()
-    //{
-    //    firstInteraction = true;
-    //    currentLine = 0;
-    //    useDialogueAssetNumber = startingDialogueAsset;
-    //    ResetInteraction();
-    //    //transform.position = startingPosition;
-    //}
+    public void Reset()
+    {
+        firstInteraction = true;
+        currentLine = 0;
+        useDialogueAssetNumber = startingDialogueAsset;
+        ResetInteraction();
+        //transform.position = startingPosition;
+    }
 }
 
