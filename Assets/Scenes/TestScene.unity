@@ -10292,7 +10292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1530015755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14165,7 +14165,6 @@ MonoBehaviour:
   - {fileID: 22125547}
   - {fileID: 420423338}
   - {fileID: 542599890}
-  playerAnimation: {fileID: 34865}
 --- !u!95 &1925455265
 Animator:
   serializedVersion: 5
