@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Net;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE, OUTCOME }
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE, FLEE,}
 
 public class CombatManager : MonoBehaviour
 {
@@ -28,7 +28,6 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI playerHealth;
     public TextMeshProUGUI enemyHealth;
     public TextMeshProUGUI turnIndicator;
-    public TextMeshProUGUI battleOutcome;
     public TextMeshProUGUI enemyNameUI;
     public GameObject playerSprite;
     string enemyName;
@@ -40,22 +39,18 @@ public class CombatManager : MonoBehaviour
 
     public bool inCombat;
 
-    public GameObject[] combatIcons;
-    public GameObject[] combatButtons;
-    public GameObject[] confirmButtons;
-    public GameObject[] arrowIcons;
+    public GameObject playerHUD;
     public GameObject[] playerHearts;
     public GameObject[] enemyHearts;
-    public GameObject backButton;
-
-    private int playerChoice;
-    private int enemyChoice;
 
     private BattleState battleState;
 
     private bool hasClicked = true;
 
     private DialogueBox dialogueBoxManager;
+
+    //[Header("Animations")]
+    //public Animator playerAnimation;
 
     public EnemyStatus[] enemies;
 
@@ -69,14 +64,7 @@ public class CombatManager : MonoBehaviour
         combatScreen.SetActive(false);
         playerStatus = player.GetComponent<PlayerStatus>();
         dialogueBoxManager = dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
-        HideCombatButtons();
-
-        if (autoStart)
-        {
-            //StartCombat();
-
-            //Reset();
-        }
+        HidePlayerHUD();
     }
 
     // Use this method to trigger the combat sequence.
@@ -93,8 +81,7 @@ public class CombatManager : MonoBehaviour
 
         inCombat = true;
 
-        HideCombatButtons();
-        HideConfirmButtons();
+        HidePlayerHUD();
 
         battleState = BattleState.START;
         StartCoroutine(BeginBattle());
@@ -103,11 +90,6 @@ public class CombatManager : MonoBehaviour
     // Combat methods
     IEnumerator BeginBattle()
     {
-        // Spawn in player
-        // Spawn in enemy
-
-        // Set HUDs
-
         // cross fades into the battle screen
         crossfadeAnim.SetTrigger("Start");
 
@@ -115,9 +97,8 @@ public class CombatManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        // Fade in character sprites
-
         // Player's turn
+        /*
         if (enemy.tag == "TrainingDummy")
         {
             if (enemyName.ToLower().Contains("attack"))
@@ -133,6 +114,7 @@ public class CombatManager : MonoBehaviour
                 dialogueBoxManager.ContinueInteraction(0, 2, 1);
             }
         }
+        */
 
         battleState = BattleState.PLAYERTURN;
         yield return StartCoroutine(PlayerTurn());
@@ -142,40 +124,19 @@ public class CombatManager : MonoBehaviour
     {
         // release the blockade on clicking 
         // so that player can click on 'attack' button
-        ShowCombatButtons();
+        ShowPlayerHUD();
         hasClicked = false;
         yield return null;
     }
 
     IEnumerator EnemyTurn()
     {
-        HideCombatButtons();
-        HideConfirmButtons();
-
+        HidePlayerHUD();
         yield return new WaitForSeconds(1);
 
-        enemyChoice = Random.Range(1, 11);
-        // Attack Chance
-        if (enemyChoice <= attackBias)
-        {
-            combatIcons[3].SetActive(true);
-            enemyChoice = 1;
-        }
-        // Defend Chance
-        else if (enemyChoice >= defendBias[0] && enemyChoice <= defendBias[1])
-        {
-            combatIcons[4].SetActive(true);
-            enemyChoice = 2;
-        }
-        // Magic Chance
-        else
-        {
-            combatIcons[5].SetActive(true);
-            enemyChoice = 3;
-        }
-
-        battleState = BattleState.OUTCOME;
-        StartCoroutine(CombatOutcome());
+        Attack(player);
+        battleState = BattleState.PLAYERTURN;
+        StartCoroutine(PlayerTurn());
     }
 
     IEnumerator EndBattle()
@@ -201,204 +162,20 @@ public class CombatManager : MonoBehaviour
             // Maybe transition scenes.
             Reset();
         }
+        else if (battleState == BattleState.FLEE)
+        {
+            yield return new WaitForSeconds(1);
+            crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
+            yield return new WaitForSeconds(1);
+            combatScreen.SetActive(false);
+        }
 
         inCombat = false;
-    }
-
-
-    IEnumerator CombatOutcome()
-    {
-        // Battle Logic
-        #region
-        if (playerChoice == 1 && enemyChoice == 1)
-        {
-            // Tutorial dialogue for if both pick the same option
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 3, 1);
-            }
-
-            // Both atk
-            //playerStatus.TakeDamage(enemyStatus.atkDamage);
-            //enemyStatus.TakeDamage(playerStatus.atkDamage);
-            battleOutcome.text = "Both Attacked!";
-        }
-        else if (playerChoice == 2 && enemyChoice == 1)
-        {
-            // Tutorial dialogue for if an attack gets parried
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 4, 1);
-            }
-
-            // Player par, enemy atk
-            if(enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
-            {
-                enemyStatus.TakeDamage(playerStatus.parDamage * 2);
-                playerStatus.flameBottle_itemUsed = false;
-            }
-            else if(enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
-            {
-                enemyStatus.TakeDamage(playerStatus.parDamage * 2);
-                playerStatus.coldIron_itemUsed = false;
-            }
-            else
-            {
-                enemyStatus.TakeDamage(playerStatus.parDamage);
-            }
-            battleOutcome.text = "Player Parried Attack!";
-        }
-        else if (playerChoice == 3 && enemyChoice == 1)
-        {
-            // Tutorial dialogue for if an magic gets countered
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 5, 1);
-            }
-
-            // Player mgk, enemy atk
-            playerStatus.TakeDamage(enemyStatus.atkDamage);
-            battleOutcome.text = "Enemy Countered Magic!";
-        }
-        else if (playerChoice == 1 && enemyChoice == 2)
-        {
-            // Tutorial dialogue for if an attack gets parried
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 4, 1);
-            }
-
-            // Player atk, enemy par
-            playerStatus.TakeDamage(enemyStatus.parDamage);
-            battleOutcome.text = "Enemy Parried Attack!";
-        }
-        else if (playerChoice == 2 && enemyChoice == 2)
-        {
-            // Tutorial dialogue for if both pick the same option
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 3, 1);
-            }
-
-            // Both par
-            battleOutcome.text = "Both Parried!";
-        }
-        else if (playerChoice == 3 && enemyChoice == 2)
-        {
-            // Tutorial dialogue for if an magic gets parried
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 6, 1);
-            }
-
-            // Player mgk, enemy par
-            if (enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
-            {
-                enemyStatus.TakeDamage(playerStatus.mgkDamage * 2);
-                playerStatus.flameBottle_itemUsed = false;
-            }
-            else if (enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
-            {
-                enemyStatus.TakeDamage(playerStatus.mgkDamage * 2);
-                playerStatus.coldIron_itemUsed = false;
-            }
-            else
-            {
-                enemyStatus.TakeDamage(playerStatus.mgkDamage);
-            }
-            battleOutcome.text = "Player Countered Parry!";
-        }
-        else if (playerChoice == 1 && enemyChoice == 3)
-        {
-            // Tutorial dialogue for if an magic gets countered
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 5, 1);
-            }
-
-            // Player atk, enemy mgk
-            if (enemy.tag == "GiantSpider" && playerStatus.flameBottle_itemUsed)
-            {
-                enemyStatus.TakeDamage(playerStatus.atkDamage * 2);
-                playerStatus.flameBottle_itemUsed = false;
-            }
-            else if (enemy.tag == "WinterSoldier" && playerStatus.coldIron_itemUsed)
-            {
-                enemyStatus.TakeDamage(playerStatus.atkDamage * 2);
-                playerStatus.coldIron_itemUsed = false;
-            }
-            else
-            {
-                enemyStatus.TakeDamage(playerStatus.atkDamage);
-            }
-            battleOutcome.text = "Player Countered Magic!";
-        }
-        else if (playerChoice == 2 && enemyChoice == 3)
-        {
-            // Tutorial dialogue for if an magic gets parried
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 6, 1);
-            }
-
-            // Player par, enemy mgk
-            playerStatus.TakeDamage(enemyStatus.mgkDamage);
-            battleOutcome.text = "Enemy Countered Parry!";
-        }
-        else if (playerChoice == 3 && enemyChoice == 3)
-        {
-            // Tutorial dialogue for if both pick the same option
-            if (enemy.tag == "TrainingDummy")
-            {
-                dialogueBoxManager.ContinueInteraction(0, 3, 1);
-            }
-
-            // Both mgk
-            //playerStatus.TakeDamage(enemyStatus.mgkDamage);
-            //enemyStatus.TakeDamage(playerStatus.mgkDamage);
-            battleOutcome.text = "Both Used Magic!";
-        }
-        #endregion
-
-        yield return new WaitForSeconds(1f);
-
-        battleOutcome.text = " ";
-        foreach (GameObject icon in combatIcons)
-        {
-            icon.SetActive(false);
-        }
-
-        if (enemyStatus.currentHealth <= 0)
-        {
-            // if the enemy health drops to 0 player wins.
-            battleState = BattleState.WIN;
-            yield return StartCoroutine(EndBattle());
-        }
-        else if (playerStatus.currentHealth <= 0)
-        {
-            // if the player health drops to 0 the enemy wins.
-            battleState = BattleState.LOSE;
-            yield return StartCoroutine(EndBattle());
-        }
-        else
-        {
-            // if the player health is still above 0 
-            // when the turn finishes it's player's turn
-            battleState = BattleState.PLAYERTURN;
-            yield return StartCoroutine(PlayerTurn());
-        }
     }
 
     // Attack button methods
     public void OnAttackButtonPress()
     {
-        HideCombatButtons();
-        backButton.SetActive(true);
-        confirmButtons[0].SetActive(true);
-    }
-
-    public void OnAttackConfirmPress()
-    {
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -406,35 +183,8 @@ public class CombatManager : MonoBehaviour
         // allow only a single action per turn
         if (!hasClicked)
         {
-            playerChoice = 1;
-            combatIcons[0].SetActive(true);
-            // block user from repeatedly pressing attack button  
-            hasClicked = true;
+            Attack(enemy);
 
-            battleState = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
-    }
-
-    // Defend button methods
-    public void OnParryButtonPress()
-    {
-        HideCombatButtons();
-        backButton.SetActive(true);
-        confirmButtons[1].SetActive(true);
-    }
-
-    public void OnParryConfirmPress()
-    {
-        // don't allow player to click on 'attack' unless player turn
-        if (battleState != BattleState.PLAYERTURN)
-            return;
-
-        // allow only a single action per turn
-        if (!hasClicked)
-        {
-            playerChoice = 2;
-            combatIcons[1].SetActive(true);
             // block user from repeatedly pressing attack button  
             hasClicked = true;
 
@@ -446,13 +196,6 @@ public class CombatManager : MonoBehaviour
     // Magic button methods
     public void OnMagicButtonPress()
     {
-        HideCombatButtons();
-        backButton.SetActive(true);
-        confirmButtons[2].SetActive(true);
-    }
-
-    public void OnMagicConfirmPress()
-    {
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -460,8 +203,6 @@ public class CombatManager : MonoBehaviour
         // allow only a single action per turn
         if (!hasClicked)
         {
-            playerChoice = 3;
-            combatIcons[2].SetActive(true);
             // block user from repeatedly pressing attack button  
             hasClicked = true;
 
@@ -470,16 +211,8 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // Back button method
-    public void OnBackButtonPress()
-    {
-        HideConfirmButtons();
-        ShowCombatButtons();
-    }
-
     public void OnItemButtonPress()
     {
-
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -491,13 +224,27 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public void OnFleeButtonPress()
+    {
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        if (!hasClicked)
+        {
+            hasClicked = true;
+
+            battleState = BattleState.FLEE;
+            StartCoroutine(EndBattle());
+        }
+    }
+
     public void ItemUsed(InventoryItem item)
     {
         //battleState = BattleState.ENEMYTURN;
         //StartCoroutine(EnemyTurn());
 
-         playerChoice = 4;
-            hasClicked = true;
+        hasClicked = true;
 
         switch (item.itemData.id)
         {
@@ -515,43 +262,57 @@ public class CombatManager : MonoBehaviour
         StartCoroutine(PlayerTurn());
     }
 
+    // Button Effects
+    private void Attack(GameObject target)
+    {
+        if (target.CompareTag("Player"))
+        {
+            target.GetComponent<PlayerStatus>().TakeDamage(enemyStatus.atkDamage);
+            //playerAnimation.SetTrigger("Hit");
+        }
+        else
+        {
+            if (playerStatus.flameBottle_itemUsed && enemyStatus.race == "Spider")
+            {
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
+            }
+            if (playerStatus.coldIron_itemUsed && enemyStatus.race == "Fae")
+            {
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
+            }
+            else
+            {
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage);
+            }
+            //playerAnimation.SetTrigger("Attack");
+        }
+    }
+
     // Show/Hide buttons
-    private void ShowCombatButtons()
+    private void ShowPlayerHUD()
     {
-        foreach (GameObject button in combatButtons)
-        {
-            button.SetActive(true);
-        }
-        foreach (GameObject arrow in arrowIcons)
-        {
-            arrow.SetActive(true);
-        }
+        playerHUD.SetActive(true);
     }
 
-    private void HideCombatButtons()
+    private void HidePlayerHUD()
     {
-        foreach (GameObject button in combatButtons)
-        {
-            button.SetActive(false);
-        }
-        foreach (GameObject arrow in arrowIcons)
-        {
-            arrow.SetActive(false);
-        }
-    }
-
-    private void HideConfirmButtons()
-    {
-        foreach (GameObject button in confirmButtons)
-        {
-            button.SetActive(false);
-        }
-        backButton.SetActive(false);
+        playerHUD.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (player != null && playerStatus.currentHealth <= 0)
+        {
+            battleState = BattleState.LOSE;
+            StartCoroutine(EndBattle());
+        }
+        if (enemy != null && enemyStatus.currentHealth <= 0)
+        {
+            battleState = BattleState.WIN;
+            StartCoroutine(EndBattle());
+        }
+
         playerHealth.text = playerStatus.currentHealth + "/" + playerStatus.maxHealth;
 
         if (enemy != null)
@@ -650,9 +411,12 @@ public class CombatManager : MonoBehaviour
                 turnIndicator.text = "You've Died";
                 break;
 
-            case BattleState.OUTCOME:
             case BattleState.START:
                 turnIndicator.text = " ";
+                break;
+
+            case BattleState.FLEE:
+                turnIndicator.text = "You Ran Away!";
                 break;
         }
     }

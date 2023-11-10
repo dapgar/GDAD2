@@ -11,6 +11,7 @@ public class InteractionTriggers : MonoBehaviour
     DialogueBox dialogueBoxManager;
     GameObject player;
     public float detectionRadius = 2.0f;
+    private bool enemyInteractedWith;
 
     [Header("Animation")]
     public Animator crossfadeAnim;
@@ -22,6 +23,8 @@ public class InteractionTriggers : MonoBehaviour
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
         npcManager = GameObject.FindGameObjectWithTag("NPCManager").GetComponent<NPCManager>();
         dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
+
+        enemyInteractedWith = false;
     }
 
     // Update is called once per frame
@@ -36,9 +39,14 @@ public class InteractionTriggers : MonoBehaviour
 
         if (this.gameObject.GetComponent("EnemyStatus") != null)
         {
-            if (distance <= detectionRadius && !combatManager.inCombat)
+            if (distance <= detectionRadius && !combatManager.inCombat && !enemyInteractedWith)
             {
                 combatManager.StartCombat(this.gameObject);
+                enemyInteractedWith = true;
+            }
+            if (distance > detectionRadius + 0.5f)
+            {
+                enemyInteractedWith = false;
             }
         }
         
