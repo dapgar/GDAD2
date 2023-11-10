@@ -5,7 +5,7 @@ using UnityEngine;
 public class SunspotScript : MonoBehaviour
 {
     public SunspotManager sunspotManager;
-    public GameObject promptText;
+    public GameObject promptImage;
     bool inSunspot = false;
 
     [Header("Animation")]
@@ -20,7 +20,6 @@ public class SunspotScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && inSunspot)
         {
-            promptText.SetActive(false);
             crossfadeAnim.SetTrigger("Start");
             sunspotManager.Rest();
             Debug.Log("Rested");
@@ -31,6 +30,7 @@ public class SunspotScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            promptImage.SetActive(true);
             inSunspot = true;
         }
         Debug.Log("In Sunspot");
@@ -40,6 +40,7 @@ public class SunspotScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            promptImage.SetActive(false);
             inSunspot = false;
         }
         Debug.Log("Left Sunpot");

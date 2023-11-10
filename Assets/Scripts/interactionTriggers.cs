@@ -10,6 +10,7 @@ public class InteractionTriggers : MonoBehaviour
     NPCManager npcManager;
     DialogueBox dialogueBoxManager;
     GameObject player;
+    public GameObject promptImage;
     public float detectionRadius = 2.0f;
     private bool enemyInteractedWith;
 
@@ -49,7 +50,7 @@ public class InteractionTriggers : MonoBehaviour
                 enemyInteractedWith = false;
             }
         }
-        
+
         NPCScript npcScript = this.gameObject.GetComponent<NPCScript>();
         if (this.gameObject.GetComponent("NPCScript") != null)
         {
@@ -65,7 +66,7 @@ public class InteractionTriggers : MonoBehaviour
                 dialogueBoxManager.ContinueInteraction(0, 0, 1);
             }
             // If player is out of range reset interaction so it can be interacted with again
-            if(distance >= detectionRadius + 0.5f)
+            if (distance >= detectionRadius + 0.5f)
             {
                 npcScript.ResetInteraction();
             }

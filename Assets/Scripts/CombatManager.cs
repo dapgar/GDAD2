@@ -134,9 +134,13 @@ public class CombatManager : MonoBehaviour
         HidePlayerHUD();
         yield return new WaitForSeconds(1);
 
-        Attack(player);
-        battleState = BattleState.PLAYERTURN;
-        StartCoroutine(PlayerTurn());
+        if (enemyStatus.currentHealth > 0)
+        {
+            Attack(player);
+            battleState = BattleState.PLAYERTURN;
+            StartCoroutine(PlayerTurn());
+        }
+       
     }
 
     IEnumerator EndBattle()
@@ -167,13 +171,15 @@ public class CombatManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             yield return new WaitForSeconds(1);
+            enemyStatus.currentHealth = enemyStatus.maxHealth;
+            enemySprite.SetActive(false);
             combatScreen.SetActive(false);
         }
 
         inCombat = false;
     }
 
-    // Attack button methods
+    // Combat Buttons
     public void OnAttackButtonPress()
     {
         // don't allow player to click on 'attack' unless player turn
@@ -193,7 +199,6 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // Magic button methods
     public void OnMagicButtonPress()
     {
         // don't allow player to click on 'attack' unless player turn
@@ -239,29 +244,6 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void ItemUsed(InventoryItem item)
-    {
-        //battleState = BattleState.ENEMYTURN;
-        //StartCoroutine(EnemyTurn());
-
-        hasClicked = true;
-
-        switch (item.itemData.id)
-        {
-            case 1: //heal from potion.
-                playerStatus.Heal(2);
-                break;
-            case 2: //cold iron
-                playerStatus.coldIron_itemUsed = true;
-                break;
-            case 3: //spider item
-                playerStatus.flameBottle_itemUsed = true;
-                break;
-        }
-
-        StartCoroutine(PlayerTurn());
-    }
-
     // Button Effects
     private void Attack(GameObject target)
     {
@@ -286,6 +268,29 @@ public class CombatManager : MonoBehaviour
             }
             //playerAnimation.SetTrigger("Attack");
         }
+    }
+
+    public void ItemUsed(InventoryItem item)
+    {
+        //battleState = BattleState.ENEMYTURN;
+        //StartCoroutine(EnemyTurn());
+
+        hasClicked = true;
+
+        switch (item.itemData.id)
+        {
+            case 1: //heal from potion.
+                playerStatus.Heal(2);
+                break;
+            case 2: //cold iron
+                playerStatus.coldIron_itemUsed = true;
+                break;
+            case 3: //spider item
+                playerStatus.flameBottle_itemUsed = true;
+                break;
+        }
+
+        StartCoroutine(PlayerTurn());
     }
 
     // Show/Hide buttons
