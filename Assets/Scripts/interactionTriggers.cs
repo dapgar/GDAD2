@@ -52,19 +52,19 @@ public class InteractionTriggers : MonoBehaviour
         }
 
         NPCScript npcScript = this.gameObject.GetComponent<NPCScript>();
-        if (this.gameObject.GetComponent("NPCScript") != null)
+        if (this.gameObject.GetComponent("NPCScript") != null && Input.GetKey("e"))
         {
             // Uses full dialogue screen
             if (distance <= detectionRadius && !npcManager.inConversation && !npcScript.interactedWith && npcScript.needsInteractionScreen)
             {
-                npcManager.StartInteraction(this.gameObject);
+                npcManager.StartInteraction(this.gameObject, 0);
             }
             // Uses dialogue box
-            if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
-            {
-                //Debug.Log("START DIALOGUE BOX");
-                dialogueBoxManager.ContinueInteraction(0, 0, 1);
-            }
+            //if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
+            //{
+            //    //Debug.Log("START DIALOGUE BOX");
+            //    dialogueBoxManager.ContinueInteraction(0, 0, 1);
+            //}
             // If player is out of range reset interaction so it can be interacted with again
             if (distance >= detectionRadius + 0.5f)
             {

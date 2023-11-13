@@ -148,7 +148,7 @@ MonoBehaviour:
   sendToAreaNumber: 1
   playerStartingPosition: {x: -18.73, y: 0.48, z: 2.67}
   promptImage: {fileID: 5064727934933388044}
-  detectionRadius: 2
+  detectionRadius: 0.8
   crossfadeAnim: {fileID: 4628656377988144669}
 --- !u!95 &4628656377988144669
 Animator:

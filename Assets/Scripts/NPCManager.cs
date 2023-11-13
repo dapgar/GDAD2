@@ -46,7 +46,7 @@ public class NPCManager : MonoBehaviour
     /// Use this method to trigger the npc interaction.
     /// </summary>
     /// <param name="newNPC">NPC that is talking</param>
-    public void StartInteraction(GameObject newNPC)
+    public void StartInteraction(GameObject newNPC, int dialogueAsset)
     {
         npc = newNPC;
         npcInformation = npc.GetComponent<NPCScript>();
@@ -65,7 +65,7 @@ public class NPCManager : MonoBehaviour
         //    button.SetActive(false);
         //}
 
-        StartDialogue(npcInformation.dialogueAssets[npcInformation.useDialogueAssetNumber].dialogue, npcInformation.dialogueAssets[npcInformation.useDialogueAssetNumber].textLineSpeed,
+        StartDialogue(npcInformation.dialogueAssets[npcInformation.dialogueAsset].dialogue, npcInformation.dialogueAssets[npcInformation.dialogueAsset].textLineSpeed,
             npcInformation.StartPosition, npcInformation.npcName);
     }
 
