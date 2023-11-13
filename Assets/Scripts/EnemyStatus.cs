@@ -22,7 +22,8 @@ public class EnemyStatus : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        //startingPosition = transform.position;
+        startingPosition = transform.position;
+        //Debug.Log(enemyName + " TRANSFORM POSITON: " + transform.position);
     }
 
     public void TakeDamage(int damage)
@@ -34,10 +35,13 @@ public class EnemyStatus : MonoBehaviour
         }
     }
 
-    //public void Reset()
-    //{
-    //    transform.position = startingPosition;
-    //    currentHealth = maxHealth;
-    //    this.gameObject.SetActive(true);
-    //}
+    public void Reset()
+    {
+        // TRANSFORM POSITON ISN'T CORRECT FIX IN FUTURE
+        //Debug.Log(enemyName + " TRANSFORM POSITON: " + transform.position);
+        //Debug.Log(enemyName + " START POSITON: " + startingPosition);
+        //transform.position = startingPosition;
+        currentHealth = maxHealth;
+        this.gameObject.SetActive(true);
+    }
 }

@@ -19,6 +19,8 @@ public class AreaTransiton : MonoBehaviour
     [Header("Animation")]
     public Animator crossfadeAnim;
 
+    public bool ePressedLastFrame = false;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -36,10 +38,10 @@ public class AreaTransiton : MonoBehaviour
         float distance = Vector3.Distance(this.transform.position, player.transform.position);
 
         // Area Transition (Door)
-        if (this.gameObject.GetComponent<AreaTransiton>() != null && distance <= detectionRadius)
+        if (/*this.gameObject.GetComponent<AreaTransiton>() != null &&*/ distance <= detectionRadius)
         {
             promptImage.SetActive(true);
-            if (Input.GetKey("e") && !npcManager.inConversation && !combatManager.inCombat)
+            if (Input.GetKey("e") && !ePressedLastFrame && !npcManager.inConversation && !combatManager.inCombat)
             {
                 PlayerController playerController = player.GetComponent<PlayerController>();
                 if (playerController != null)
@@ -61,6 +63,8 @@ public class AreaTransiton : MonoBehaviour
                     player.GetComponent<PlayerStatus>().startingPosition = this.gameObject.GetComponent<AreaTransiton>().playerStartingPosition;
 
                     playerController.MoveToArea(this.gameObject.GetComponent<AreaTransiton>());
+
+                    ePressedLastFrame = true;
                 }
             }
         }
