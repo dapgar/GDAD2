@@ -12,6 +12,7 @@ public class Settings : MonoBehaviour
     public Dropdown textureDropdown;
     public Dropdown aaDropdown;
     public Slider volumeSlider;
+    public Toggle fullscreenToggle;
     float currentVolume;
     Resolution[] resolutions;
 
@@ -21,6 +22,7 @@ public class Settings : MonoBehaviour
         List<string> options = new List<string>();
         resolutions = Screen.resolutions;
         int currentResolutionIndex = 0;
+        fullscreenToggle.GetComponentInChildren<Text>().text = "Fullscreen";
 
         for (int i = 0; i < resolutions.Length; i++)
         {
