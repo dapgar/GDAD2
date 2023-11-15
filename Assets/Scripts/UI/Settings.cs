@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
+    [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject pauseMenu;
+
     public AudioMixer audioMixer;
     public Dropdown resolutionDropdown;
     public Dropdown qualityDropdown;
@@ -121,6 +124,7 @@ public class Settings : MonoBehaviour
         PlayerPrefs.SetInt("AntiAliasingPreference", aaDropdown.value);
         PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
         PlayerPrefs.SetFloat("VolumePreference", currentVolume);
+        Cancel();
     }
 
     public void LoadSettings(int currentResolutionIndex)
@@ -184,6 +188,12 @@ public class Settings : MonoBehaviour
             volumeSlider.value = PlayerPrefs.GetFloat("VolumePreference");
         }
             
+    }
+
+    public void Cancel()
+    {
+        settingsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
 
