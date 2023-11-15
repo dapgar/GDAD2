@@ -98,23 +98,10 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         // Player's turn
-        /*
         if (enemy.tag == "TrainingDummy")
         {
-            if (enemyName.ToLower().Contains("attack"))
-            {
-                dialogueBoxManager.ContinueInteraction(0, 0, 1);
-            }
-            if (enemyName.ToLower().Contains("parry"))
-            {
-                dialogueBoxManager.ContinueInteraction(0, 1, 1);
-            }
-            if (enemyName.ToLower().Contains("magic"))
-            {
-                dialogueBoxManager.ContinueInteraction(0, 2, 1);
-            }
+            dialogueBoxManager.ContinueInteraction(0, 0, 5);
         }
-        */
 
         battleState = BattleState.PLAYERTURN;
         yield return StartCoroutine(PlayerTurn());

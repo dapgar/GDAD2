@@ -65,7 +65,7 @@ public class NPCManager : MonoBehaviour
         //    button.SetActive(false);
         //}
 
-        StartDialogue(npcInformation.dialogueAssets[npcInformation.dialogueAsset].dialogue, npcInformation.dialogueAssets[npcInformation.dialogueAsset].textLineSpeed,
+        StartDialogue(npcInformation.dialogueAssets[dialogueAsset].dialogue, npcInformation.dialogueAssets[dialogueAsset].textLineSpeed,
             npcInformation.StartPosition, npcInformation.npcName);
     }
 
