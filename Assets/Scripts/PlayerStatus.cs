@@ -42,13 +42,11 @@ public class PlayerStatus : MonoBehaviour
                 currentHealth++;
             }
         }
-  
     }
 
-
-    //public void Reset()
-    //{
-    //    currentHealth = maxHealth;
-    //    transform.position = startingPosition;
-    //}
+    public void Reset()
+    {
+        currentHealth = maxHealth;
+        transform.position = startingPosition;
+    }
 }

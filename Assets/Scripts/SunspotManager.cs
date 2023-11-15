@@ -22,8 +22,9 @@ public class SunspotManager : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
-            enemy.SetActive(true);
-            enemy.GetComponent<EnemyStatus>().currentHealth = enemy.GetComponent<EnemyStatus>().maxHealth;
+            //enemy.SetActive(true);
+            //enemy.GetComponent<EnemyStatus>().currentHealth = enemy.GetComponent<EnemyStatus>().maxHealth;
+            enemy.GetComponent<EnemyStatus>().Reset();
         }
     }
 }

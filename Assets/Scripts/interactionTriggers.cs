@@ -52,23 +52,50 @@ public class InteractionTriggers : MonoBehaviour
         }
 
         NPCScript npcScript = this.gameObject.GetComponent<NPCScript>();
-        if (this.gameObject.GetComponent("NPCScript") != null)
+        if (this.gameObject.GetComponent("NPCScript") != null && Input.GetKey("e"))
         {
             // Uses full dialogue screen
             if (distance <= detectionRadius && !npcManager.inConversation && !npcScript.interactedWith && npcScript.needsInteractionScreen)
             {
-                npcManager.StartInteraction(this.gameObject);
+                npcManager.StartInteraction(this.gameObject, 0);
             }
             // Uses dialogue box
-            if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
-            {
-                //Debug.Log("START DIALOGUE BOX");
-                dialogueBoxManager.ContinueInteraction(0, 0, 1);
-            }
+            //if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
+            //{
+            //    //Debug.Log("START DIALOGUE BOX");
+            //    dialogueBoxManager.ContinueInteraction(0, 0, 1);
+            //}
             // If player is out of range reset interaction so it can be interacted with again
             if (distance >= detectionRadius + 0.5f)
             {
                 npcScript.ResetInteraction();
+            }
+        }
+
+        if (this.gameObject.GetComponent<AreaTransiton>() != null && distance <= detectionRadius && Input.GetKey("e") && !npcManager.inConversation && !combatManager.inCombat)
+        {
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                crossfadeAnim.SetTrigger("Start");
+
+                // make actual place transition wait until fade is over
+                float counter = 0;
+                float waitTime = 5;
+                while (counter < waitTime)
+                {
+                    //Increment Timer until counter >= waitTime
+                    counter += Time.deltaTime;
+                    //Debug.Log("We have waited for: " + counter + " seconds");
+                    //Wait for a frame so that Unity doesn't freeze
+                }
+
+                Debug.Log(this.gameObject.GetComponent<AreaTransiton>().playerStartingPosition);
+                // Sets the player's respawn point to the starting point of the new area
+                player.GetComponent<PlayerStatus>().startingPosition = this.gameObject.GetComponent<AreaTransiton>().playerStartingPosition;
+
+                playerController.MoveToArea(this.gameObject.GetComponent<AreaTransiton>());
+                
             }
         }
     }
