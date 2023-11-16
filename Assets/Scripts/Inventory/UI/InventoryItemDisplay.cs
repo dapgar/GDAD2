@@ -9,19 +9,22 @@ public class InventoryItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
 {
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemQty;
-    public Image icon;
+    //public Image icon;
 
     public InventoryItem item;
 
     public GameObject inventoryDisplay;
+
     public GameObject itemDetails;
-   
+    private ItemDetailDisplay details;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        itemDetails = GameObject.Find("Canvas/Combat Screen/Inventory Display/ItemDetails");
+        itemDetails = GameObject.Find("Canvas/Combat Screen/Inventory Display/Item Details");
+        details = itemDetails.GetComponent<ItemDetailDisplay>();
         inventoryDisplay = GameObject.Find("Canvas/Combat Screen/Inventory Display");
 
         transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -45,27 +48,30 @@ public class InventoryItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             itemQty.text = item.stackSize.ToString();
         }
-        if (icon != null)
-        {
-            icon.sprite = item.itemData.icon;
-        }
+        //if (icon != null)
+        //{
+        //    icon.sprite = item.itemData.icon;
+        //}
     }
 
     public void OnClick()
     {
         item.UseItem();
         inventoryDisplay.GetComponent<InventoryDisplay>().inventory.ItemUsed(item);
-        inventoryDisplay.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        itemDetails.SetActive(true);
-        itemDetails.GetComponent<ItemDetailDisplay>().UpdateInfo(item);
+        //itemDetails.SetActive(true);
+        if (details.itemName.gameObject.activeSelf == false) { details.itemName.gameObject.SetActive(true); }
+        if (details.itemDescription.gameObject.activeSelf == false) { details.itemDescription.gameObject.SetActive(true); }
+        if (details.icon.gameObject.activeSelf == false) { details.icon.gameObject.SetActive(true); }
+
+        details.UpdateInfo(item);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     { 
-        itemDetails.SetActive(false);
+        //itemDetails.SetActive(false);
     }
 }

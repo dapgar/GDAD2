@@ -33,6 +33,8 @@ public class CombatManager : MonoBehaviour
     string enemyName;
     GameObject enemySprite;
     public Animator crossfadeAnim;
+    public GameObject inventoryDisplay;
+    public GameObject spellListDisplay;
 
     [Header("Test Mode")]
     public bool autoStart = true;
@@ -169,6 +171,7 @@ public class CombatManager : MonoBehaviour
     // Combat Buttons
     public void OnAttackButtonPress()
     {
+        CloseMenus();
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -193,15 +196,20 @@ public class CombatManager : MonoBehaviour
             return;
 
         // allow only a single action per turn
-        if (!hasClicked)
+        if (!hasClicked && spellListDisplay.activeSelf == false)
         {
             playerStatus.inventory.GetComponent<Spellbook>().Display(combatScreen.transform);
+        }
+        else
+        {
+            CloseMenus();
         }
     }
 
     
     public void SpellUsed(Spell spell)
     {
+        CloseMenus();
         hasClicked = true;
 
         battleState = BattleState.ENEMYTURN;
@@ -215,12 +223,15 @@ public class CombatManager : MonoBehaviour
             return;
 
         // allow only a single action per turn
-        if (!hasClicked)
+        if (!hasClicked && inventoryDisplay.activeSelf == false)
         {
             playerStatus.inventory.GetComponent<Inventory>().Display(combatScreen.transform);
         }
+        else
+        {
+            CloseMenus();
+        }
     }
-
 
     public void ItemUsed(InventoryItem item)
     {
@@ -228,6 +239,7 @@ public class CombatManager : MonoBehaviour
         //StartCoroutine(EnemyTurn());
 
         hasClicked = true;
+        CloseMenus();
 
         switch (item.itemData.id)
         {
@@ -247,6 +259,8 @@ public class CombatManager : MonoBehaviour
 
     public void OnFleeButtonPress()
     {
+        CloseMenus();
+
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -259,6 +273,13 @@ public class CombatManager : MonoBehaviour
             StartCoroutine(EndBattle());
         }
     }
+
+    private void CloseMenus()
+    {
+        if (inventoryDisplay.activeSelf == true) { inventoryDisplay.SetActive(false); }
+        if (spellListDisplay.activeSelf == true) { spellListDisplay.SetActive(false); }
+    }
+
 
     // Button Effects
     private void Attack(GameObject target)

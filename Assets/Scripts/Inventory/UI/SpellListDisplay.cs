@@ -23,7 +23,6 @@ public class SpellListDisplay : MonoBehaviour
 
     public void Prime(List<Spell> spells)
     {
-        Debug.Log("Spell List Primed");
         gameObject.SetActive(true);
 
         foreach (Transform child in targetTransform)

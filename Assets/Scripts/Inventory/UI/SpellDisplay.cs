@@ -53,6 +53,5 @@ public class SpellDisplay : MonoBehaviour
     public void OnClick()
     {
         spellListDisplay.GetComponent<SpellListDisplay>().spells.SpellUsed(spell);
-        spellListDisplay.SetActive(false);
     }
 }
