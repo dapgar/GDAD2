@@ -195,12 +195,17 @@ public class CombatManager : MonoBehaviour
         // allow only a single action per turn
         if (!hasClicked)
         {
-            // block user from repeatedly pressing attack button  
-            hasClicked = true;
-
-            battleState = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
+            playerStatus.inventory.GetComponent<Spellbook>().Display(combatScreen.transform);
         }
+    }
+
+    
+    public void SpellUsed(Spell spell)
+    {
+        hasClicked = true;
+
+        battleState = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
     }
 
     public void OnItemButtonPress()
@@ -214,6 +219,30 @@ public class CombatManager : MonoBehaviour
         {
             playerStatus.inventory.GetComponent<Inventory>().Display(combatScreen.transform);
         }
+    }
+
+
+    public void ItemUsed(InventoryItem item)
+    {
+        //battleState = BattleState.ENEMYTURN;
+        //StartCoroutine(EnemyTurn());
+
+        hasClicked = true;
+
+        switch (item.itemData.id)
+        {
+            case 1: //heal from potion.
+                playerStatus.Heal(2);
+                break;
+            case 2: //cold iron
+                playerStatus.coldIron_itemUsed = true;
+                break;
+            case 3: //spider item
+                playerStatus.flameBottle_itemUsed = true;
+                break;
+        }
+
+        StartCoroutine(PlayerTurn());
     }
 
     public void OnFleeButtonPress()
@@ -257,28 +286,6 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void ItemUsed(InventoryItem item)
-    {
-        //battleState = BattleState.ENEMYTURN;
-        //StartCoroutine(EnemyTurn());
-
-        hasClicked = true;
-
-        switch (item.itemData.id)
-        {
-            case 1: //heal from potion.
-                playerStatus.Heal(2);
-                break;
-            case 2: //cold iron
-                playerStatus.coldIron_itemUsed = true;
-                break;
-            case 3: //spider item
-                playerStatus.flameBottle_itemUsed = true;
-                break;
-        }
-
-        StartCoroutine(PlayerTurn());
-    }
 
     // Show/Hide buttons
     private void ShowPlayerHUD()
