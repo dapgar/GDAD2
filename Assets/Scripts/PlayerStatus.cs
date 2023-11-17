@@ -6,6 +6,9 @@ public class PlayerStatus : MonoBehaviour
 {
     public int currentHealth;
     public int maxHealth = 5;
+
+    public int currentMana;
+    public int maxMana = 3;
     
     public int atkDamage = 1;
     public int mgkDamage = 1;
@@ -22,6 +25,7 @@ public class PlayerStatus : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        currentMana = maxMana;
     }
 
     public void TakeDamage(int damage)
@@ -47,6 +51,7 @@ public class PlayerStatus : MonoBehaviour
     public void Reset()
     {
         currentHealth = maxHealth;
+        currentMana = maxMana;
         transform.position = startingPosition;
     }
 }

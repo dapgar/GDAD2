@@ -66,7 +66,15 @@ public class Spellbook : MonoBehaviour
 
     public void SpellUsed(Spell spell)
     {
-        combatManager.GetComponent<CombatManager>().SpellUsed(spell);
+        if (spell.spellData.name == "shockingray")
+        {
+
+        }
+        if (player.GetComponent<PlayerStatus>().currentMana > 0)
+        {
+            player.GetComponent<PlayerStatus>().currentMana -= 1;
+            combatManager.GetComponent<CombatManager>().SpellUsed(spell);
+        }
     }
 
 }

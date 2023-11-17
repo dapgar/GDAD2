@@ -43,6 +43,7 @@ public class CombatManager : MonoBehaviour
 
     public GameObject playerHUD;
     public GameObject[] playerHearts;
+    public GameObject[] playerMana;
     public GameObject[] enemyHearts;
 
     private BattleState battleState;
@@ -141,7 +142,7 @@ public class CombatManager : MonoBehaviour
             enemySprite.SetActive(false);
             enemy.SetActive(false);
             yield return new WaitForSeconds(1);
-            crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
+            //crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
         }
@@ -152,6 +153,7 @@ public class CombatManager : MonoBehaviour
             // display message here.
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
+            enemySprite.SetActive(false);
             // Maybe transition scenes.
             Reset();
         }
@@ -218,6 +220,8 @@ public class CombatManager : MonoBehaviour
 
     public void OnItemButtonPress()
     {
+        spellListDisplay.SetActive(false);
+
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -225,6 +229,7 @@ public class CombatManager : MonoBehaviour
         // allow only a single action per turn
         if (!hasClicked && inventoryDisplay.activeSelf == false)
         {
+
             playerStatus.inventory.GetComponent<Inventory>().Display(combatScreen.transform);
         }
         else
@@ -386,6 +391,29 @@ public class CombatManager : MonoBehaviour
                     playerHearts[2].SetActive(false);
                     playerHearts[1].SetActive(false);
                     playerHearts[0].SetActive(false);
+                    break;
+            }
+            switch (playerStatus.currentMana)
+            {
+                case 3:
+                    playerMana[2].SetActive(true);
+                    playerMana[1].SetActive(true);
+                    playerMana[0].SetActive(true);
+                    break;
+                case 2:
+                    playerMana[2].SetActive(false);
+                    playerMana[1].SetActive(true);
+                    playerMana[0].SetActive(true);
+                    break;
+                case 1:
+                    playerMana[2].SetActive(false);
+                    playerMana[1].SetActive(false);
+                    playerMana[0].SetActive(true);
+                    break;
+                case 0:
+                    playerMana[2].SetActive(false);
+                    playerMana[1].SetActive(false);
+                    playerMana[0].SetActive(false);
                     break;
             }
             switch (enemyStatus.currentHealth)
