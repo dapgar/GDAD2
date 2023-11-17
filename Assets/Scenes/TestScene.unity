@@ -2639,6 +2639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa7879accd0b874cac5ab5b23d21ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  promptImage: {fileID: 0}
   detectionRadius: 1
   crossfadeAnim: {fileID: 0}
 --- !u!114 &211357943
@@ -14340,7 +14341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1530015755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22321,6 +22322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa7879accd0b874cac5ab5b23d21ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  promptImage: {fileID: 0}
   detectionRadius: 1
   crossfadeAnim: {fileID: 0}
 --- !u!114 &2081914385
