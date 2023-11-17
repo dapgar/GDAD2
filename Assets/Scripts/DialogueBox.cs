@@ -311,7 +311,7 @@ public class DialogueBox : MonoBehaviour
     /// </summary>
     public void EndDialogue()
     {
-        Debug.Log("ENDED DIALOGUE");
+        //Debug.Log("ENDED DIALOGUE");
         dialogueBoxText.gameObject.SetActive(false);
         inConversation = false;
         dialogueBoxScreen.SetActive(false);
