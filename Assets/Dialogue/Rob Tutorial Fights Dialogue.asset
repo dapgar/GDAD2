@@ -20,4 +20,4 @@ MonoBehaviour:
   - FLEE is used as a last resort, allowing you to escape from the enemy!
   - 'You can rest at SUNSPOTS to recover health, but it also gives enemies time to
     recover as well... '
-  textLineSpeed: 00000000000000000000000000000000000000000000000000000000
+  textLineSpeed: 000000000000000000000000000000000000000000000000

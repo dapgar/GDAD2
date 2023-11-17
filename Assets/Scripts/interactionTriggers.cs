@@ -10,12 +10,13 @@ public class InteractionTriggers : MonoBehaviour
     NPCManager npcManager;
     DialogueBox dialogueBoxManager;
     GameObject player;
-    public GameObject promptImage;
     public float detectionRadius = 2.0f;
     private bool enemyInteractedWith;
 
     [Header("Animation")]
     public Animator crossfadeAnim;
+
+    private float distance;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +37,7 @@ public class InteractionTriggers : MonoBehaviour
 
     private void detectNPC()
     {
-        float distance = Vector3.Distance(this.transform.position, player.transform.position);
+        /*float */distance = Vector3.Distance(this.transform.position, player.transform.position);
 
         if (this.gameObject.GetComponent("EnemyStatus") != null)
         {
@@ -52,21 +53,35 @@ public class InteractionTriggers : MonoBehaviour
         }
 
         NPCScript npcScript = this.gameObject.GetComponent<NPCScript>();
-        if (this.gameObject.GetComponent("NPCScript") != null && Input.GetKey("e"))
+        if (this.gameObject.GetComponent("NPCScript") != null)
         {
+            if(npcScript.ePrompt != null)
+            {
+                npcScript.ePrompt.SetActive(false);
+            }
+            
             // Uses full dialogue screen
             if (distance <= detectionRadius && !npcManager.inConversation && !npcScript.interactedWith && npcScript.needsInteractionScreen)
             {
-                npcManager.StartInteraction(this.gameObject, 0);
+                if (npcScript.ePrompt != null)
+                {
+                    npcScript.ePrompt.SetActive(true);
+                }
+
+                if (Input.GetKey(KeyCode.E))
+                {
+                    npcManager.StartInteraction(this.gameObject, 0);
+                }
             }
+
             // Uses dialogue box
-            //if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
-            //{
-            //    //Debug.Log("START DIALOGUE BOX");
-            //    dialogueBoxManager.ContinueInteraction(0, 0, 1);
-            //}
+            if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
+            {
+                Debug.Log("START DIALOGUE BOX");
+                dialogueBoxManager.ContinueInteraction(0, 5, 1);
+            }
             // If player is out of range reset interaction so it can be interacted with again
-            if (distance >= detectionRadius + 0.5f)
+            if (distance > detectionRadius + 0.25f)
             {
                 npcScript.ResetInteraction();
             }

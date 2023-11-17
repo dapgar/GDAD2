@@ -15,7 +15,7 @@ public class DialogueBox : MonoBehaviour
     private GameObject npcSprite; //make it use other characters
 
     public float defaultCharactersPerSecond = 40;
-    private bool skipLineTriggered;
+    public bool skipLineTriggered;
     public bool inConversation;
 
     CombatManager combatManager;
@@ -31,10 +31,10 @@ public class DialogueBox : MonoBehaviour
     }
     private void Update()
     {
-        if (!combatManager.inCombat)
-        {
-            EndDialogue();
-        }
+        //if (!combatManager.inCombat)
+        //{
+        //    EndDialogue();
+        //}
     }
 
     private void ShowScreen()
@@ -48,7 +48,7 @@ public class DialogueBox : MonoBehaviour
     /// Use this method to trigger the npc interaction.
     /// </summary>
     /// <param name="currentNPCTalking">Index of NPC in npc manager</param>
-    public void StartInteraction(int currentNPCTalking)
+    public void StartInteraction(int currentNPCTalking, int dialogueAsset)
     {
         currentNPC = currentNPCTalking; 
         GameObject npc = npcs[currentNPC];
@@ -61,8 +61,8 @@ public class DialogueBox : MonoBehaviour
 
         inConversation = true;
 
-        StartDialogue(npcInformation.dialogueAssets[npcInformation.useDialogueAssetNumber].dialogue, 
-            npcInformation.dialogueAssets[npcInformation.useDialogueAssetNumber].textLineSpeed,
+        StartDialogue(npcInformation.dialogueAssets[dialogueAsset].dialogue, 
+            npcInformation.dialogueAssets[dialogueAsset].textLineSpeed,
             npcInformation.StartPosition);
     }
 
@@ -74,16 +74,19 @@ public class DialogueBox : MonoBehaviour
     /// <param name="linesSpoken">Number of Lines Spoken</param>
     public void ContinueInteraction(int currentNPCTalking, int startingLine, int linesSpoken)
     {
+        inConversation = true;
+
         currentNPC = currentNPCTalking;
         GameObject npc = npcs[currentNPC];
         npcInformation = npc.GetComponent<NPCScript>();
+        //npcInformation.Interacted();
         if (npcInformation.npcSprite != null)
         {
             npcSprite = npcInformation.npcSprite;
             npcSprite.SetActive(true);
         }
 
-        inConversation = true;
+        
 
         // If starting line is negative, begin from the current line
         if (startingLine < 0)
@@ -313,7 +316,10 @@ public class DialogueBox : MonoBehaviour
         inConversation = false;
         dialogueBoxScreen.SetActive(false);
 
-        //npcInformation.Interacted();
+        if (npcInformation != null)
+        {
+            npcInformation.Interacted();
+        }
     }
 
     /// <summary>

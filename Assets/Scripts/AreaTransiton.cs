@@ -16,8 +16,6 @@ public class AreaTransiton : MonoBehaviour
     [Header("Animation")]
     public Animator crossfadeAnim;
 
-    public bool ePressedLastFrame = false;
-
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");

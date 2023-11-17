@@ -14,10 +14,8 @@ public class DoorManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-
     private void Update()
     {
-        //doorUsedLastFrame = false;
         ResetDoor();
 
         for (int i = 0; i < doors.Length; i++)
@@ -26,7 +24,7 @@ public class DoorManager : MonoBehaviour
             {
                 ShowPrompt(doors[i]);
 
-                if (Input.GetKey("e"))
+                if (Input.GetKey(KeyCode.E))
                 {
                     GoThroughDoor(doors[i]);
                 }
@@ -45,7 +43,7 @@ public class DoorManager : MonoBehaviour
     {
         bool closeToDoor = false;
 
-        // check if the player is within a certain range of the door
+        // checks if the player is within a certain range of the door
         for (int i = 0; i < doors.Length; i++)
         {
             if (DoorInRange(doors[i], 0.25f))
@@ -54,8 +52,7 @@ public class DoorManager : MonoBehaviour
             }
         }
 
-        // if the player is not close to door
-        // to prevent looping back
+        // if the player is not close to door to prevent looping backwards
         if (!closeToDoor)
         {
             canInteractWithDoor = true;
@@ -80,6 +77,10 @@ public class DoorManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Shows Button Prompt
+    /// </summary>
+    /// <param name="door">Door to show prompt</param>
     public void ShowPrompt(GameObject door)
     {
         AreaTransiton doorScript = door.GetComponent<AreaTransiton>();
@@ -89,6 +90,10 @@ public class DoorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hides Button Prompt
+    /// </summary>
+    /// <param name="door">Door to hide prompt</param>
     public void HidePrompt(GameObject door)
     {
         AreaTransiton doorScript = door.GetComponent<AreaTransiton>();
@@ -98,6 +103,10 @@ public class DoorManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Actually moves the player
+    /// </summary>
+    /// <param name="door">Door Selected</param>
     public void GoThroughDoor(GameObject door)
     {
         AreaTransiton doorScript = door.GetComponent<AreaTransiton>();
