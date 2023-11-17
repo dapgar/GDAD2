@@ -11,14 +11,17 @@ public class NPCScript : MonoBehaviour
 
     public string npcName;
     public GameObject npcSprite;
+    public GameObject exclamationPointIcon;
+    public GameObject ePrompt;
     public int startingDialogueAsset = 0;
     [HideInInspector]
     public int useDialogueAssetNumber = 0;
     public DialogueAsset[] dialogueAssets;
     public bool needsInteractionScreen = true; // somehow use this to determine using diaogue box or interaction screen
+    public bool needsPrompts = true;
     //public Vector3 startingPosition;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool interactedWith = false;
 
     [HideInInspector]
@@ -56,11 +59,21 @@ public class NPCScript : MonoBehaviour
     public void Start()
     {
         useDialogueAssetNumber = startingDialogueAsset;
+
+        if(needsPrompts)
+        {
+            ePrompt.SetActive(false);
+        }
     }
 
     public void Interacted()
     {
         interactedWith = true;
+
+        if (needsPrompts)
+        {
+            exclamationPointIcon.SetActive(false);
+        }  
     }
 
     public void ResetInteraction()
@@ -86,6 +99,11 @@ public class NPCScript : MonoBehaviour
         currentLine = 0;
         useDialogueAssetNumber = startingDialogueAsset;
         ResetInteraction();
+        if(needsPrompts)
+        {
+            exclamationPointIcon.SetActive(true);
+        }
+        
         //transform.position = startingPosition;
     }
 }

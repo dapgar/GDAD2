@@ -159,10 +159,12 @@ public class CombatManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
+            dialogueBoxManager.EndDialogue();
             yield return new WaitForSeconds(1);
             enemyStatus.currentHealth = enemyStatus.maxHealth;
             enemySprite.SetActive(false);
             combatScreen.SetActive(false);
+            
         }
 
         inCombat = false;

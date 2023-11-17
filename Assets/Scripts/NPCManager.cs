@@ -50,6 +50,7 @@ public class NPCManager : MonoBehaviour
     {
         npc = newNPC;
         npcInformation = npc.GetComponent<NPCScript>();
+
         if (npcInformation.npcSprite != null)
         {
             npcSprite = npcInformation.npcSprite;

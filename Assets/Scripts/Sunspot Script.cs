@@ -17,7 +17,7 @@ public class SunspotScript : MonoBehaviour
     private void Start()
     {
         sunspotManager = GameObject.Find("SunspotManager").GetComponent<SunspotManager>();
-        dialogueBoxManager = dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
+        dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
     }
 
     private void Update()
