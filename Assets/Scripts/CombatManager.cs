@@ -301,10 +301,12 @@ public class CombatManager : MonoBehaviour
             if (playerStatus.flameBottle_itemUsed && enemyStatus.race == "Spider")
             {
                 target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
+                playerStatus.flameBottle_itemUsed = false;
             }
-            if (playerStatus.coldIron_itemUsed && enemyStatus.race == "Fae")
+            else if (playerStatus.coldIron_itemUsed && enemyStatus.race == "Fae")
             {
-                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.coldIronDamage);
+                playerStatus.coldIron_itemUsed = false;
             }
             else
             {
