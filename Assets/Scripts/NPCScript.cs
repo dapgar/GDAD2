@@ -70,7 +70,7 @@ public class NPCScript : MonoBehaviour
     {
         interactedWith = true;
 
-        if (needsPrompts)
+        if (needsPrompts && exclamationPointIcon != null)
         {
             exclamationPointIcon.SetActive(false);
         }  

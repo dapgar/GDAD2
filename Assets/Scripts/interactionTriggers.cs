@@ -37,7 +37,7 @@ public class InteractionTriggers : MonoBehaviour
 
     private void detectNPC()
     {
-        /*float */distance = Vector3.Distance(this.transform.position, player.transform.position);
+        distance = Vector3.Distance(this.transform.position, player.transform.position);
 
         if (this.gameObject.GetComponent("EnemyStatus") != null)
         {
