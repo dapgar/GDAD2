@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Rob Tutorial Fights Dialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - This dummy will help you practice against an ATTACK!
-  - This dummy will help you practice against a PARRY!
-  - This dummy will help you practice against MAGIC!
-  - If you and the enemy choose the same move, nothing happens.
-  - If an ATTACK is PARRIED, then the ATTACKER will take damage.
-  - If MAGIC is countered with an ATTACK, then the MAGIC caster will take damage.
-  - If PARRY is used against MAGIC, it will not work, and whoever PARRIED will take
-    damage.
-  textLineSpeed: 00000000000000000000000000000000000000000000000000000000
+  - 'This dummy here should help sharpen up your combat skills! '
+  - 'ATTACK will deal damage to the enemy. '
+  - 'MAGIC spells can help stun, slow, and weaken enemies. '
+  - 'ITEMS can help you heal and buff yourself in the midst of combat. '
+  - FLEE is used as a last resort, allowing you to escape from the enemy!
+  - 'You can rest at SUNSPOTS to recover health, but it also gives enemies time to
+    recover as well... '
+  textLineSpeed: 000000000000000000000000000000000000000000000000

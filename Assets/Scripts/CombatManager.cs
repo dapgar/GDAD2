@@ -33,6 +33,8 @@ public class CombatManager : MonoBehaviour
     string enemyName;
     GameObject enemySprite;
     public Animator crossfadeAnim;
+    public GameObject inventoryDisplay;
+    public GameObject spellListDisplay;
 
     [Header("Test Mode")]
     public bool autoStart = true;
@@ -41,6 +43,7 @@ public class CombatManager : MonoBehaviour
 
     public GameObject playerHUD;
     public GameObject[] playerHearts;
+    public GameObject[] playerMana;
     public GameObject[] enemyHearts;
 
     private BattleState battleState;
@@ -98,23 +101,10 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         // Player's turn
-        /*
         if (enemy.tag == "TrainingDummy")
         {
-            if (enemyName.ToLower().Contains("attack"))
-            {
-                dialogueBoxManager.ContinueInteraction(0, 0, 1);
-            }
-            if (enemyName.ToLower().Contains("parry"))
-            {
-                dialogueBoxManager.ContinueInteraction(0, 1, 1);
-            }
-            if (enemyName.ToLower().Contains("magic"))
-            {
-                dialogueBoxManager.ContinueInteraction(0, 2, 1);
-            }
+            dialogueBoxManager.ContinueInteraction(0, 0, 5);
         }
-        */
 
         battleState = BattleState.PLAYERTURN;
         yield return StartCoroutine(PlayerTurn());
@@ -152,7 +142,7 @@ public class CombatManager : MonoBehaviour
             enemySprite.SetActive(false);
             enemy.SetActive(false);
             yield return new WaitForSeconds(1);
-            crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
+            //crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
         }
@@ -163,6 +153,7 @@ public class CombatManager : MonoBehaviour
             // display message here.
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
+            enemySprite.SetActive(false);
             // Maybe transition scenes.
             Reset();
         }
@@ -170,10 +161,12 @@ public class CombatManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
+            dialogueBoxManager.EndDialogue();
             yield return new WaitForSeconds(1);
             enemyStatus.currentHealth = enemyStatus.maxHealth;
             enemySprite.SetActive(false);
             combatScreen.SetActive(false);
+            
         }
 
         inCombat = false;
@@ -182,6 +175,7 @@ public class CombatManager : MonoBehaviour
     // Combat Buttons
     public void OnAttackButtonPress()
     {
+        CloseMenus();
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -206,67 +200,43 @@ public class CombatManager : MonoBehaviour
             return;
 
         // allow only a single action per turn
-        if (!hasClicked)
+        if (!hasClicked && spellListDisplay.activeSelf == false)
         {
-            // block user from repeatedly pressing attack button  
-            hasClicked = true;
-
-            battleState = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
+            playerStatus.inventory.GetComponent<Spellbook>().Display(combatScreen.transform);
         }
+        else
+        {
+            CloseMenus();
+        }
+    }
+
+    
+    public void SpellUsed(Spell spell)
+    {
+        CloseMenus();
+        hasClicked = true;
+
+        battleState = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
     }
 
     public void OnItemButtonPress()
     {
+        spellListDisplay.SetActive(false);
+
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
 
         // allow only a single action per turn
-        if (!hasClicked)
+        if (!hasClicked && inventoryDisplay.activeSelf == false)
         {
+
             playerStatus.inventory.GetComponent<Inventory>().Display(combatScreen.transform);
-        }
-    }
-
-    public void OnFleeButtonPress()
-    {
-        // don't allow player to click on 'attack' unless player turn
-        if (battleState != BattleState.PLAYERTURN)
-            return;
-
-        if (!hasClicked)
-        {
-            hasClicked = true;
-
-            battleState = BattleState.FLEE;
-            StartCoroutine(EndBattle());
-        }
-    }
-
-    // Button Effects
-    private void Attack(GameObject target)
-    {
-        if (target.CompareTag("Player"))
-        {
-            target.GetComponent<PlayerStatus>().TakeDamage(enemyStatus.atkDamage);
-            //playerAnimation.SetTrigger("Hit");
         }
         else
         {
-            if (playerStatus.flameBottle_itemUsed && enemyStatus.race == "Spider")
-            {
-                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
-            }
-            if (playerStatus.coldIron_itemUsed && enemyStatus.race == "Fae")
-            {
-                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
-            }
-            else
-            {
-                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage);
-            }
-            //playerAnimation.SetTrigger("Attack");
+            CloseMenus();
         }
     }
 
@@ -276,6 +246,7 @@ public class CombatManager : MonoBehaviour
         //StartCoroutine(EnemyTurn());
 
         hasClicked = true;
+        CloseMenus();
 
         switch (item.itemData.id)
         {
@@ -292,6 +263,59 @@ public class CombatManager : MonoBehaviour
 
         StartCoroutine(PlayerTurn());
     }
+
+    public void OnFleeButtonPress()
+    {
+        CloseMenus();
+
+        // don't allow player to click on 'attack' unless player turn
+        if (battleState != BattleState.PLAYERTURN)
+            return;
+
+        if (!hasClicked)
+        {
+            hasClicked = true;
+
+            battleState = BattleState.FLEE;
+            StartCoroutine(EndBattle());
+        }
+    }
+
+    private void CloseMenus()
+    {
+        if (inventoryDisplay.activeSelf == true) { inventoryDisplay.SetActive(false); }
+        if (spellListDisplay.activeSelf == true) { spellListDisplay.SetActive(false); }
+    }
+
+
+    // Button Effects
+    private void Attack(GameObject target)
+    {
+        if (target.CompareTag("Player"))
+        {
+            target.GetComponent<PlayerStatus>().TakeDamage(enemyStatus.atkDamage);
+            //playerAnimation.SetTrigger("Hit");
+        }
+        else
+        {
+            if (playerStatus.flameBottle_itemUsed && enemyStatus.race == "Spider")
+            {
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
+                playerStatus.flameBottle_itemUsed = false;
+            }
+            else if (playerStatus.coldIron_itemUsed && enemyStatus.race == "Fae")
+            {
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.coldIronDamage);
+                playerStatus.coldIron_itemUsed = false;
+            }
+            else
+            {
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage);
+            }
+            //playerAnimation.SetTrigger("Attack");
+        }
+    }
+
 
     // Show/Hide buttons
     private void ShowPlayerHUD()
@@ -371,6 +395,29 @@ public class CombatManager : MonoBehaviour
                     playerHearts[2].SetActive(false);
                     playerHearts[1].SetActive(false);
                     playerHearts[0].SetActive(false);
+                    break;
+            }
+            switch (playerStatus.currentMana)
+            {
+                case 3:
+                    playerMana[2].SetActive(true);
+                    playerMana[1].SetActive(true);
+                    playerMana[0].SetActive(true);
+                    break;
+                case 2:
+                    playerMana[2].SetActive(false);
+                    playerMana[1].SetActive(true);
+                    playerMana[0].SetActive(true);
+                    break;
+                case 1:
+                    playerMana[2].SetActive(false);
+                    playerMana[1].SetActive(false);
+                    playerMana[0].SetActive(true);
+                    break;
+                case 0:
+                    playerMana[2].SetActive(false);
+                    playerMana[1].SetActive(false);
+                    playerMana[0].SetActive(false);
                     break;
             }
             switch (enemyStatus.currentHealth)
