@@ -45,19 +45,27 @@ public class InteractionTriggers : MonoBehaviour
                 combatManager.StartCombat(this.gameObject);
                 enemyInteractedWith = true;
             }
-            if (distance > detectionRadius + 0.5f)
+            if (distance > detectionRadius + 0.1f)
             {
                 enemyInteractedWith = false;
             }
         }
 
         NPCScript npcScript = this.gameObject.GetComponent<NPCScript>();
-        if (this.gameObject.GetComponent("NPCScript") != null && Input.GetKey("e"))
+        if (this.gameObject.GetComponent("NPCScript") != null)
         {
             // Uses full dialogue screen
             if (distance <= detectionRadius && !npcManager.inConversation && !npcScript.interactedWith && npcScript.needsInteractionScreen)
             {
-                npcManager.StartInteraction(this.gameObject, 0);
+                npcScript.ePrompt.SetActive(true);
+                if(Input.GetKey(KeyCode.E))
+                {
+                    npcManager.StartInteraction(this.gameObject, 0);
+                }
+            }
+            else if(distance > detectionRadius || npcScript.interactedWith)
+            {
+                npcScript.ePrompt.SetActive(false);
             }
             // Uses dialogue box
             //if (distance <= detectionRadius && !dialogueBoxManager.inConversation && !npcScript.interactedWith && !npcScript.needsInteractionScreen)
@@ -66,10 +74,10 @@ public class InteractionTriggers : MonoBehaviour
             //    dialogueBoxManager.ContinueInteraction(0, 0, 1);
             //}
             // If player is out of range reset interaction so it can be interacted with again
-            /*if (distance >= detectionRadius + 0.5f)
+           if (distance >= detectionRadius + 0.5f)
             {
                 npcScript.ResetInteraction();
-            }*/
+            }
         }
     }
 }

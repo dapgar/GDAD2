@@ -469,6 +469,7 @@ public class CombatManager : MonoBehaviour
 
             case BattleState.FLEE:
                 turnIndicator.text = "You Ran Away!";
+                PlayerController playerControl = player.GetComponent<PlayerController>();
                 break;
         }
     }
