@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class TempMainMenu : MonoBehaviour
 {
-    public void Game(int sceneID)
+   public void Game(int sceneID)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(sceneID);
     }
 }

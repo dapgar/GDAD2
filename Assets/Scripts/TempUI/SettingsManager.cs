@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
+    [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject pauseMenu;
+
     public AudioMixer audioMixer;
     public Dropdown resolutionDropdown;
     public Dropdown qualityDropdown;
@@ -152,8 +155,10 @@ public class SettingsManager : MonoBehaviour
 
     public void Exit()
     {
-        // TODO: CHANGE THIS TO SWITCH BACK TO PAUSE MENU
+        pauseMenu.SetActive(true);
+        settingsMenu.SetActive(false);
     }
+
     public void SaveSettings()
     {
         PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
