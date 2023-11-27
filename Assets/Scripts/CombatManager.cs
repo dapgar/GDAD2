@@ -79,8 +79,6 @@ public class CombatManager : MonoBehaviour
         enemySprite.SetActive(true);
         enemyName = enemyStatus.enemyName;
         enemyNameUI.text = enemyName;
-        attackBias = enemyStatus.attackBias;
-        defendBias = enemyStatus.defendBias;
 
         inCombat = true;
 
@@ -114,6 +112,8 @@ public class CombatManager : MonoBehaviour
     {
         // release the blockade on clicking 
         // so that player can click on 'attack' button
+        ResetStatus();
+
         ShowPlayerHUD();
         hasClicked = false;
         yield return null;
@@ -216,6 +216,21 @@ public class CombatManager : MonoBehaviour
         CloseMenus();
         hasClicked = true;
 
+        // Spell logic
+        switch (spell.spellData.name)
+        {
+            case "blindingburst":
+                enemyStatus.accuracy = 10.0f;
+                break;
+
+            case "corrosion":
+                enemyStatus.atkDamage -= 1;
+                break;
+
+            case "disorient":
+                enemyStatus.isDisoriented = true;
+                break;
+        }
         battleState = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
@@ -291,31 +306,49 @@ public class CombatManager : MonoBehaviour
     // Button Effects
     private void Attack(GameObject target)
     {
-        if (target.CompareTag("Player"))
+        float rand = Random.Range(0, 101);
+        // Enemy Attack Logic
+        if (target.CompareTag("Player") && rand < enemyStatus.accuracy && !enemyStatus.isDisoriented)
         {
             target.GetComponent<PlayerStatus>().TakeDamage(enemyStatus.atkDamage);
             //playerAnimation.SetTrigger("Hit");
         }
-        else
+        else if (enemyStatus.isDisoriented && rand < enemyStatus.accuracy)
         {
-            if (playerStatus.flameBottle_itemUsed && enemyStatus.race == "Spider")
+            enemyStatus.TakeDamage(enemyStatus.atkDamage);
+        }
+        // Player Attack Logic
+        else if (!target.CompareTag("Player"))
+        {
+            if (playerStatus.flameBottle_itemUsed && enemyStatus.race == "Spider" && rand < playerStatus.accuracy)
             {
                 target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
                 playerStatus.flameBottle_itemUsed = false;
             }
-            else if (playerStatus.coldIron_itemUsed && enemyStatus.race == "Fae")
+            else if (playerStatus.coldIron_itemUsed && enemyStatus.race == "Fae" && rand < playerStatus.accuracy)
             {
                 target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.coldIronDamage);
                 playerStatus.coldIron_itemUsed = false;
             }
-            else
+            else if (rand < playerStatus.accuracy)
             {
                 target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage);
+            }
+            else
+            {
+                turnIndicator.text = "Attack Missed!";
             }
             //playerAnimation.SetTrigger("Attack");
         }
     }
 
+    private void ResetStatus()
+    {
+        enemyStatus.accuracy = enemyStatus.defaultAccuracy;
+        enemyStatus.isDisoriented = false;
+        playerStatus.atkDamage = playerStatus.defaultAtkDamage;
+        playerStatus.accuracy = playerStatus.defaultAccuracy;
+    }
 
     // Show/Hide buttons
     private void ShowPlayerHUD()
@@ -331,6 +364,7 @@ public class CombatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (player != null && playerStatus.currentHealth <= 0)
         {
             battleState = BattleState.LOSE;

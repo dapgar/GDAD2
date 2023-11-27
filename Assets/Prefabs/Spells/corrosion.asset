@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc9f6c25fc5237c4099d9c5f0a414c55, type: 3}
-  m_Name: ShockingRay
+  m_Name: corrosion
   m_EditorClassIdentifier: 
-  spellName: Shocking Ray
+  spellName: Corrosion
   icon: {fileID: 0}
-  cost: 20
+  cost: 1
   id: 0
   description: 
