@@ -29,6 +29,7 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI enemyHealth;
     public TextMeshProUGUI turnIndicator;
     public TextMeshProUGUI enemyNameUI;
+    public TextMeshProUGUI battleText;
     public GameObject playerSprite;
     string enemyName;
     GameObject enemySprite;
@@ -79,6 +80,7 @@ public class CombatManager : MonoBehaviour
         enemySprite.SetActive(true);
         enemyName = enemyStatus.enemyName;
         enemyNameUI.text = enemyName;
+        battleText.text = "";
 
         inCombat = true;
 
@@ -113,7 +115,7 @@ public class CombatManager : MonoBehaviour
         // release the blockade on clicking 
         // so that player can click on 'attack' button
         ResetStatus();
-
+        battleText.text = "";
         ShowPlayerHUD();
         hasClicked = false;
         yield return null;
@@ -122,7 +124,8 @@ public class CombatManager : MonoBehaviour
     IEnumerator EnemyTurn()
     {
         HidePlayerHUD();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
+        battleText.text = "";
 
         if (enemyStatus.currentHealth > 0)
         {
@@ -130,7 +133,6 @@ public class CombatManager : MonoBehaviour
             battleState = BattleState.PLAYERTURN;
             StartCoroutine(PlayerTurn());
         }
-       
     }
 
     IEnumerator EndBattle()
@@ -215,21 +217,32 @@ public class CombatManager : MonoBehaviour
     {
         CloseMenus();
         hasClicked = true;
+        float rand = Random.Range(0, 101);
 
-        // Spell logic
-        switch (spell.spellData.name)
+        if (rand < playerStatus.accuracy)
         {
-            case "blindingburst":
-                enemyStatus.accuracy = 10.0f;
-                break;
+            // Spell logic
+            switch (spell.spellData.name)
+            {
+                case "blindingburst":
+                    enemyStatus.accuracy = 10.0f;
+                    battleText.text = "Enemy Blinded!";
+                    break;
 
-            case "corrosion":
-                enemyStatus.atkDamage -= 1;
-                break;
+                case "corrosion":
+                    enemyStatus.atkDamage -= 1;
+                    battleText.text = "Enemy Weakened!";
+                    break;
 
-            case "disorient":
-                enemyStatus.isDisoriented = true;
-                break;
+                case "disorient":
+                    enemyStatus.isDisoriented = true;
+                    battleText.text = "Enemy DIsoriented!";
+                    break;
+            }
+        }
+        else
+        {
+            battleText.text = "Spell Missed.";
         }
         battleState = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
@@ -336,9 +349,13 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                turnIndicator.text = "Attack Missed!";
+                battleText.text = "Attack Missed.";
             }
             //playerAnimation.SetTrigger("Attack");
+        }
+        else
+        {
+            battleText.text = "Attack Missed.";
         }
     }
 

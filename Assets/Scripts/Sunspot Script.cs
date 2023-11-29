@@ -8,8 +8,8 @@ public class SunspotScript : MonoBehaviour
     public GameObject promptImage;
     bool inSunspot = false;
 
-    private DialogueBox dialogueBoxManager;
-    private bool robTalked = false;
+    //private DialogueBox dialogueBoxManager;
+    //private bool robTalked = false;
 
     [Header("Animation")]
     public Animator crossfadeAnim;
@@ -17,7 +17,7 @@ public class SunspotScript : MonoBehaviour
     private void Start()
     {
         sunspotManager = GameObject.Find("SunspotManager").GetComponent<SunspotManager>();
-        dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
+        //dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
     }
 
     private void Update()
@@ -29,11 +29,11 @@ public class SunspotScript : MonoBehaviour
             Debug.Log("Rested");
         }
 
-        if (inSunspot && !robTalked)
-        {
-            dialogueBoxManager.ContinueInteraction(0, 5, 1);
-            robTalked = true;
-        }
+        //if (inSunspot && !robTalked)
+        //{
+        //    dialogueBoxManager.ContinueInteraction(0, 5, 1);
+        //    robTalked = true;
+        //}
     }
 
     public void OnTriggerEnter(Collider other)
