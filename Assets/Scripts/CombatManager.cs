@@ -53,6 +53,17 @@ public class CombatManager : MonoBehaviour
 
     private DialogueBox dialogueBoxManager;
 
+    public int turnNumber;
+
+    private bool isBlinded = false;
+    private int blindCountdown;
+
+    private bool isCorrosion = false;
+    private int corrosionCountdown;
+
+    private bool isDisoriented = false;
+    private int disorientedCountdown;
+
     //[Header("Animations")]
     //public Animator playerAnimation;
 
