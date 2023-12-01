@@ -40,14 +40,22 @@ public class InteractionTriggers : MonoBehaviour
 
         if (this.gameObject.GetComponent("EnemyStatus") != null)
         {
+            //if(distance <= detectionRadius && !enemyInteractedWith)
+            //{
+            //    Debug.Log("CAN START COMBAT // COMBAT MANAGER INCOMBAT: " + combatManager.inCombat);    
+            //}
+
             if (distance <= detectionRadius && !combatManager.inCombat && !enemyInteractedWith)
             {
-                combatManager.StartCombat(this.gameObject);
+                combatManager.StartCombat(this.gameObject); 
                 enemyInteractedWith = true;
+
+                //Debug.Log("STARTED COMBAT FROM INTERACTION ");
             }
             if (distance > detectionRadius + 0.1f)
             {
                 enemyInteractedWith = false;
+                //Debug.Log("RESET ENEMY INTERACTION");
             }
         }
 

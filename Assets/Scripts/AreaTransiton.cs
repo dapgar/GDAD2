@@ -40,7 +40,7 @@ public class AreaTransiton : MonoBehaviour
             {
                 //Increment Timer until counter >= waitTime
                 counter += Time.deltaTime;
-                Debug.Log("We have waited for: " + counter + " seconds");
+                //Debug.Log("We have waited for: " + counter + " seconds");
                 //Wait for a frame so that Unity doesn't freeze
             }
 

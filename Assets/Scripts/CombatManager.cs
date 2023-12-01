@@ -25,6 +25,8 @@ public class CombatManager : MonoBehaviour
     private PlayerStatus playerStatus;
 
     [Header("UI Elements")]
+    public float fullHeartHealthValue = 2.0f;
+    public float fullManaOrbValue = 1.0f;
     public TextMeshProUGUI playerHealth;
     public TextMeshProUGUI enemyHealth;
     public TextMeshProUGUI turnIndicator;
@@ -43,11 +45,11 @@ public class CombatManager : MonoBehaviour
     public bool inCombat;
 
     public GameObject playerHUD;
-    public GameObject[] playerHearts;
-    public GameObject[] playerMana;
-    public GameObject[] enemyHearts;
+    public GameObject playerHearts;
+    public GameObject playerMana;
+    public GameObject enemyHearts;
 
-    private BattleState battleState;
+    public BattleState battleState;
 
     private bool hasClicked = true;
 
@@ -79,7 +81,7 @@ public class CombatManager : MonoBehaviour
         combatScreen.SetActive(false);
         playerStatus = player.GetComponent<PlayerStatus>();
         dialogueBoxManager = dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
-        HidePlayerHUD();
+        HidePlayerHUD();    
     }
 
     // Use this method to trigger the combat sequence.
@@ -92,6 +94,7 @@ public class CombatManager : MonoBehaviour
         enemyName = enemyStatus.enemyName;
         enemyNameUI.text = enemyName;
         battleText.text = "";
+        //Debug.Log("STARTED COMBAT FROM COMBAT MANAGER " + enemyName);
 
         inCombat = true;
 
@@ -104,6 +107,7 @@ public class CombatManager : MonoBehaviour
     // Combat methods
     IEnumerator BeginBattle()
     {
+        //Debug.Log("BEGIN BATTLE " + enemyName);
         // cross fades into the battle screen
         crossfadeAnim.SetTrigger("Start");
 
@@ -119,21 +123,30 @@ public class CombatManager : MonoBehaviour
 
         battleState = BattleState.PLAYERTURN;
         yield return StartCoroutine(PlayerTurn());
-    }
+    }   
 
     IEnumerator PlayerTurn()
     {
+        //Debug.Log("PLAYER TURN  " + enemyName);
         // release the blockade on clicking 
         // so that player can click on 'attack' button
         ResetStatus();
+
+        while(dialogueBoxManager.inConversation)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
         battleText.text = "";
         ShowPlayerHUD();
         hasClicked = false;
+        //Debug.Log("HAS CLICKED FALSE  " + enemyName);
         yield return null;
     }
 
     IEnumerator EnemyTurn()
     {
+        //Debug.Log("ENEMY TURN  " + enemyName);
         HidePlayerHUD();
         yield return new WaitForSeconds(1f);
         battleText.text = "";
@@ -148,10 +161,12 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EndBattle()
     {
+        //Debug.Log("END BATTLE against " + enemyName);
         // Check if player won
         if (battleState == BattleState.WIN)
         {
             // display message here.
+            dialogueBoxManager.EndDialogue();
             enemySprite.SetActive(false);
             enemy.SetActive(false);
             yield return new WaitForSeconds(1);
@@ -165,8 +180,10 @@ public class CombatManager : MonoBehaviour
             //playerSprite.SetActive(false);
             // display message here.
             yield return new WaitForSeconds(1);
+            dialogueBoxManager.EndDialogue();
             combatScreen.SetActive(false);
             enemySprite.SetActive(false);
+
             // Maybe transition scenes.
             Reset();
         }
@@ -188,6 +205,7 @@ public class CombatManager : MonoBehaviour
     // Combat Buttons
     public void OnAttackButtonPress()
     {
+        //Debug.Log("ATTACK PRESSED  " + enemyName);
         CloseMenus();
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
@@ -208,6 +226,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnMagicButtonPress()
     {
+        //Debug.Log("MAGIC PRESSED  " + enemyName);
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -261,6 +280,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnItemButtonPress()
     {
+        //Debug.Log("ITEM PRESSED  " + enemyName);
         spellListDisplay.SetActive(false);
 
         // don't allow player to click on 'attack' unless player turn
@@ -305,6 +325,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnFleeButtonPress()
     {
+        //Debug.Log("FLEE PRESSED  " + enemyName);
         CloseMenus();
 
         // don't allow player to click on 'attack' unless player turn
@@ -381,6 +402,7 @@ public class CombatManager : MonoBehaviour
     // Show/Hide buttons
     private void ShowPlayerHUD()
     {
+        //Debug.Log("SHOW HUD  " + enemyName);
         playerHUD.SetActive(true);
     }
 
@@ -414,97 +436,10 @@ public class CombatManager : MonoBehaviour
         // Handles Hearts Display
         if (inCombat)
         {
-            switch (playerStatus.currentHealth)
-            {
-                case 5:
-                    playerHearts[4].SetActive(true);
-                    playerHearts[3].SetActive(true);
-                    playerHearts[2].SetActive(true);
-                    playerHearts[1].SetActive(true);
-                    playerHearts[0].SetActive(true);
-                    break;
-                case 4:
-                    playerHearts[4].SetActive(false);
-                    playerHearts[3].SetActive(true);
-                    playerHearts[2].SetActive(true);
-                    playerHearts[1].SetActive(true);
-                    playerHearts[0].SetActive(true);
-                    break;
-                case 3:
-                    playerHearts[4].SetActive(false);
-                    playerHearts[3].SetActive(false);
-                    playerHearts[2].SetActive(true);
-                    playerHearts[1].SetActive(true);
-                    playerHearts[0].SetActive(true);
-                    break;
-                case 2:
-                    playerHearts[4].SetActive(false);
-                    playerHearts[3].SetActive(false);
-                    playerHearts[2].SetActive(false);
-                    playerHearts[1].SetActive(true);
-                    playerHearts[0].SetActive(true);
-                    break;
-                case 1:
-                    playerHearts[4].SetActive(false);
-                    playerHearts[3].SetActive(false);
-                    playerHearts[2].SetActive(false);
-                    playerHearts[1].SetActive(false);
-                    playerHearts[0].SetActive(true);
-                    break;
-                case 0:
-                    playerHearts[4].SetActive(false);
-                    playerHearts[3].SetActive(false);
-                    playerHearts[2].SetActive(false);
-                    playerHearts[1].SetActive(false);
-                    playerHearts[0].SetActive(false);
-                    break;
-            }
-            switch (playerStatus.currentMana)
-            {
-                case 3:
-                    playerMana[2].SetActive(true);
-                    playerMana[1].SetActive(true);
-                    playerMana[0].SetActive(true);
-                    break;
-                case 2:
-                    playerMana[2].SetActive(false);
-                    playerMana[1].SetActive(true);
-                    playerMana[0].SetActive(true);
-                    break;
-                case 1:
-                    playerMana[2].SetActive(false);
-                    playerMana[1].SetActive(false);
-                    playerMana[0].SetActive(true);
-                    break;
-                case 0:
-                    playerMana[2].SetActive(false);
-                    playerMana[1].SetActive(false);
-                    playerMana[0].SetActive(false);
-                    break;
-            }
-            switch (enemyStatus.currentHealth)
-            {
-                case 3:
-                    enemyHearts[2].SetActive(true);
-                    enemyHearts[1].SetActive(true);
-                    enemyHearts[0].SetActive(true);
-                    break;
-                case 2:
-                    enemyHearts[2].SetActive(false);
-                    enemyHearts[1].SetActive(true);
-                    enemyHearts[0].SetActive(true);
-                    break;
-                case 1:
-                    enemyHearts[2].SetActive(false);
-                    enemyHearts[1].SetActive(false);
-                    enemyHearts[0].SetActive(true);
-                    break;
-                case 0:
-                    enemyHearts[2].SetActive(false);
-                    enemyHearts[1].SetActive(false);
-                    enemyHearts[0].SetActive(false);
-                    break;
-            }
+            playerHearts.GetComponent<RectTransform>().sizeDelta = new Vector2(75 * (playerStatus.currentHealth / fullHeartHealthValue), 75);
+            playerMana.GetComponent<RectTransform>().sizeDelta = new Vector2(75 * (playerStatus.currentMana / fullManaOrbValue), 75);
+
+            enemyHearts.GetComponent<RectTransform>().sizeDelta = new Vector2(75 * (enemyStatus.currentHealth / fullHeartHealthValue), 75);
         }
 
         switch (battleState)
@@ -557,7 +492,7 @@ public class CombatManager : MonoBehaviour
         playerStatus.Reset();
         //ADD SOMETHING FOR ALLIES HERE LATER
 
-        Debug.Log("Number of Enemies: " + enemies.Length);
-        Debug.Log("Number of NPCs: " + npcs.Length);
+        //Debug.Log("Number of Enemies: " + enemies.Length);
+        //Debug.Log("Number of NPCs: " + npcs.Length);
     }
 }

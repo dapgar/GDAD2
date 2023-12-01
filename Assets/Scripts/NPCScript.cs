@@ -99,7 +99,7 @@ public class NPCScript : MonoBehaviour
         currentLine = 0;
         useDialogueAssetNumber = startingDialogueAsset;
         ResetInteraction();
-        if(needsPrompts)
+        if (needsPrompts && exclamationPointIcon != null)
         {
             exclamationPointIcon.SetActive(true);
         }
