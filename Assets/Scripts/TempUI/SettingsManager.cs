@@ -72,9 +72,11 @@ public class SettingsManager : MonoBehaviour
     }
     public void SetQuality(int qualityIndex)
     {
-        if (qualityIndex != 6) // if the user is not using 
-                               //any of the presets
+        if (qualityIndex != 3) // if the user is not using any of the presets
+        {
             QualitySettings.SetQualityLevel(qualityIndex);
+        }
+            
         switch (qualityIndex)
         {
             case 0: // quality level - performant

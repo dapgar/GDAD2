@@ -10,4 +10,9 @@ public class TempMainMenu : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneID);
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
