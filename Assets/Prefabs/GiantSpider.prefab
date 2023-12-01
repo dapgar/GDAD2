@@ -207,14 +207,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 3
+  maxHealth: 4
   atkDamage: 1
-  mgkDamage: 1
-  attackBias: 8
-  defendBias: 090000000a000000
+  defaultAtkDamage: 0
+  accuracy: 90
+  defaultAccuracy: 0
   enemyName: Giant Spider
   race: Spider
   startingPosition: {x: 0, y: 0, z: 0}
+  isDisoriented: 0
   enemySprite: {fileID: 0}
 --- !u!114 &5516911124995947676
 MonoBehaviour:
@@ -228,5 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa7879accd0b874cac5ab5b23d21ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  promptImage: {fileID: 0}
   detectionRadius: 1
   crossfadeAnim: {fileID: 0}

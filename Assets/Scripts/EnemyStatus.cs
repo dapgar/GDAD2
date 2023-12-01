@@ -8,14 +8,16 @@ public class EnemyStatus : MonoBehaviour
     public int maxHealth = 3;
 
     public int atkDamage = 1;
-    public int mgkDamage = 1;
+    public int defaultAtkDamage;
 
-    public int attackBias;
-    public int[] defendBias = new int[2];
+    public float accuracy = 90;
+    public float defaultAccuracy;
 
     public string enemyName;
     public string race;
     public Vector3 startingPosition;
+
+    public bool isDisoriented = false;
 
     public GameObject enemySprite;
 
@@ -24,6 +26,8 @@ public class EnemyStatus : MonoBehaviour
         currentHealth = maxHealth;
         startingPosition = transform.position;
         //Debug.Log(enemyName + " TRANSFORM POSITON: " + transform.position);
+        defaultAtkDamage = atkDamage;
+        defaultAccuracy = accuracy;
     }
 
     public void TakeDamage(int damage)

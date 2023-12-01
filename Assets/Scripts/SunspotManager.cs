@@ -17,7 +17,7 @@ public class SunspotManager : MonoBehaviour
 
     public void Rest()
     {
-        playerStatus.currentHealth = playerStatus.maxHealth;
+        playerStatus.Reset();
         playerStatus.inventory.GetComponent<Inventory>().RefillPotion();
 
         foreach (GameObject enemy in enemies)

@@ -9,9 +9,12 @@ public class PlayerStatus : MonoBehaviour
 
     public int currentMana;
     public int maxMana = 3;
+
+    public float accuracy = 90;
+    public float defaultAccuracy;
     
     public int atkDamage = 1;
-    public int mgkDamage = 1;
+    public int defaultAtkDamage;
     public Vector3 startingPosition;
 
     public GameObject inventory;
@@ -26,6 +29,8 @@ public class PlayerStatus : MonoBehaviour
     {
         currentHealth = maxHealth;
         currentMana = maxMana;
+        defaultAccuracy = accuracy;
+        defaultAtkDamage = atkDamage;
     }
 
     public void TakeDamage(int damage)
@@ -50,8 +55,11 @@ public class PlayerStatus : MonoBehaviour
 
     public void Reset()
     {
+        if (currentHealth <= 0)
+        {
+            transform.position = startingPosition;
+        }
         currentHealth = maxHealth;
         currentMana = maxMana;
-        transform.position = startingPosition;
     }
 }

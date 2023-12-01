@@ -15,9 +15,9 @@ public class Spellbook : MonoBehaviour
     public GameObject combatManager;
 
     //Hardcoded ItemData for Testing
-    public SpellData fireball;
-    public SpellData icebeam;
-    public SpellData shockingray;
+    public SpellData blindingburst;
+    public SpellData corrosion;
+    public SpellData disorient;
 
 
     public void Display(Transform parentTransform)
@@ -31,9 +31,9 @@ public class Spellbook : MonoBehaviour
 
     private void Start()
     {
-        Add(fireball);
-        Add(icebeam);
-        Add(shockingray);
+        Add(blindingburst);
+        Add(corrosion);
+        Add(disorient);
     }
 
     public void Add(SpellData spellData)
