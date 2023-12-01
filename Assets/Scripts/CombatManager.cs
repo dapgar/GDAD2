@@ -57,14 +57,8 @@ public class CombatManager : MonoBehaviour
 
     public int turnNumber;
 
-    private bool isBlinded = false;
-    private int blindCountdown;
-
-    private bool isCorrosion = false;
-    private int corrosionCountdown;
-
-    private bool isDisoriented = false;
-    private int disorientedCountdown;
+    public bool isEffected = false;
+    public int spellDuration;
 
     //[Header("Animations")]
     //public Animator playerAnimation;
@@ -132,6 +126,17 @@ public class CombatManager : MonoBehaviour
         // so that player can click on 'attack' button
         ResetStatus();
 
+        // Enemy Spell Logic
+        turnNumber += 1;
+        spellDuration -= 1;
+        if (isEffected && spellDuration <= 0)
+        {
+            ResetEnemyStatus();
+            isEffected = false;
+            battleText.text = "Enemy has recovered from magic!";
+            yield return new WaitForSeconds(1f);
+        }
+
         while(dialogueBoxManager.inConversation)
         {
             yield return new WaitForSeconds(0.1f);
@@ -146,7 +151,11 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        //Debug.Log("ENEMY TURN  " + enemyName);
+        if (isEffected)
+        {
+            battleText.text = "Enemy is affected by magic!";
+        }
+
         HidePlayerHUD();
         yield return new WaitForSeconds(1f);
         battleText.text = "";
@@ -274,6 +283,8 @@ public class CombatManager : MonoBehaviour
         {
             battleText.text = "Spell Missed.";
         }
+        isEffected = true;
+        spellDuration = Random.Range(1, 4);
         battleState = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
@@ -393,10 +404,15 @@ public class CombatManager : MonoBehaviour
 
     private void ResetStatus()
     {
-        enemyStatus.accuracy = enemyStatus.defaultAccuracy;
-        enemyStatus.isDisoriented = false;
         playerStatus.atkDamage = playerStatus.defaultAtkDamage;
         playerStatus.accuracy = playerStatus.defaultAccuracy;
+    }
+
+    private void ResetEnemyStatus()
+    {
+        enemyStatus.accuracy = enemyStatus.defaultAccuracy;
+        enemyStatus.isDisoriented = false;
+        enemyStatus.atkDamage = enemyStatus.defaultAtkDamage;
     }
 
     // Show/Hide buttons

@@ -3145,9 +3145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 5
+  maxHealth: 6
   currentMana: 0
-  maxMana: 3
+  maxMana: 4
   accuracy: 90
   defaultAccuracy: 90
   atkDamage: 1
@@ -24650,6 +24650,8 @@ MonoBehaviour:
   enemyHearts: {fileID: 22125547}
   battleState: 0
   turnNumber: 0
+  isEffected: 0
+  spellDuration: 0
   enemies: []
 --- !u!95 &1925455265
 Animator:
@@ -27055,6 +27057,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sunspot
       objectReference: {fileID: 0}
+    - target: {fileID: 9189601178143940602, guid: a148a68769647f742a9c9d0aa2977ce2,
+        type: 3}
+      propertyPath: sunspotManager
+      value: 
+      objectReference: {fileID: 567024211}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

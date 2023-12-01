@@ -55,8 +55,11 @@ public class PlayerStatus : MonoBehaviour
 
     public void Reset()
     {
+        if (currentHealth <= 0)
+        {
+            transform.position = startingPosition;
+        }
         currentHealth = maxHealth;
         currentMana = maxMana;
-        transform.position = startingPosition;
     }
 }
