@@ -57,6 +57,10 @@ public class CombatManager : MonoBehaviour
 
     public int turnNumber;
 
+    [Header("Spells")]
+    public GameObject stunIcon;
+    public GameObject weakenIcon;
+    public GameObject blindIcon;
     public bool isEffected = false;
     public int spellDuration;
 
@@ -151,6 +155,8 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        yield return new WaitForSeconds(1f);
+
         if (isEffected)
         {
             battleText.text = "Enemy is affected by magic!";
@@ -266,22 +272,27 @@ public class CombatManager : MonoBehaviour
 
         if (rand < playerStatus.accuracy)
         {
+            ResetEnemyStatus();
+
             // Spell logic
             switch (spell.spellData.name)
             {
                 case "blindingburst":
+                    blindIcon.SetActive(true);
                     enemyStatus.accuracy = 10.0f;
                     battleText.text = "Enemy Blinded!";
                     break;
 
                 case "corrosion":
+                    weakenIcon.SetActive(true);
                     enemyStatus.atkDamage -= 1;
                     battleText.text = "Enemy Weakened!";
                     break;
 
                 case "disorient":
+                    stunIcon.SetActive(true);
                     enemyStatus.isDisoriented = true;
-                    battleText.text = "Enemy DIsoriented!";
+                    battleText.text = "Enemy Disoriented!";
                     break;
             }
         }
@@ -291,6 +302,7 @@ public class CombatManager : MonoBehaviour
         }
         isEffected = true;
         spellDuration = Random.Range(1, 4);
+
         battleState = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
@@ -416,6 +428,9 @@ public class CombatManager : MonoBehaviour
 
     private void ResetEnemyStatus()
     {
+        blindIcon.SetActive(false);
+        stunIcon.SetActive(false);
+        weakenIcon.SetActive(false);
         enemyStatus.accuracy = enemyStatus.defaultAccuracy;
         enemyStatus.isDisoriented = false;
         enemyStatus.atkDamage = enemyStatus.defaultAtkDamage;
