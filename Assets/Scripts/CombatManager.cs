@@ -67,7 +67,7 @@ public class CombatManager : MonoBehaviour
     //[Header("Animations")]
     //public Animator playerAnimation;
 
-    public EnemyStatus[] enemies;
+    private EnemyStatus[] enemies;
 
     // Start is called before the first frame update
     void Start()
@@ -92,7 +92,7 @@ public class CombatManager : MonoBehaviour
         enemyName = enemyStatus.enemyName;
         enemyNameUI.text = enemyName;
         battleText.text = "";
-        Debug.Log("STARTED COMBAT FROM COMBAT MANAGER " + enemyName);
+        //Debug.Log("STARTED COMBAT FROM COMBAT MANAGER " + enemyName);
 
         inCombat = true;
 
@@ -105,7 +105,7 @@ public class CombatManager : MonoBehaviour
     // Combat methods
     IEnumerator BeginBattle()
     {
-        Debug.Log("BEGIN BATTLE " + enemyName);
+        //Debug.Log("BEGIN BATTLE " + enemyName);
         // cross fades into the battle screen
         crossfadeAnim.SetTrigger("Start");
 
@@ -125,7 +125,7 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator PlayerTurn()
     {
-        Debug.Log("PLAYER TURN  " + enemyName);
+        //Debug.Log("PLAYER TURN  " + enemyName);
         // release the blockade on clicking 
         // so that player can click on 'attack' button
         ResetStatus();
@@ -149,7 +149,7 @@ public class CombatManager : MonoBehaviour
         battleText.text = "";
         ShowPlayerHUD();
         hasClicked = false;
-        Debug.Log("HAS CLICKED FALSE  " + enemyName);
+        //Debug.Log("HAS CLICKED FALSE  " + enemyName);
         yield return null;
     }
 
@@ -181,7 +181,7 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EndBattle()
     {
-        Debug.Log("END BATTLE against " + enemyName);
+        //Debug.Log("END BATTLE against " + enemyName);
         // Check if player won
         if (battleState == BattleState.WIN)
         {
@@ -201,12 +201,17 @@ public class CombatManager : MonoBehaviour
             playerSprite.SetActive(false);
             // display message here.
             yield return new WaitForSeconds(1);
-            dialogueBoxManager.EndDialogue();
+            //dialogueBoxManager.EndDialogue();
             combatScreen.SetActive(false);
-            enemySprite.SetActive(false);
+
+            if (enemySprite != null)
+                enemySprite.SetActive(false);
 
             // Maybe transition scenes.
+            battleState = BattleState.OUTOFCOMBAT;
+            //crossfadeAnim.SetTrigger("Start");
             Reset();
+            
         }
         else if (battleState == BattleState.FLEE)
         {
@@ -217,7 +222,7 @@ public class CombatManager : MonoBehaviour
             enemyStatus.currentHealth = enemyStatus.maxHealth;
             enemySprite.SetActive(false);
             combatScreen.SetActive(false);
-            
+            battleState = BattleState.OUTOFCOMBAT;
         }
 
         inCombat = false;
@@ -226,7 +231,7 @@ public class CombatManager : MonoBehaviour
     // Combat Buttons
     public void OnAttackButtonPress()
     {
-        Debug.Log("ATTACK PRESSED  " + enemyName);
+        //Debug.Log("ATTACK PRESSED  " + enemyName);
         CloseMenus();
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
@@ -247,7 +252,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnMagicButtonPress()
     {
-        Debug.Log("MAGIC PRESSED  " + enemyName);
+        //Debug.Log("MAGIC PRESSED  " + enemyName);
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -309,7 +314,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnItemButtonPress()
     {
-        Debug.Log("ITEM PRESSED  " + enemyName);
+        //Debug.Log("ITEM PRESSED  " + enemyName);
         spellListDisplay.SetActive(false);
 
         // don't allow player to click on 'attack' unless player turn
@@ -354,7 +359,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnFleeButtonPress()
     {
-        Debug.Log("FLEE PRESSED  " + enemyName);
+        //Debug.Log("FLEE PRESSED  " + enemyName);
         CloseMenus();
 
         // don't allow player to click on 'attack' unless player turn
@@ -439,7 +444,7 @@ public class CombatManager : MonoBehaviour
     // Show/Hide buttons
     private void ShowPlayerHUD()
     {
-        Debug.Log("SHOW HUD  " + enemyName);
+        //Debug.Log("SHOW HUD  " + enemyName);
         playerHUD.SetActive(true);
     }
 
@@ -498,7 +503,6 @@ public class CombatManager : MonoBehaviour
 
             case BattleState.FLEE:
                 turnIndicator.text = "You Ran Away!";
-                PlayerController playerControl = player.GetComponent<PlayerController>();
                 break;
         }
     }
@@ -511,6 +515,7 @@ public class CombatManager : MonoBehaviour
     //Resets all NPCs, Enemies and player to default values
     public void Reset()
     {
+        Debug.Log("RESET");
         /*EnemyStatus[]*/ enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (EnemyStatus enemy in enemies)
         {

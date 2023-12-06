@@ -18,8 +18,9 @@ public class SunspotManager : MonoBehaviour
     public void Rest()
     {
         playerStatus.Reset();
+        
         playerStatus.inventory.GetComponent<Inventory>().RefillPotion();
-
+        player.GetComponent<PlayerController>().SetRespawnPosition(player.transform.position);// add player transform
         foreach (GameObject enemy in enemies)
         {
             //enemy.SetActive(true);

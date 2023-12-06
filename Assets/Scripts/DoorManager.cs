@@ -6,7 +6,7 @@ public class DoorManager : MonoBehaviour
 {
     public GameObject[] doors;
     private bool canInteractWithDoor = true;
-    public GameObject player;
+    private GameObject player;
     public float detectionRadius = 2.0f;
 
     private void Start()
@@ -109,6 +109,7 @@ public class DoorManager : MonoBehaviour
     /// <param name="door">Door Selected</param>
     public void GoThroughDoor(GameObject door)
     {
+        //Debug.Log("TRAVEL THROUGH DOOR");
         AreaTransiton doorScript = door.GetComponent<AreaTransiton>();
         if (doorScript != null)
         {

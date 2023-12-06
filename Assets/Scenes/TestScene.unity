@@ -4298,10 +4298,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89731357e8925a540930ed0df0ee7f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
+  currentHealth: 6
   maxHealth: 6
   currentMana: 0
-  maxMana: 3
+  maxMana: 4
   accuracy: 90
   defaultAccuracy: 90
   atkDamage: 1
@@ -33158,7 +33158,7 @@ MonoBehaviour:
   turnIndicator: {fileID: 2053032295}
   enemyNameUI: {fileID: 2669883}
   battleText: {fileID: 928573849}
-  playerSprite: {fileID: 34861}
+  playerSprite: {fileID: 219040853}
   crossfadeAnim: {fileID: 1925455265}
   inventoryDisplay: {fileID: 1987057777}
   spellListDisplay: {fileID: 1657792344}
@@ -36780,8 +36780,8 @@ SceneRoots:
   - {fileID: 1192688408}
   - {fileID: 1461380840}
   - {fileID: 653999902}
-  - {fileID: 1247915235}
   - {fileID: 989392025}
+  - {fileID: 1247915235}
   - {fileID: 485634054}
   - {fileID: 1530510798}
   - {fileID: 550338381}

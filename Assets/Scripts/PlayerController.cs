@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private CombatManager combatManager;
     private NPCManager  npcManager;
     private DialogueBox dialogueBoxManager;
+
+    private bool diedOnce = false;
     private void Start()
     {
         combatManager = GameObject.FindGameObjectWithTag("CombatManager").GetComponent<CombatManager>();
@@ -131,9 +133,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void MoveToArea(AreaTransiton area)
+    public void DeathMessage()
+    {
+        if(!diedOnce)
+        {
+            dialogueBoxManager.EndDialogue();
+            dialogueBoxManager.ContinueInteraction(0, 6, 1);
+            diedOnce = true;
+        }
+    }
+
+    public void SetRespawnPosition(AreaTransiton area)
     {
         transform.position = area.playerStartingPosition;
+        //this.gameObject.GetComponent<PlayerStatus>().startingPosition = area.playerStartingPosition;
+    }
+
+    public void SetRespawnPosition(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+        this.gameObject.GetComponent<PlayerStatus>().startingPosition = newPosition;
     }
 }
 

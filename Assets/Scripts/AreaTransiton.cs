@@ -45,9 +45,9 @@ public class AreaTransiton : MonoBehaviour
             }
 
             // Sets the player's respawn point to the starting point of the new area
-            player.GetComponent<PlayerStatus>().startingPosition = playerStartingPosition;
+            //player.GetComponent<PlayerStatus>().startingPosition = playerStartingPosition;
 
-            playerController.MoveToArea(this);
+            playerController.SetRespawnPosition(this);
         }
     }
 }

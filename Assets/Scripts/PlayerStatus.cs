@@ -57,9 +57,11 @@ public class PlayerStatus : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            this.GetComponent<PlayerController>().DeathMessage();
             transform.position = startingPosition;
         }
         currentHealth = maxHealth;
         currentMana = maxMana;
+
     }
 }
