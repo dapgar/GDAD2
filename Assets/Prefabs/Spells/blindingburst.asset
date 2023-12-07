@@ -16,4 +16,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   cost: 1
   id: 1
-  description: This is where the blinding burst description will go.
+  description: Emits a blinding light, causing the enemy's accuracy to fall. (1-3
+    turns).

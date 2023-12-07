@@ -16,4 +16,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   cost: 1
   id: 0
-  description: This is where the corrosion description will go.
+  description: Surrounds the enemy in a corrosive fog, weakening their weapons and
+    attacks. (1-3 turns)

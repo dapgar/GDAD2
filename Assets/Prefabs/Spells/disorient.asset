@@ -16,4 +16,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   cost: 2
   id: 0
-  description: This is where the disorient description will go.
+  description: "\rBlurs the enemy's vision and mind, causing them to become confused.
+    (1-3 turns)"

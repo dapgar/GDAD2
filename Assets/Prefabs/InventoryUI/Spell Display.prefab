@@ -327,6 +327,7 @@ MonoBehaviour:
   manaIcon: {fileID: 7147485091447474322, guid: 6fd452117cec41c4bac5fe434af2918b,
     type: 3}
   targetTransform: {fileID: 8990639717292689465}
+  populated: 0
 --- !u!1 &4284446928476133849
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
+  m_Color: {r: 0.12941177, g: 0.30980393, b: 0.5764706, a: 0.8}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -448,6 +449,7 @@ MonoBehaviour:
     spellData: {fileID: 0}
     stackSize: 0
     maxSize: 0
+  magicMenu: {fileID: 0}
   spellListDisplay: {fileID: 0}
   manaBar: {fileID: 3613353565741749484}
 --- !u!114 &6374009364581606198
@@ -699,7 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.41568628}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -14,6 +14,8 @@ public class SpellDisplay : MonoBehaviour
 
     public Spell spell;
 
+    public GameObject magicMenu;
+
     public GameObject spellListDisplay;
     public GameObject manaBar;
 
@@ -24,7 +26,8 @@ public class SpellDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spellListDisplay = GameObject.Find("Canvas/Combat Screen/Spell List");
+        spellListDisplay = GameObject.Find("Canvas/Combat Screen/Magic Menu/Spell List");
+        spellListDisplay = GameObject.Find("Canvas/Combat Screen/Magic Menu");
 
         if (spell != null) { Prime(spell); }
     }
