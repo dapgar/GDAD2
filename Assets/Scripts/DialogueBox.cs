@@ -50,7 +50,7 @@ public class DialogueBox : MonoBehaviour
     /// <param name="currentNPCTalking">Index of NPC in npc manager</param>
     public void StartInteraction(int currentNPCTalking, int dialogueAsset)
     {
-        currentNPC = currentNPCTalking; 
+        currentNPC = currentNPCTalking;
         GameObject npc = npcs[currentNPC];
         npcInformation = npc.GetComponent<NPCScript>();
         if (npcInformation.npcSprite != null)

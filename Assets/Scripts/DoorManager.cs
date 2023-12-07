@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DoorManager : MonoBehaviour
 {
+    [SerializeField] AudioSource doorOpen;
     public GameObject[] doors;
     private bool canInteractWithDoor = true;
     private GameObject player;
@@ -26,6 +27,7 @@ public class DoorManager : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.E))
                 {
+                    doorOpen.Play();
                     GoThroughDoor(doors[i]);
                 }
             }

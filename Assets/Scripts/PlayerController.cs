@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] AudioSource walkingSound;
+
     public float speed = 3f;
     private Vector3 direction = Vector3.right;  // Starting Direction
     private Vector3 velocity = Vector3.zero;
@@ -88,10 +90,19 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnMove(InputAction.CallbackContext moveContext)
-    {
+    { 
         Vector2 playerMovementInput = moveContext.ReadValue<Vector2>();
         Vector3 toConvert = new Vector3(playerMovementInput.x, 0, playerMovementInput.y);
         movementInput = IsoVectorConvert(toConvert);
+
+        if (movementInput == Vector3.zero)
+        {
+            walkingSound.Pause();
+        }
+        else
+        {
+            walkingSound.Play();
+        }
     }
 
     // Source - https://micha-l-davis.medium.com/isometric-player-movement-in-unity-998d86193b8a

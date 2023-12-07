@@ -24,6 +24,18 @@ public class CombatManager : MonoBehaviour
     private EnemyStatus enemyStatus;
     private PlayerStatus playerStatus;
 
+    [Header("Audio")]
+    public AudioSource battleMusic;
+    public AudioSource gameMusic;
+    public AudioSource buttonClickAudio;
+    public AudioSource gotHitAudio;
+    public AudioSource attackAudio;
+    public AudioSource magicAudio;
+    public AudioSource itemAudio;
+    public AudioSource missHitAudio;
+    public AudioSource successAudio;
+    public AudioSource loseAudio;
+
     [Header("UI Elements")]
     public float fullHeartHealthValue = 2.0f;
     public float fullManaOrbValue = 1.0f;
@@ -95,6 +107,9 @@ public class CombatManager : MonoBehaviour
         //Debug.Log("STARTED COMBAT FROM COMBAT MANAGER " + enemyName);
 
         inCombat = true;
+
+        gameMusic.Pause();
+        battleMusic.Play();
 
         HidePlayerHUD();
 
@@ -174,6 +189,7 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
+            successAudio.Play();
             battleState = BattleState.WIN;
             StartCoroutine(EndBattle());
         }
@@ -190,6 +206,8 @@ public class CombatManager : MonoBehaviour
             enemySprite.SetActive(false);
             enemy.SetActive(false);
             yield return new WaitForSeconds(1);
+            battleMusic.Pause();
+            gameMusic.Play();
             crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
@@ -208,6 +226,8 @@ public class CombatManager : MonoBehaviour
                 enemySprite.SetActive(false);
 
             // Maybe transition scenes.
+            battleMusic.Pause();
+            gameMusic.Play();
             battleState = BattleState.OUTOFCOMBAT;
             //crossfadeAnim.SetTrigger("Start");
             Reset();
@@ -216,6 +236,8 @@ public class CombatManager : MonoBehaviour
         else if (battleState == BattleState.FLEE)
         {
             yield return new WaitForSeconds(1);
+            battleMusic.Pause();
+            gameMusic.Play();
             crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             dialogueBoxManager.EndDialogue();
             yield return new WaitForSeconds(1);
@@ -252,6 +274,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnMagicButtonPress()
     {
+        buttonClickAudio.Play();
         //Debug.Log("MAGIC PRESSED  " + enemyName);
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
@@ -300,10 +323,13 @@ public class CombatManager : MonoBehaviour
                     battleText.text = "Enemy Disoriented!";
                     break;
             }
+
+            magicAudio.Play();
         }
         else
         {
             battleText.text = "Spell Missed.";
+            missHitAudio.Play();
         }
         isEffected = true;
         spellDuration = Random.Range(1, 4);
@@ -316,6 +342,7 @@ public class CombatManager : MonoBehaviour
     {
         //Debug.Log("ITEM PRESSED  " + enemyName);
         spellListDisplay.SetActive(false);
+        buttonClickAudio.Play();
 
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
@@ -339,6 +366,7 @@ public class CombatManager : MonoBehaviour
         //StartCoroutine(EnemyTurn());
 
         hasClicked = true;
+        itemAudio.Play();
         CloseMenus();
 
         switch (item.itemData.id)
@@ -362,6 +390,8 @@ public class CombatManager : MonoBehaviour
         //Debug.Log("FLEE PRESSED  " + enemyName);
         CloseMenus();
 
+        buttonClickAudio.Play();
+
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -370,6 +400,7 @@ public class CombatManager : MonoBehaviour
         {
             hasClicked = true;
 
+            loseAudio.Play();
             battleState = BattleState.FLEE;
             StartCoroutine(EndBattle());
         }
@@ -390,11 +421,13 @@ public class CombatManager : MonoBehaviour
         if (target.CompareTag("Player") && rand < enemyStatus.accuracy && !enemyStatus.isDisoriented)
         {
             target.GetComponent<PlayerStatus>().TakeDamage(enemyStatus.atkDamage);
+            gotHitAudio.Play();
             //playerAnimation.SetTrigger("Hit");
         }
         else if (enemyStatus.isDisoriented && rand < enemyStatus.accuracy)
         {
             enemyStatus.TakeDamage(enemyStatus.atkDamage);
+            attackAudio.Play();
         }
         // Player Attack Logic
         else if (!target.CompareTag("Player"))
@@ -412,16 +445,19 @@ public class CombatManager : MonoBehaviour
             else if (rand < playerStatus.accuracy)
             {
                 target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage);
+                attackAudio.Play();
             }
             else
             {
                 battleText.text = "Attack Missed.";
+                missHitAudio.Play();
             }
             //playerAnimation.SetTrigger("Attack");
         }
         else
         {
             battleText.text = "Attack Missed.";
+            missHitAudio.Play();
         }
     }
 
@@ -459,6 +495,7 @@ public class CombatManager : MonoBehaviour
 
         if (player != null && playerStatus.currentHealth <= 0)
         {
+            loseAudio.Play();
             battleState = BattleState.LOSE;
             StartCoroutine(EndBattle());
         }
