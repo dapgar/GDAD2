@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class TempMainMenu : MonoBehaviour
 {
+    void Start()
+    {
+        Screen.SetResolution(1920, 1080, true);
+    }
+
     public void Game(int sceneID)
     {
         SceneManager.LoadScene(sceneID);

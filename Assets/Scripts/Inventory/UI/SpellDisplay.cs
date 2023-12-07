@@ -8,12 +8,14 @@ using TMPro;
 public class SpellDisplay : MonoBehaviour
 {
     public TextMeshProUGUI spellName;
-    public TextMeshProUGUI spellCost;
+    //public TextMeshProUGUI spellCost;
     public Image icon;
+    public TextMeshProUGUI description;
 
     public Spell spell;
 
     public GameObject spellListDisplay;
+    public GameObject manaBar;
 
     //public GameObject spellDetails;
 
@@ -40,13 +42,17 @@ public class SpellDisplay : MonoBehaviour
         {
             spellName.text = spell.spellData.spellName;
         }
-        if (spellCost != null)
+        if (manaBar != null)
         {
-            spellCost.text = spell.spellData.cost + " MP";
+            manaBar.GetComponent<ManaBar>().Populate(spell);
         }
         if (icon != null)
         {
             icon.sprite = spell.spellData.icon;
+        }
+        if (description != null)
+        {
+            description.text = spell.spellData.description;
         }
     }
 

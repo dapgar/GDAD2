@@ -16,4 +16,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   cost: 1
   id: 1
-  description: Fireball Description
+  description: This is where the blinding burst description will go.

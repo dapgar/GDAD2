@@ -331,7 +331,7 @@ public class CombatManager : MonoBehaviour
                 break;
         }
 
-        StartCoroutine(PlayerTurn());
+        StartCoroutine(EnemyTurn());
     }
 
     public void OnFleeButtonPress()

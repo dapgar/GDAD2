@@ -71,7 +71,7 @@ public class Inventory : MonoBehaviour
     public void ItemUsed(InventoryItem item)
     {
        
-        if(item.stackSize > 0)
+        if(item.stackSize >= 0)
         {
             itemSelected = true;
             combatManager.GetComponent<CombatManager>().ItemUsed(item);
