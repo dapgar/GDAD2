@@ -9,6 +9,8 @@ using UnityEngine.UI;
 //https://gamedevbeginner.com/dialogue-systems-in-unity/
 public class NPCManager : MonoBehaviour
 {
+    [SerializeField] AudioSource talkingSound;
+
     public GameObject interactionScreen;
 
     //[Header("Characters")]
@@ -102,6 +104,7 @@ public class NPCManager : MonoBehaviour
         string textBuffer = null;  // Current text shown
         for (int i = startPosition; i < dialogue.Length; i++) // Iterates through all the lines of the dialogue
         {
+            talkingSound.Play();
             textBuffer = "";
             char[] chars = dialogue[i].ToCharArray();
             if (textSpeed[i] > 0)

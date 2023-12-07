@@ -12,15 +12,15 @@ TagManager:
   - CombatScreenCanvas
   - DialogueBoxManager
   - TrainingDummy
-
+  - WinterKnight
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - UI Sprites
+  - 
   - Water
   - UI
-  - Transitions
+  - 
   - 
   - 
   - 

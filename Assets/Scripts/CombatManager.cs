@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Net;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE, FLEE,}
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOSE, FLEE, OUTOFCOMBAT}
 
 public class CombatManager : MonoBehaviour
 {
@@ -23,6 +23,18 @@ public class CombatManager : MonoBehaviour
 
     private EnemyStatus enemyStatus;
     private PlayerStatus playerStatus;
+
+    [Header("Audio")]
+    public AudioSource battleMusic;
+    public AudioSource gameMusic;
+    public AudioSource buttonClickAudio;
+    public AudioSource gotHitAudio;
+    public AudioSource attackAudio;
+    public AudioSource magicAudio;
+    public AudioSource itemAudio;
+    public AudioSource missHitAudio;
+    public AudioSource successAudio;
+    public AudioSource loseAudio;
 
     [Header("UI Elements")]
     public float fullHeartHealthValue = 2.0f;
@@ -57,13 +69,17 @@ public class CombatManager : MonoBehaviour
 
     public int turnNumber;
 
+    [Header("Spells")]
+    public GameObject stunIcon;
+    public GameObject weakenIcon;
+    public GameObject blindIcon;
     public bool isEffected = false;
     public int spellDuration;
 
     //[Header("Animations")]
     //public Animator playerAnimation;
 
-    public EnemyStatus[] enemies;
+    private EnemyStatus[] enemies;
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +107,9 @@ public class CombatManager : MonoBehaviour
         //Debug.Log("STARTED COMBAT FROM COMBAT MANAGER " + enemyName);
 
         inCombat = true;
+
+        gameMusic.Pause();
+        battleMusic.Play();
 
         HidePlayerHUD();
 
@@ -151,6 +170,8 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        yield return new WaitForSeconds(1f);
+
         if (isEffected)
         {
             battleText.text = "Enemy is affected by magic!";
@@ -166,6 +187,12 @@ public class CombatManager : MonoBehaviour
             battleState = BattleState.PLAYERTURN;
             StartCoroutine(PlayerTurn());
         }
+        else
+        {
+            successAudio.Play();
+            battleState = BattleState.WIN;
+            StartCoroutine(EndBattle());
+        }
     }
 
     IEnumerator EndBattle()
@@ -179,33 +206,45 @@ public class CombatManager : MonoBehaviour
             enemySprite.SetActive(false);
             enemy.SetActive(false);
             yield return new WaitForSeconds(1);
-            //crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
+            battleMusic.Pause();
+            gameMusic.Play();
+            crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             yield return new WaitForSeconds(1);
             combatScreen.SetActive(false);
+            battleState = BattleState.OUTOFCOMBAT;
         }
         // Check if player lost.
         else if (battleState == BattleState.LOSE)
         {
-            //playerSprite.SetActive(false);
+            playerSprite.SetActive(false);
             // display message here.
             yield return new WaitForSeconds(1);
-            dialogueBoxManager.EndDialogue();
+            //dialogueBoxManager.EndDialogue();
             combatScreen.SetActive(false);
-            enemySprite.SetActive(false);
+
+            if (enemySprite != null)
+                enemySprite.SetActive(false);
 
             // Maybe transition scenes.
+            battleMusic.Pause();
+            gameMusic.Play();
+            battleState = BattleState.OUTOFCOMBAT;
+            //crossfadeAnim.SetTrigger("Start");
             Reset();
+            
         }
         else if (battleState == BattleState.FLEE)
         {
             yield return new WaitForSeconds(1);
+            battleMusic.Pause();
+            gameMusic.Play();
             crossfadeAnim.SetTrigger("Start"); // HEY OVER HERE
             dialogueBoxManager.EndDialogue();
             yield return new WaitForSeconds(1);
             enemyStatus.currentHealth = enemyStatus.maxHealth;
             enemySprite.SetActive(false);
             combatScreen.SetActive(false);
-            
+            battleState = BattleState.OUTOFCOMBAT;
         }
 
         inCombat = false;
@@ -235,6 +274,7 @@ public class CombatManager : MonoBehaviour
 
     public void OnMagicButtonPress()
     {
+        buttonClickAudio.Play();
         //Debug.Log("MAGIC PRESSED  " + enemyName);
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
@@ -260,31 +300,40 @@ public class CombatManager : MonoBehaviour
 
         if (rand < playerStatus.accuracy)
         {
+            ResetEnemyStatus();
+
             // Spell logic
             switch (spell.spellData.name)
             {
                 case "blindingburst":
+                    blindIcon.SetActive(true);
                     enemyStatus.accuracy = 10.0f;
                     battleText.text = "Enemy Blinded!";
                     break;
 
                 case "corrosion":
+                    weakenIcon.SetActive(true);
                     enemyStatus.atkDamage -= 1;
                     battleText.text = "Enemy Weakened!";
                     break;
 
                 case "disorient":
+                    stunIcon.SetActive(true);
                     enemyStatus.isDisoriented = true;
-                    battleText.text = "Enemy DIsoriented!";
+                    battleText.text = "Enemy Disoriented!";
                     break;
             }
+
+            magicAudio.Play();
         }
         else
         {
             battleText.text = "Spell Missed.";
+            missHitAudio.Play();
         }
         isEffected = true;
         spellDuration = Random.Range(1, 4);
+
         battleState = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
@@ -293,6 +342,7 @@ public class CombatManager : MonoBehaviour
     {
         //Debug.Log("ITEM PRESSED  " + enemyName);
         spellListDisplay.SetActive(false);
+        buttonClickAudio.Play();
 
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
@@ -316,6 +366,7 @@ public class CombatManager : MonoBehaviour
         //StartCoroutine(EnemyTurn());
 
         hasClicked = true;
+        itemAudio.Play();
         CloseMenus();
 
         switch (item.itemData.id)
@@ -339,6 +390,8 @@ public class CombatManager : MonoBehaviour
         //Debug.Log("FLEE PRESSED  " + enemyName);
         CloseMenus();
 
+        buttonClickAudio.Play();
+
         // don't allow player to click on 'attack' unless player turn
         if (battleState != BattleState.PLAYERTURN)
             return;
@@ -347,6 +400,7 @@ public class CombatManager : MonoBehaviour
         {
             hasClicked = true;
 
+            loseAudio.Play();
             battleState = BattleState.FLEE;
             StartCoroutine(EndBattle());
         }
@@ -367,11 +421,13 @@ public class CombatManager : MonoBehaviour
         if (target.CompareTag("Player") && rand < enemyStatus.accuracy && !enemyStatus.isDisoriented)
         {
             target.GetComponent<PlayerStatus>().TakeDamage(enemyStatus.atkDamage);
+            gotHitAudio.Play();
             //playerAnimation.SetTrigger("Hit");
         }
         else if (enemyStatus.isDisoriented && rand < enemyStatus.accuracy)
         {
             enemyStatus.TakeDamage(enemyStatus.atkDamage);
+            attackAudio.Play();
         }
         // Player Attack Logic
         else if (!target.CompareTag("Player"))
@@ -389,16 +445,19 @@ public class CombatManager : MonoBehaviour
             else if (rand < playerStatus.accuracy)
             {
                 target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage);
+                attackAudio.Play();
             }
             else
             {
                 battleText.text = "Attack Missed.";
+                missHitAudio.Play();
             }
             //playerAnimation.SetTrigger("Attack");
         }
         else
         {
             battleText.text = "Attack Missed.";
+            missHitAudio.Play();
         }
     }
 
@@ -410,6 +469,9 @@ public class CombatManager : MonoBehaviour
 
     private void ResetEnemyStatus()
     {
+        blindIcon.SetActive(false);
+        stunIcon.SetActive(false);
+        weakenIcon.SetActive(false);
         enemyStatus.accuracy = enemyStatus.defaultAccuracy;
         enemyStatus.isDisoriented = false;
         enemyStatus.atkDamage = enemyStatus.defaultAtkDamage;
@@ -433,12 +495,8 @@ public class CombatManager : MonoBehaviour
 
         if (player != null && playerStatus.currentHealth <= 0)
         {
+            loseAudio.Play();
             battleState = BattleState.LOSE;
-            StartCoroutine(EndBattle());
-        }
-        if (enemy != null && enemyStatus.currentHealth <= 0)
-        {
-            battleState = BattleState.WIN;
             StartCoroutine(EndBattle());
         }
 
@@ -482,7 +540,6 @@ public class CombatManager : MonoBehaviour
 
             case BattleState.FLEE:
                 turnIndicator.text = "You Ran Away!";
-                PlayerController playerControl = player.GetComponent<PlayerController>();
                 break;
         }
     }
@@ -495,6 +552,7 @@ public class CombatManager : MonoBehaviour
     //Resets all NPCs, Enemies and player to default values
     public void Reset()
     {
+        Debug.Log("RESET");
         /*EnemyStatus[]*/ enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (EnemyStatus enemy in enemies)
         {

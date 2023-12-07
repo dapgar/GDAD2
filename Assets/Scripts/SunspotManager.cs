@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SunspotManager : MonoBehaviour
 {
+    [SerializeField] AudioSource sunspotSound;
     public GameObject player;
     public GameObject[] enemies;
 
@@ -17,9 +18,11 @@ public class SunspotManager : MonoBehaviour
 
     public void Rest()
     {
+        sunspotSound.Play();
         playerStatus.Reset();
+        
         playerStatus.inventory.GetComponent<Inventory>().RefillPotion();
-
+        player.GetComponent<PlayerController>().SetRespawnPosition(player.transform.position);// add player transform
         foreach (GameObject enemy in enemies)
         {
             //enemy.SetActive(true);

@@ -5,13 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class TempMainMenu : MonoBehaviour
 {
-    void Start()
+    [SerializeField] AudioSource buttonClick;
+   public void Game(int sceneID)
     {
-        Screen.SetResolution(1920, 1080, true);
+        buttonClick.Play();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneID);
     }
 
-    public void Game(int sceneID)
+    public void Exit()
     {
-        SceneManager.LoadScene(sceneID);
+        buttonClick.Play();
+        Application.Quit();
     }
 }

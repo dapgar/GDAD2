@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class TempPause : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject settingsMenu;
+    [SerializeField] AudioSource buttonClick;
 
     public void TogglePause(InputAction.CallbackContext context)
     {
@@ -18,11 +20,20 @@ public class TempPause : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
+        buttonClick.Play();
     }
 
     public void Home(int sceneID)
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneID);
+        buttonClick.Play();
+    }
+
+    public void Settings()
+    {
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(true);
+        buttonClick.Play();
     }
 }
