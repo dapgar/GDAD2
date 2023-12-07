@@ -13,8 +13,6 @@ public class SettingsManager : MonoBehaviour
     public AudioMixer audioMixer;
     public Dropdown resolutionDropdown;
     public Dropdown qualityDropdown;
-    public Dropdown textureDropdown;
-    public Dropdown aaDropdown;
     public Slider volumeSlider;
     float currentVolume;
     Resolution[] resolutions;
@@ -45,7 +43,7 @@ public class SettingsManager : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("Master", volume);
+        audioMixer.SetFloat("Volume", volume);
         currentVolume = volume;
     }
 
@@ -60,38 +58,11 @@ public class SettingsManager : MonoBehaviour
         Screen.SetResolution(resolution.width,
                   resolution.height, Screen.fullScreen);
     }
-    public void SetTextureQuality(int textureIndex)
-    {
-        QualitySettings.globalTextureMipmapLimit = textureIndex;
-        qualityDropdown.value = 6;
-    }
-    public void SetAntiAliasing(int aaIndex)
-    {
-        QualitySettings.antiAliasing = aaIndex;
-        qualityDropdown.value = 6;
-    }
+
     public void SetQuality(int qualityIndex)
     {
-        if (qualityIndex != 3) // if the user is not using any of the presets
-        {
-            QualitySettings.SetQualityLevel(qualityIndex);
-        }
-            
-        switch (qualityIndex)
-        {
-            case 0: // quality level - performant
-                textureDropdown.value = 3;
-                aaDropdown.value = 0;
-                break;
-            case 1: // quality level - balanced
-                textureDropdown.value = 1;
-                aaDropdown.value = 0;
-                break;
-            case 2: // quality level - high fidelity
-                textureDropdown.value = 0;
-                aaDropdown.value = 2;
-                break;
-        }
+
+        QualitySettings.SetQualityLevel(qualityIndex);
 
         qualityDropdown.value = qualityIndex;
     }
@@ -116,23 +87,6 @@ public class SettingsManager : MonoBehaviour
             resolutionDropdown.value = currentResolutionIndex;
         }
             
-        if (PlayerPrefs.HasKey("TextureQualityPreference"))
-        {
-            textureDropdown.value = PlayerPrefs.GetInt("TextureQualityPreference");
-        }
-        else
-        {
-            textureDropdown.value = 0;
-        }
-            
-        if (PlayerPrefs.HasKey("AntiAliasingPreference"))
-        {
-            aaDropdown.value = PlayerPrefs.GetInt("AntiAliasingPreference");
-        }
-        else
-        {
-            aaDropdown.value = 1;
-        }
             
         if (PlayerPrefs.HasKey("FullscreenPreference"))
         {
@@ -165,8 +119,6 @@ public class SettingsManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
         PlayerPrefs.SetInt("ResolutionPreference", resolutionDropdown.value);
-        PlayerPrefs.SetInt("TextureQualityPreference",textureDropdown.value);
-        PlayerPrefs.SetInt("AntiAliasingPreference", aaDropdown.value);
         PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
         PlayerPrefs.SetFloat("VolumePreference", currentVolume);
     }
