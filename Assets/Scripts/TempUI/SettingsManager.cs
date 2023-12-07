@@ -9,12 +9,17 @@ public class SettingsManager : MonoBehaviour
 {
     [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] AudioSource buttonClick;
 
     public AudioMixer audioMixer;
     public Dropdown resolutionDropdown;
     public Dropdown qualityDropdown;
-    public Slider volumeSlider;
-    float currentVolume;
+    public Slider masterVolumeSlider;
+    public Slider sfxVolumeSlider;
+    public Slider musicVolumeSlider;
+    float currentMasterVolume;
+    float currentMusicVolume;
+    float currentSFXVolume;
     Resolution[] resolutions;
 
     // Start is called before the first frame update
@@ -38,13 +43,26 @@ public class SettingsManager : MonoBehaviour
 
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.RefreshShownValue();
-        LoadSettings(currentResolutionIndex);
     }
 
-    public void SetVolume(float volume)
+    public void SetMasterVolume(float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
-        currentVolume = volume;
+        SetVolume("MasterVolume", volume);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        SetVolume("MusicVolume", volume);
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        SetVolume("SFXVolume", volume);
+    }
+
+    private void SetVolume(string parameter, float value)
+    {
+        audioMixer.SetFloat(parameter, value);
     }
 
     public void SetFullscreen(bool isFullscreen)
@@ -67,59 +85,10 @@ public class SettingsManager : MonoBehaviour
         qualityDropdown.value = qualityIndex;
     }
 
-    public void LoadSettings(int currentResolutionIndex)
-    {
-        if (PlayerPrefs.HasKey("QualitySettingPreference"))
-        {
-            qualityDropdown.value = PlayerPrefs.GetInt("QualitySettingPreference");
-        }
-        else
-        {
-            qualityDropdown.value = 3;
-        }
-            
-        if (PlayerPrefs.HasKey("ResolutionPreference"))
-        {
-            resolutionDropdown.value = PlayerPrefs.GetInt("ResolutionPreference");
-        }   
-        else
-        {
-            resolutionDropdown.value = currentResolutionIndex;
-        }
-            
-            
-        if (PlayerPrefs.HasKey("FullscreenPreference"))
-        {
-            Screen.fullScreen = Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
-        }   
-        else
-        {
-            Screen.fullScreen = true;
-        }
-          
-        if (PlayerPrefs.HasKey("VolumePreference"))
-        {
-            volumeSlider.value = PlayerPrefs.GetFloat("VolumePreference");
-        }    
-        else
-        {
-            volumeSlider.value = PlayerPrefs.GetFloat("VolumePreference");
-        }
-            
-    }
-
-
     public void Exit()
     {
+        buttonClick.Play();
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
-    }
-
-    public void SaveSettings()
-    {
-        PlayerPrefs.SetInt("QualitySettingPreference", qualityDropdown.value);
-        PlayerPrefs.SetInt("ResolutionPreference", resolutionDropdown.value);
-        PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(Screen.fullScreen));
-        PlayerPrefs.SetFloat("VolumePreference", currentVolume);
     }
 }
