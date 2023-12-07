@@ -72,7 +72,7 @@ public class Spellbook : MonoBehaviour
         }
         if (player.GetComponent<PlayerStatus>().currentMana > 0)
         {
-            player.GetComponent<PlayerStatus>().currentMana -= 1;
+            player.GetComponent<PlayerStatus>().currentMana -= spell.spellData.cost;
             combatManager.GetComponent<CombatManager>().SpellUsed(spell);
         }
     }

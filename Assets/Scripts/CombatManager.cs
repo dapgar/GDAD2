@@ -284,7 +284,7 @@ public class CombatManager : MonoBehaviour
         if (!hasClicked && spellListDisplay.activeSelf == false)
         {
             playerStatus.inventory.GetComponent<Spellbook>().Display(combatScreen.transform);
-        }
+        }   
         else
         {
             CloseMenus();

@@ -25,10 +25,14 @@ public class SpellListDisplay : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        //foreach (Transform child in targetTransform)
-        //{
-        //    GameObject.Destroy(child.gameObject);
-        //}
+        foreach (Transform child in targetTransform)
+        {
+            if (child.GetComponent<SpellDisplay>() != null)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            
+        }
 
         foreach (Spell spell in spells)
         {
