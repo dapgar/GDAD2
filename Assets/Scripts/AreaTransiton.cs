@@ -21,11 +21,6 @@ public class AreaTransiton : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void UseDoor()
     {
         PlayerController playerController = player.GetComponent<PlayerController>();

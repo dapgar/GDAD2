@@ -21,4 +21,5 @@ MonoBehaviour:
   - 'You can rest at SUNSPOTS to recover health, but it also gives enemies time to
     recover as well... '
   - You have died!
-  textLineSpeed: 00000000000000000000000000000000000000000000000000000000
+  - FINAL BOSS TEXT
+  textLineSpeed: 0000000000000000000000000000000000000000000000000000000000000000

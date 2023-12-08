@@ -25041,7 +25041,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1530015755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33372,7 +33372,7 @@ MonoBehaviour:
   turnIndicator: {fileID: 2053032295}
   enemyNameUI: {fileID: 2669883}
   battleText: {fileID: 928573849}
-  playerSprite: {fileID: 219040853}
+  playerSprite: {fileID: 34861}
   crossfadeAnim: {fileID: 1925455265}
   inventoryDisplay: {fileID: 1987057777}
   spellListDisplay: {fileID: 1657792344}
