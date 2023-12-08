@@ -170,6 +170,7 @@ public class CombatManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        HidePlayerHUD();
         yield return new WaitForSeconds(1f);
 
         if (isEffected)
@@ -177,7 +178,6 @@ public class CombatManager : MonoBehaviour
             battleText.text = "Enemy is affected by magic!";
         }
 
-        HidePlayerHUD();
         yield return new WaitForSeconds(1f);
         battleText.text = "";
 
