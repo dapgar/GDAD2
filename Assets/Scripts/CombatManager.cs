@@ -90,7 +90,7 @@ public class CombatManager : MonoBehaviour
 
         combatScreen.SetActive(false);
         playerStatus = player.GetComponent<PlayerStatus>();
-        dialogueBoxManager = dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
+        dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
         HidePlayerHUD();    
     }
 
@@ -552,7 +552,7 @@ public class CombatManager : MonoBehaviour
     //Resets all NPCs, Enemies and player to default values
     public void Reset()
     {
-        Debug.Log("RESET");
+        //Debug.Log("RESET");
         /*EnemyStatus[]*/ enemies = GameObject.FindObjectsByType<EnemyStatus>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (EnemyStatus enemy in enemies)
         {

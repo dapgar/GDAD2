@@ -10,9 +10,12 @@ public class DoorManager : MonoBehaviour
     private GameObject player;
     public float detectionRadius = 2.0f;
 
+    private DialogueBox dialogueBoxManager;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        dialogueBoxManager = GameObject.FindGameObjectWithTag("DialogueBoxManager").GetComponent<DialogueBox>();
     }
 
     private void Update()
@@ -116,6 +119,10 @@ public class DoorManager : MonoBehaviour
         if (doorScript != null)
         {
             doorScript.UseDoor();
+            if(doorScript.sendToAreaNumber == 4)
+            {
+                dialogueBoxManager.ContinueInteraction(0, 7, 1);
+            }
         }
 
         canInteractWithDoor = false;
