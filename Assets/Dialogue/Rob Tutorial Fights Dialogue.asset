@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - 'This dummy here should help sharpen up your combat skills! '
-  - 'ATTACK will deal damage to the enemy. '
+  - ATTACK will deal damage to the enemy.
   - 'MAGIC spells can help stun, slow, and weaken enemies. '
   - 'ITEMS can help you heal and buff yourself in the midst of combat. '
   - FLEE is used as a last resort, allowing you to escape from the enemy!
