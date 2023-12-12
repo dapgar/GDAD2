@@ -434,12 +434,12 @@ public class CombatManager : MonoBehaviour
         {
             if (playerStatus.flameBottle_itemUsed && enemyStatus.race == "Spider" && rand < playerStatus.accuracy)
             {
-                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.flameBottleDamage);
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage * playerStatus.flameBottleMultiplier);
                 playerStatus.flameBottle_itemUsed = false;
             }
             else if (playerStatus.coldIron_itemUsed && enemyStatus.race == "Fae" && rand < playerStatus.accuracy)
             {
-                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.coldIronDamage);
+                target.GetComponent<EnemyStatus>().TakeDamage(playerStatus.atkDamage * playerStatus.coldIronMultiplier);
                 playerStatus.coldIron_itemUsed = false;
             }
             else if (rand < playerStatus.accuracy)

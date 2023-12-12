@@ -20,10 +20,10 @@ public class PlayerStatus : MonoBehaviour
     public GameObject inventory;
 
     public bool coldIron_itemUsed = false;
-    public int coldIronDamage = 2;
+    public int coldIronMultiplier = 2;
 
     public bool flameBottle_itemUsed = false;
-    public int flameBottleDamage = 2;
+    public int flameBottleMultiplier = 2;
 
     private void Start()
     {
