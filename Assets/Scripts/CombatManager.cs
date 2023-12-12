@@ -372,7 +372,7 @@ public class CombatManager : MonoBehaviour
         switch (item.itemData.id)
         {
             case 1: //heal from potion.
-                playerStatus.Heal(2);
+                playerStatus.Heal(4);
                 break;
             case 2: //cold iron
                 playerStatus.coldIron_itemUsed = true;
