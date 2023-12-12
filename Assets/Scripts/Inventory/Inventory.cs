@@ -84,10 +84,7 @@ public class Inventory : MonoBehaviour
 
         foreach (InventoryItem item in inventory)
         {
-            if (item.itemData.id == 1)
-            {
-                item.stackSize = item.maxSize;
-            }
+            item.stackSize = item.maxSize;
         }
     }
 }

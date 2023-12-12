@@ -16,5 +16,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 39c2ef8dc1c36ca46ad0d44d2f68febf, type: 3}
   id: 3
   description: A typically ordinary grindstone that has been covered with a magical
-    enchantment and glows with red embers. Increases damage (x2) of the next attack
-    against spiders.
+    enchantment and glows with red embers. <b>Increases damage (x2) of the next attack
+    against <u>spiders</u>.</b>

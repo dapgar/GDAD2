@@ -332,7 +332,7 @@ public class CombatManager : MonoBehaviour
             missHitAudio.Play();
         }
         isEffected = true;
-        spellDuration = Random.Range(1, 4);
+        spellDuration = Random.Range(2, 5);
 
         battleState = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());

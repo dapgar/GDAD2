@@ -16,4 +16,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 6d830186cc10d864f97d5e7e13e7edfd, type: 3}
   id: 1
   description: Vial of mysterious red liquid, with a faint magical shimmer as you
-    swirl it. Heals the player 2 hearts on use. Can be replenished at sunspots.
+    swirl it. <b>Heals the player <u>2 hearts</u> on use. Can be replenished at sunspots.</b>

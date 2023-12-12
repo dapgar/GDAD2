@@ -16,5 +16,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   cost: 2
   id: 0
-  description: "\rBlurs the enemy's vision and mind, causing them to become confused.
-    (1-3 turns)"
+  description: "\rBlurs the enemy's vision and mind, causing them to <b>become confused
+    making them hit themself. (1-3 turns)</b>"
